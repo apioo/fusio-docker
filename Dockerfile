@@ -46,6 +46,7 @@ RUN echo "${FUSIO_SHA1} */var/www/html/fusio/fusio.zip" | sha1sum -c -
 RUN cd /var/www/html/fusio && unzip fusio.zip
 ADD ./fusio/configuration.php /var/www/html/fusio/configuration.php
 RUN chown -R www-data: /var/www/html/fusio
+RUN chmod +x /var/www/html/fusio/bin/fusio
 
 # apache config
 ADD ./apache/000-default.conf /etc/apache2/sites-available/000-default.conf
@@ -75,9 +76,9 @@ ADD ./run.sh /run.sh
 RUN chmod +x /run.sh
 
 # mount volumes
-VOLUME /var/log
-VOLUME /var/lib/mysql
-VOLUME /var/www/html/fusio
+#VOLUME /var/log
+#VOLUME /var/lib/mysql
+#VOLUME /var/www/html/fusio
 
 EXPOSE 80
 CMD ["/run.sh"]
