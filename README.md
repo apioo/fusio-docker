@@ -7,5 +7,5 @@ Based on https://github.com/tutumcloud/lamp
 Usage
 -----
 
-    docker build apioo/fusio .
+    docker build -t apioo/fusio .
     docker run -d -p 80:80 apioo/fusio
