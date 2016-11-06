@@ -1,1 +1,11 @@
-# fusio-docker
+Fusio docker container
+======================
+
+Docker container which creates a running instance of Fusio.
+Based on https://github.com/tutumcloud/lamp
+
+Usage
+-----
+
+    docker build apioo/fusio .
+    docker run -d -p 80:80 apioo/fusio
