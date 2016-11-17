@@ -6,19 +6,19 @@ LABEL version="1.0"
 ENV FUSIO_PROJECT_KEY 42eec18ffdbffc9fda6110dcc705d6ce
 ENV FUSIO_URL http://localhost
 ENV FUSIO_DB_USER fusio
-ENV FUSIO_DB_PW test123
+ENV FUSIO_DB_PW "test123"
 ENV FUSIO_DB_HOST localhost
 ENV FUSIO_DB_NAME fusio
 
 ENV FUSIO_BACKEND_USER test
 ENV FUSIO_BACKEND_EMAIL test@test.com
-ENV FUSIO_BACKEND_PW test1234!
+ENV FUSIO_BACKEND_PW "test1234!"
 
 ENV COMPOSER_VERSION 1.2.2
 ENV COMPOSER_SHA1 c1c20037f990604f4b90d4827563934590e174f7
 
-ENV FUSIO_VERSION 0.4.1
-ENV FUSIO_SHA1 ec7f8736468a5fe0ffe5e9399a84018a274b9e83
+ENV FUSIO_VERSION 0.5.0
+ENV FUSIO_SHA1 9d4e75fccc7e5133652635f7f656921edd1cba16
 
 # install default packages
 RUN apt-get update -y
@@ -41,7 +41,7 @@ RUN chmod +x /usr/bin/composer
 
 # install fusio
 RUN mkdir /var/www/html/fusio
-RUN wget -O /var/www/html/fusio/fusio.zip https://github.com/apioo/fusio/releases/download/v${FUSIO_VERSION}/fusio_${FUSIO_VERSION}.zip
+RUN wget -O /var/www/html/fusio/fusio.zip "https://github.com/apioo/fusio/releases/download/v${FUSIO_VERSION}/fusio_${FUSIO_VERSION}.zip"
 RUN echo "${FUSIO_SHA1} */var/www/html/fusio/fusio.zip" | sha1sum -c -
 RUN cd /var/www/html/fusio && unzip fusio.zip
 ADD ./fusio/configuration.php /var/www/html/fusio/configuration.php
@@ -78,7 +78,7 @@ RUN chmod +x /run.sh
 # mount volumes
 #VOLUME /var/log
 #VOLUME /var/lib/mysql
-#VOLUME /var/www/html/fusio
+#VOLUME /var/www/html/fusio/public
 
 EXPOSE 80
 CMD ["/run.sh"]
