@@ -1,0 +1,39 @@
+version: '2'
+services:
+  fusio:
+    build: ./
+    environment:
+      FUSIO_PROJECT_KEY: "42eec18ffdbffc9fda6110dcc705d6ce"
+      FUSIO_URL: "http://localhost"
+      FUSIO_DB_USER: "fusio"
+      FUSIO_DB_PW: "61ad6c605975"
+      FUSIO_DB_HOST: "db"
+      FUSIO_DB_NAME: "fusio"
+      FUSIO_MEMCACHE_HOST: "memcached"
+      FUSIO_BACKEND_USER: "demo"
+      FUSIO_BACKEND_EMAIL: "demo@fusio-project.org"
+      FUSIO_BACKEND_PW: "c6/337d2ef_c"
+      FUSIO_VERSION: "0.5.0"
+      FUSIO_SHA1: "9d4e75fccc7e5133652635f7f656921edd1cba16"
+    volumes:
+      - ./apache/log:/var/log/apache2
+      - ./apache/sites-available:/etc/apache2/sites-available
+      - ./fusio/public:/var/www/html/fusio/public
+      - ./fusio/src:/var/www/html/fusio/src
+    links:
+      - db
+      - memcached
+    ports:
+      - "80:80"
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: "7f3e5186032a"
+      MYSQL_USER: "fusio"
+      MYSQL_PASSWORD: "61ad6c605975"
+      MYSQL_DATABASE: "fusio"
+    volumes:
+      - ./mysql:/var/lib/mysql
+    restart: always
+  memcached:
+    image: memcached

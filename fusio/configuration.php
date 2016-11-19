@@ -40,6 +40,7 @@ return array(
         'user'                => getenv('FUSIO_DB_USER'),
         'password'            => getenv('FUSIO_DB_PW'),
         'host'                => getenv('FUSIO_DB_HOST'),
+        'port'                => getenv('FUSIO_DB_PORT'),
         'driver'              => 'pdo_mysql',
     ],
 
@@ -63,7 +64,7 @@ return array(
     // filesystem cache is used
     'psx_cache_factory'       => function($config, $namespace){
         $memcached = new \Memcached();
-        $memcached->addServer('127.0.0.1', 11211);
+        $memcached->addServer(getenv('FUSIO_MEMCACHE_HOST'), getenv('FUSIO_MEMCACHE_PORT'));
 
         $memcache = new \Doctrine\Common\Cache\MemcachedCache();
         $memcache->setMemcached($memcached);
