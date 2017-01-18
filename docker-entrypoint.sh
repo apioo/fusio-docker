@@ -6,10 +6,19 @@ while ! mysqladmin ping -h"$FUSIO_DB_HOST" --silent; do
 done
 
 # install fusio
-/usr/bin/php /var/www/html/fusio/bin/fusio install
+/usr/bin/php /var/www/html/fusio/bin/fusio system:check install
+exitCode=$?
+if [ $exitCode -ne 0 ]; then
+    /usr/bin/php /var/www/html/fusio/bin/fusio install
+fi
 
 # add initial backend user
-/usr/bin/php /var/www/html/fusio/bin/fusio user:add --status=1 --username="$FUSIO_BACKEND_USER" --email="$FUSIO_BACKEND_EMAIL" --password="$FUSIO_BACKEND_PW"
+/usr/bin/php /var/www/html/fusio/bin/fusio system:check user
+exitCode=$?
+if [ $exitCode -ne 0 ]; then
+    /usr/bin/php /var/www/html/fusio/bin/fusio user:add --status=1 --username="$FUSIO_BACKEND_USER" --email="$FUSIO_BACKEND_EMAIL" --password="$FUSIO_BACKEND_PW"
+fi
 
-# start supervisor
-exec supervisord -n
+# start apache
+source /etc/apache2/envvars
+exec /usr/sbin/apache2 -D FOREGROUND
