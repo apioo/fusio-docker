@@ -14,7 +14,7 @@ services:
       FUSIO_BACKEND_EMAIL: "demo@fusio-project.org"
       FUSIO_BACKEND_PW: "c6/337d2ef_c"
       FUSIO_VERSION: "0.6.1"
-      FUSIO_SHA1: "61a6f2bb6b5d0b0d1b4e3c8a1581829ee8234991"
+      FUSIO_SHA1: "f30e7597b380805f7c7904cf61c2c104"
     volumes:
       - ./apache/log:/var/log/apache2
       - ./apache/sites-available:/etc/apache2/sites-available
