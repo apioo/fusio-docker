@@ -26,7 +26,7 @@ ENV COMPOSER_SHA1 "c1c20037f990604f4b90d4827563934590e174f7"
 
 # install default packages
 RUN apt-get update -y
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install supervisor memcached wget git unzip apache2 libapache2-mod-php7.0 php7.0 mysql-server
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install memcached wget git unzip apache2 libapache2-mod-php7.0 php7.0 mysql-server
 
 # install php7 extensions
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install php7.0-mysql php7.0-simplexml php7.0-dom php7.0-curl php7.0-zip php7.0-mbstring php7.0-intl php7.0-xml php7.0-curl php7.0-gd php-memcached
@@ -57,11 +57,6 @@ RUN a2enmod rewrite
 
 # php config
 ADD ./php/99-custom.ini /etc/php/7.0/apache2/conf.d/99-custom.ini
-
-# supervisord config
-ADD ./supervisord/start-apache2.sh /start-apache2.sh
-ADD ./supervisord/apache2.conf /etc/supervisor/conf.d/apache2.conf
-RUN chmod +x /start-apache2.sh
 
 # mount volumes
 VOLUME /var/log/apache2
