@@ -1,7 +1,7 @@
 version: '2'
 services:
   fusio:
-    build: ./
+    image: fusio/fusio
     environment:
       FUSIO_PROJECT_KEY: "42eec18ffdbffc9fda6110dcc705d6ce"
       FUSIO_URL: "http://localhost"
