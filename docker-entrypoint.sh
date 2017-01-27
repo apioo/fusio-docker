@@ -10,6 +10,10 @@ done
 exitCode=$?
 if [ $exitCode -ne 0 ]; then
     /usr/bin/php /var/www/html/fusio/bin/fusio install
+
+    # adjust js apps url
+    sed -e 's#http://localhost/#'"$FUSIO_URL"'/#g' /var/www/html/fusio/public/fusio/index.htm
+    sed -e 's#http://localhost/doc#'"$FUSIO_URL"'/doc#g' /var/www/html/fusio/public/documentation/index.html
 fi
 
 # add initial backend user
