@@ -29,7 +29,7 @@ RUN apt-get update -y
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install memcached wget git unzip apache2 libapache2-mod-php7.0 php7.0 mysql-server
 
 # install php7 extensions
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install php7.0-mysql php7.0-simplexml php7.0-dom php7.0-curl php7.0-zip php7.0-mbstring php7.0-intl php7.0-xml php7.0-curl php7.0-gd php-memcached
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install php7.0-mysql php7.0-pgsql php7.0-simplexml php7.0-dom php7.0-curl php7.0-zip php7.0-mbstring php7.0-intl php7.0-xml php7.0-curl php7.0-gd php-memcached
 
 # install php7 v8 extension
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install software-properties-common python-software-properties
@@ -51,6 +51,16 @@ RUN cd /var/www/html/fusio && unzip fusio.zip
 ADD ./fusio/configuration.php /var/www/html/fusio/configuration.php
 RUN chown -R www-data: /var/www/html/fusio
 RUN chmod +x /var/www/html/fusio/bin/fusio
+
+# install additional connectors
+RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-amqp
+RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-beanstalk
+RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-elasticsearch
+RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-memcache
+RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-mongodb
+RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-neo4j
+RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-redis
+RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-soap
 
 # apache config
 RUN a2enmod rewrite
