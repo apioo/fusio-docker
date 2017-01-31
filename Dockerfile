@@ -54,21 +54,13 @@ RUN chmod +x /var/www/html/fusio/bin/fusio
 
 # install additional connectors
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-amqp
-RUN cd /var/www/html/fusio && /usr/bin/php bin/fusio system:register -y Fusio\\Adapter\\Amqp\\Adapter
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-beanstalk
-RUN cd /var/www/html/fusio && /usr/bin/php bin/fusio system:register -y Fusio\\Adapter\\Beanstalk\\Adapter
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-elasticsearch
-RUN cd /var/www/html/fusio && /usr/bin/php bin/fusio system:register -y Fusio\\Adapter\\Elasticsearch\\Adapter
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-memcache
-RUN cd /var/www/html/fusio && /usr/bin/php bin/fusio system:register -y Fusio\\Adapter\\Memcache\\Adapter
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-mongodb
-RUN cd /var/www/html/fusio && /usr/bin/php bin/fusio system:register -y Fusio\\Adapter\\Mongodb\\Adapter
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-neo4j
-RUN cd /var/www/html/fusio && /usr/bin/php bin/fusio system:register -y Fusio\\Adapter\\Neo4j\\Adapter
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-redis
-RUN cd /var/www/html/fusio && /usr/bin/php bin/fusio system:register -y Fusio\\Adapter\\Redis\\Adapter
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-soap
-RUN cd /var/www/html/fusio && /usr/bin/php bin/fusio system:register -y Fusio\\Adapter\\Soap\\Adapter
 
 # apache config
 RUN a2enmod rewrite

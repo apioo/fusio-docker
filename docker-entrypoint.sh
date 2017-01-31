@@ -13,6 +13,16 @@ if [ $exitCode -ne 0 ]; then
 
     # adjust js apps url
     find /var/www/html/fusio/public/ -type f -exec sed -i 's#\${FUSIO_URL}#'"$FUSIO_URL"'#g' {} \;
+
+    # register adapters
+    /usr/bin/php /var/www/html/fusio/bin/fusio system:register -y "Fusio\Adapter\Amqp\Adapter"
+    /usr/bin/php /var/www/html/fusio/bin/fusio system:register -y "Fusio\Adapter\Beanstalk\Adapter"
+    /usr/bin/php /var/www/html/fusio/bin/fusio system:register -y "Fusio\Adapter\Elasticsearch\Adapter"
+    /usr/bin/php /var/www/html/fusio/bin/fusio system:register -y "Fusio\Adapter\Memcache\Adapter"
+    /usr/bin/php /var/www/html/fusio/bin/fusio system:register -y "Fusio\Adapter\Mongodb\Adapter"
+    /usr/bin/php /var/www/html/fusio/bin/fusio system:register -y "Fusio\Adapter\Neo4j\Adapter"
+    /usr/bin/php /var/www/html/fusio/bin/fusio system:register -y "Fusio\Adapter\Redis\Adapter"
+    /usr/bin/php /var/www/html/fusio/bin/fusio system:register -y "Fusio\Adapter\Soap\Adapter"
 fi
 
 # add initial backend user
