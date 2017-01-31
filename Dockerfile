@@ -33,7 +33,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install php7.0-mysql php7.0-pgsql 
 
 # install php7 v8 extension
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install software-properties-common python-software-properties
-RUN add-apt-repository -y ppa:ondrej/php
 RUN add-apt-repository -y ppa:pinepain/php
 RUN apt-get update -y
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install php-v8
