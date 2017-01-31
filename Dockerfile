@@ -18,8 +18,8 @@ ENV FUSIO_BACKEND_USER "demo"
 ENV FUSIO_BACKEND_EMAIL "demo@fusio-project.org"
 ENV FUSIO_BACKEND_PW "c6!337d2ef$c"
 
-ENV FUSIO_VERSION "0.6.5"
-ENV FUSIO_SHA1 "18523461fdb42f1b840078a5a1dfb17dc7a1dc40"
+ENV FUSIO_VERSION "0.6.6"
+ENV FUSIO_SHA1 "2fa9c65360fa7af131330f6000448b62dd958b36"
 
 ENV COMPOSER_VERSION "1.2.2"
 ENV COMPOSER_SHA1 "c1c20037f990604f4b90d4827563934590e174f7"
@@ -54,13 +54,21 @@ RUN chmod +x /var/www/html/fusio/bin/fusio
 
 # install additional connectors
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-amqp
+RUN cd /var/www/html/fusio && /usr/bin/php bin/fusio system:register -y Fusio\\Adapter\\Amqp\\Adapter
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-beanstalk
+RUN cd /var/www/html/fusio && /usr/bin/php bin/fusio system:register -y Fusio\\Adapter\\Beanstalk\\Adapter
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-elasticsearch
+RUN cd /var/www/html/fusio && /usr/bin/php bin/fusio system:register -y Fusio\\Adapter\\Elasticsearch\\Adapter
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-memcache
+RUN cd /var/www/html/fusio && /usr/bin/php bin/fusio system:register -y Fusio\\Adapter\\Memcache\\Adapter
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-mongodb
+RUN cd /var/www/html/fusio && /usr/bin/php bin/fusio system:register -y Fusio\\Adapter\\Mongodb\\Adapter
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-neo4j
+RUN cd /var/www/html/fusio && /usr/bin/php bin/fusio system:register -y Fusio\\Adapter\\Neo4j\\Adapter
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-redis
+RUN cd /var/www/html/fusio && /usr/bin/php bin/fusio system:register -y Fusio\\Adapter\\Redis\\Adapter
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-soap
+RUN cd /var/www/html/fusio && /usr/bin/php bin/fusio system:register -y Fusio\\Adapter\\Soap\\Adapter
 
 # apache config
 RUN a2enmod rewrite
