@@ -28,7 +28,7 @@ ENV PHPV8_VERSION "0.1.2.1"
 
 # install default packages
 RUN apt-get update -y
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install memcached wget git unzip apache2 libapache2-mod-php7.0 php7.0 mysql-server
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install memcached wget git unzip apache2 libapache2-mod-php7.0 php7.0
 
 # install php7 extensions
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install php7.0-mysql php7.0-pgsql php7.0-simplexml php7.0-dom php7.0-bcmath php7.0-curl php7.0-zip php7.0-mbstring php7.0-intl php7.0-xml php7.0-curl php7.0-gd php7.0-soap php-memcached php-mongodb
@@ -49,7 +49,7 @@ RUN mkdir /var/www/html/fusio
 RUN wget -O /var/www/html/fusio/fusio.zip "https://github.com/apioo/fusio/releases/download/v${FUSIO_VERSION}/fusio_${FUSIO_VERSION}.zip"
 RUN echo "${FUSIO_SHA1} */var/www/html/fusio/fusio.zip" | sha1sum -c -
 RUN cd /var/www/html/fusio && unzip fusio.zip
-ADD ./fusio/configuration.php /var/www/html/fusio/configuration.php
+COPY ./fusio/container.php /var/www/html/fusio/container.php
 RUN chown -R www-data: /var/www/html/fusio
 RUN chmod +x /var/www/html/fusio/bin/fusio
 
@@ -67,16 +67,17 @@ RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-soap
 RUN a2enmod rewrite
 
 # php config
-ADD ./php/99-custom.ini /etc/php/7.0/apache2/conf.d/99-custom.ini
+COPY ./php/99-custom.ini /etc/php/7.0/apache2/conf.d/99-custom.ini
 
 # mount volumes
 VOLUME /var/log/apache2
 VOLUME /etc/apache2/sites-available
-VOLUME /var/www/html/fusio/src
+VOLUME /var/www/html/fusio/config
 VOLUME /var/www/html/fusio/public
+VOLUME /var/www/html/fusio/src
 
 # add entrypoint
-ADD ./docker-entrypoint.sh /docker-entrypoint.sh
+COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 
 EXPOSE 80

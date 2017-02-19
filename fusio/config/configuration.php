@@ -23,9 +23,6 @@ return array(
     // http://localhost.com)
     'psx_url'                 => getenv('FUSIO_URL'),
 
-    // The input path 'index.php/' or '' if you use mod_rewrite
-    'psx_dispatch'            => '',
-
     // The default timezone
     'psx_timezone'            => 'UTC',
 
