@@ -24,6 +24,8 @@ ENV FUSIO_SHA1 "4225b7d862a973d3ab840c995459c1cdc3827d87"
 ENV COMPOSER_VERSION "1.2.2"
 ENV COMPOSER_SHA1 "c1c20037f990604f4b90d4827563934590e174f7"
 
+ENV PHPV8_VERSION "0.1.2.1"
+
 # install default packages
 RUN apt-get update -y
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install memcached wget git unzip apache2 libapache2-mod-php7.0 php7.0 mysql-server
@@ -35,7 +37,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install php7.0-mysql php7.0-pgsql 
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install software-properties-common python-software-properties
 RUN add-apt-repository -y ppa:pinepain/php
 RUN apt-get update -y
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install php-v8
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install php-v8=${PHPV8_VERSION}
 
 # install composer
 RUN wget -O /usr/bin/composer https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar
