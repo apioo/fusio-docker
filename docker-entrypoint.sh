@@ -20,7 +20,6 @@ if [ $exitCode -ne 0 ]; then
     /usr/bin/php /var/www/html/fusio/bin/fusio system:register -y "Fusio\Adapter\Elasticsearch\Adapter"
     /usr/bin/php /var/www/html/fusio/bin/fusio system:register -y "Fusio\Adapter\Memcache\Adapter"
     /usr/bin/php /var/www/html/fusio/bin/fusio system:register -y "Fusio\Adapter\Mongodb\Adapter"
-    /usr/bin/php /var/www/html/fusio/bin/fusio system:register -y "Fusio\Adapter\Neo4j\Adapter"
     /usr/bin/php /var/www/html/fusio/bin/fusio system:register -y "Fusio\Adapter\Redis\Adapter"
     /usr/bin/php /var/www/html/fusio/bin/fusio system:register -y "Fusio\Adapter\Soap\Adapter"
 fi

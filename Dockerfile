@@ -59,7 +59,6 @@ RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-beanstalk
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-elasticsearch
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-memcache
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-mongodb
-RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-neo4j
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-redis
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-soap
 
