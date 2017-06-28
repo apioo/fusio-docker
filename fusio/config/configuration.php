@@ -19,6 +19,26 @@ return array(
     // CHANGE THE KEY ONLY BEFORE THE INSTALLATION
     'fusio_project_key'       => getenv('FUSIO_PROJECT_KEY'),
 
+    // Optional the engine class which is used to execute an action. The
+    // following engines are available:
+    // * \Fusio\Engine\Factory\Resolver\PhpClass::class
+    // * \Fusio\Impl\Factory\Resolver\PhpFile::class
+    // * \Fusio\Impl\Factory\Resolver\JavascriptFile::class
+    'fusio_engine'            => \Fusio\Impl\Factory\Resolver\PhpFile::class,
+
+    // Settings of the internal mailer. By default we use the internal PHP mail
+    // function
+    /*
+    'fusio_mailer'            => [
+        'transport'           => 'smtp',
+        'host'                => 'email-smtp.us-east-1.amazonaws.com',
+        'port'                => 587,
+        'username'            => 'my-username',
+        'password'            => 'my-password',
+        'encryption'          => 'tls',
+    ],
+    */
+
     // The url to the psx public folder (i.e. http://127.0.0.1/psx/public or 
     // http://localhost.com)
     'psx_url'                 => getenv('FUSIO_URL'),
