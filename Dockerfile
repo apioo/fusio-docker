@@ -18,13 +18,11 @@ ENV FUSIO_BACKEND_USER "demo"
 ENV FUSIO_BACKEND_EMAIL "demo@fusio-project.org"
 ENV FUSIO_BACKEND_PW "c6!337d2ef$c"
 
-ENV FUSIO_VERSION "0.9.0"
-ENV FUSIO_SHA1 "96eeddebcb3dae16b22689dce25e08f3c611e148"
+ENV FUSIO_VERSION "0.9.1"
+ENV FUSIO_SHA1 "5de37042f98abf1bf322951647d7d1d16540d3f8"
 
 ENV COMPOSER_VERSION "1.2.2"
 ENV COMPOSER_SHA1 "c1c20037f990604f4b90d4827563934590e174f7"
-
-ENV PHPV8_VERSION "0.1.6-ppa1~xenial"
 
 # install default packages
 RUN apt-get update -y
@@ -37,7 +35,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install php7.0-mysql php7.0-pgsql 
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install software-properties-common python-software-properties
 RUN add-apt-repository -y ppa:k42b3/php
 RUN apt-get update -y
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install php-v8=${PHPV8_VERSION}
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install php-v8
 
 # install composer
 RUN wget -O /usr/bin/composer https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar
