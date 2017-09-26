@@ -55,6 +55,10 @@ COPY ./fusio/container.php /var/www/html/fusio/container.php
 RUN chown -R www-data: /var/www/html/fusio
 RUN chmod +x /var/www/html/fusio/bin/fusio
 
+# php config
+COPY ./php/99-custom.ini /etc/php/7.0/apache2/conf.d/99-custom.ini
+COPY ./php/99-custom.ini /etc/php/7.0/cli/conf.d/99-custom.ini
+
 # install additional connectors
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-amqp
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-beanstalk
@@ -66,9 +70,6 @@ RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-soap
 
 # apache config
 RUN a2enmod rewrite
-
-# php config
-COPY ./php/99-custom.ini /etc/php/7.0/apache2/conf.d/99-custom.ini
 
 # mount volumes
 VOLUME /var/log/apache2
