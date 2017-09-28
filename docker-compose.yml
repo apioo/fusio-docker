@@ -16,8 +16,8 @@ services:
     volumes:
       - ./apache/log:/var/log/apache2
       - ./apache/sites-available:/etc/apache2/sites-available
-      - ./fusio/config:/etc/fusio
       - ./fusio/public:/var/www/html/fusio/public
+      - ./fusio/resources:/var/www/html/fusio/resources
       - ./fusio/src:/var/www/html/fusio/src
     links:
       - db
