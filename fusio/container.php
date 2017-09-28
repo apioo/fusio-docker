@@ -8,6 +8,6 @@ change the "config.file" parameter.
 */
 
 $container = new Fusio\Impl\Dependency\Container();
-$container->setParameter('config.file', '/etc/fusio/configuration.php');
+$container->setParameter('config.file', __DIR__ . '/configuration.php');
 
 return $container;
