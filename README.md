@@ -54,8 +54,14 @@ $ docker run -d --name fusio \
   -e "FUSIO_BACKEND_USER=demo" \
   -e "FUSIO_BACKEND_EMAIL=demo@fusio-project.org" \
   -e "FUSIO_BACKEND_PW=c6/337d2ef_c" \
+  fusio/fusio:latest
+```
+
+It is also possible to mount specific volumes to simplify development of custom
+actions. Therefor you could use the following arguments:
+
+```
   -v /opt/fusio/public:/var/www/html/fusio/public \
   -v /opt/fusio/resources:/var/www/html/fusio/resources \
   -v /opt/fusio/src:/var/www/html/fusio/src \
-  fusio/fusio
 ```
