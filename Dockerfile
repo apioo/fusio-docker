@@ -16,7 +16,7 @@ ENV FUSIO_MEMCACHE_PORT "11211"
 
 ENV FUSIO_BACKEND_USER "demo"
 ENV FUSIO_BACKEND_EMAIL "demo@fusio-project.org"
-ENV FUSIO_BACKEND_PW "c6!337d2ef$c"
+ENV FUSIO_BACKEND_PW "c6!337d2ef-c"
 
 ENV FUSIO_VERSION "0.9.6"
 ENV FUSIO_SHA1 "a45c3131ee250a38df1e852389e443c191aceb7c"
@@ -55,6 +55,9 @@ COPY ./fusio/configuration.php /var/www/html/fusio/configuration.php
 COPY ./fusio/container.php /var/www/html/fusio/container.php
 RUN chown -R www-data: /var/www/html/fusio
 RUN chmod +x /var/www/html/fusio/bin/fusio
+
+# apache config
+COPY ./apache/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf
 
 # php config
 COPY ./php/99-custom.ini /etc/php/7.0/apache2/conf.d/99-custom.ini
