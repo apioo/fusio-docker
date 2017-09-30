@@ -25,7 +25,6 @@ containers:
 
 ```
 $ docker run -d --name fusio-db \
-  -p 5432:5432 \
   -e "MYSQL_ROOT_PASSWORD=7f3e5186032a" \
   -e "MYSQL_USER=fusio" \
   -e "MYSQL_PASSWORD=61ad6c605975" \
