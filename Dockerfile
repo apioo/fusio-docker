@@ -75,6 +75,9 @@ RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-mongodb
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-redis
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-soap
 
+# adjust js apps url
+RUN find /var/www/html/fusio/public/ -type f -exec sed -i 's#\${FUSIO_URL}#'"$FUSIO_URL"'#g' {} \;
+
 # apache config
 RUN a2enmod rewrite
 
