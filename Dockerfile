@@ -34,6 +34,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install php7.0-mysql php7.0-pgsql 
 # install pecl extensions
 RUN pecl install mongodb
 RUN pecl install memcached
+RUN pecl install grpc
 
 # install php7 v8 extension
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install software-properties-common python-software-properties
