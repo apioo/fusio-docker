@@ -51,6 +51,9 @@ RUN mkdir /var/www/html/fusio
 RUN wget -O /var/www/html/fusio/fusio.zip "https://github.com/apioo/fusio/releases/download/v${FUSIO_VERSION}/fusio_${FUSIO_VERSION}.zip"
 RUN echo "${FUSIO_SHA1} */var/www/html/fusio/fusio.zip" | sha1sum -c -
 RUN cd /var/www/html/fusio && unzip fusio.zip
+COPY ./fusio/public /var/www/html/fusio/public
+COPY ./fusio/resources /var/www/html/fusio/resources
+COPY ./fusio/src /var/www/html/fusio/src
 COPY ./fusio/configuration.php /var/www/html/fusio/configuration.php
 COPY ./fusio/container.php /var/www/html/fusio/container.php
 RUN chown -R www-data: /var/www/html/fusio
