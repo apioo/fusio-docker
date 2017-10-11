@@ -26,21 +26,17 @@ ENV COMPOSER_SHA1 "c1c20037f990604f4b90d4827563934590e174f7"
 
 # install default packages
 RUN apt-get update -y
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install memcached wget git unzip apache2 libapache2-mod-php7.0 php7.0 mysql-client pkg-config libmemcached-dev build-essential
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install memcached wget git unzip apache2 libapache2-mod-php7.0 php7.0 mysql-client
+
+# install libs
+COPY ./libv8 /usr/lib
+COPY ./libmemcached /usr/lib
 
 # install php7 extensions
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install php7.0-mysql php7.0-pgsql php7.0-sqlite3 php7.0-simplexml php7.0-dom php7.0-bcmath php7.0-curl php7.0-zip php7.0-mbstring php7.0-intl php7.0-xml php7.0-curl php7.0-gd php7.0-soap php7.0-dev php-pear
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install php7.0-mysql php7.0-pgsql php7.0-sqlite3 php7.0-simplexml php7.0-dom php7.0-bcmath php7.0-curl php7.0-zip php7.0-mbstring php7.0-intl php7.0-xml php7.0-curl php7.0-gd php7.0-soap
 
-# install pecl extensions
-RUN pecl install mongodb
-RUN pecl install memcached
-RUN pecl install grpc
-
-# install php7 v8 extension
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install software-properties-common python-software-properties
-RUN add-apt-repository -y ppa:pinepain/php
-RUN apt-get update -y
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install php-v8
+# copy specific extensions
+COPY ./php/20151012 /usr/lib/php/20151012
 
 # install composer
 RUN wget -O /usr/bin/composer https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar
@@ -81,6 +77,10 @@ RUN find /var/www/html/fusio/public/ -type f -exec sed -i 's#\${FUSIO_URL}#'"$FU
 
 # apache config
 RUN a2enmod rewrite
+
+# install cron
+RUN touch /etc/cronjob.d/fusio
+RUN chown -R www-data: /etc/cronjob.d/fusio
 
 # mount volumes
 VOLUME /var/log/apache2
