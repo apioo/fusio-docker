@@ -79,8 +79,8 @@ RUN find /var/www/html/fusio/public/ -type f -exec sed -i 's#\${FUSIO_URL}#'"$FU
 RUN a2enmod rewrite
 
 # install cron
-RUN touch /etc/cronjob.d/fusio
-RUN chown -R www-data: /etc/cronjob.d/fusio
+RUN touch /etc/cron.d/fusio
+RUN chown -R www-data: /etc/cron.d/fusio
 
 # mount volumes
 VOLUME /var/log/apache2
