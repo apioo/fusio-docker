@@ -1,4 +1,4 @@
-FROM ubuntu:xenial
+FROM ubuntu:zesty
 MAINTAINER Christoph Kappestein <christoph.kappestein@apioo.de>
 LABEL version="1.0"
 
