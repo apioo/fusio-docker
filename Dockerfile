@@ -70,6 +70,7 @@ RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-elasticsea
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-memcache
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-mongodb
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-redis
+RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-smtp
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-soap
 
 # adjust js apps url
