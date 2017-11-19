@@ -74,7 +74,7 @@ window.onload = function() {
   
   // Build a system
   const ui = SwaggerUIBundle({
-    url: guessEndpointUrl(false) + 'export/openapi/*/*',
+    url: '${FUSIO_URL}/export/openapi/*/*',
     dom_id: '#swagger-ui',
     deepLinking: true,
     presets: [
@@ -88,23 +88,6 @@ window.onload = function() {
   })
 
   window.ui = ui
-}
-
-function guessEndpointUrl(urlRewrite) {
-  var url = window.location.href;
-  var removePart = function(url, sign) {
-    var count = (url.match(/\//g) || []).length;
-    var pos = url.lastIndexOf(sign);
-    if (count > 2 && pos !== -1) {
-      return url.substring(0, pos);
-    }
-    return url;
-  };
-  var parts = ['#', '?', '/', '/'];
-  for (var i = 0; i < parts.length; i++) {
-    url = removePart(url, parts[i]);
-  }
-  return url + (urlRewrite ? '/' : '/index.php/');
 }
 </script>
 </body>
