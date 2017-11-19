@@ -34,12 +34,17 @@ return array(
 
     // Location of the automatically generated cron file. Note Fusio writes only
     // to this file if it exists. In order to use the cronjob service you need
-    // to create this file with i.e. "touch /etc/cronjob.d/fusio"
+    // to create this file with i.e. "touch /etc/cron.d/fusio"
     'fusio_cron_file'         => '/etc/cron.d/fusio',
 
     // Command to execute the Fusio console which is used in the generated cron
     // file
     'fusio_cron_exec'         => '/usr/bin/php ' . __DIR__ . '/bin/fusio',
+
+    // In case you want to host the backend app on a different domain you need
+    // to set a fitting Access-Control-Allow-Origin header. To set a CORS header
+    // for your app please use the system setting
+    'fusio_cors'              => null,
 
     // The url to the psx public folder (i.e. http://127.0.0.1/psx/public or 
     // http://localhost.com)
