@@ -26,6 +26,13 @@ if [ $exitCode -ne 0 ]; then
     php bin/fusio system:register -y "Fusio\Adapter\Soap\Adapter"
 fi
 
+# execute install in case we need to upgade
+php bin/fusio system:check upgrade
+exitCode=$?
+if [ $exitCode -ne 0 ]; then
+    php bin/fusio install
+fi
+
 # add initial backend user
 php bin/fusio system:check user
 exitCode=$?
