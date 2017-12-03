@@ -26,7 +26,7 @@ if [ $exitCode -ne 0 ]; then
     php bin/fusio system:register -y "Fusio\Adapter\Soap\Adapter"
 fi
 
-# execute install in case we need to upgade
+# execute install in case we need to upgrade
 php bin/fusio system:check upgrade
 exitCode=$?
 if [ $exitCode -ne 0 ]; then
