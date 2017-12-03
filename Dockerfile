@@ -29,14 +29,14 @@ RUN apt-get update -y
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install memcached wget git unzip apache2 libapache2-mod-php7.0 php7.0 mysql-client
 
 # install libs
-COPY ./libv8 /usr/lib
-COPY ./libmemcached /usr/lib
+COPY ./lib/libv8 /usr/lib
+COPY ./lib/libmemcached /usr/lib
 
 # install php7 extensions
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install php7.0-mysql php7.0-pgsql php7.0-sqlite3 php7.0-simplexml php7.0-dom php7.0-bcmath php7.0-curl php7.0-zip php7.0-mbstring php7.0-intl php7.0-xml php7.0-curl php7.0-gd php7.0-soap
 
 # copy specific extensions
-COPY ./php/20151012 /usr/lib/php/20151012
+COPY ./lib/php/20151012 /usr/lib/php/20151012
 
 # install composer
 RUN wget -O /usr/bin/composer https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar
@@ -57,11 +57,11 @@ RUN chown -R www-data: /var/www/html/fusio
 RUN chmod +x /var/www/html/fusio/bin/fusio
 
 # apache config
-COPY ./apache/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY ./etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf
 
 # php config
-COPY ./php/99-custom.ini /etc/php/7.0/apache2/conf.d/99-custom.ini
-COPY ./php/99-custom.ini /etc/php/7.0/cli/conf.d/99-custom.ini
+COPY ./etc/php/99-custom.ini /etc/php/7.0/apache2/conf.d/99-custom.ini
+COPY ./etc/php/99-custom.ini /etc/php/7.0/cli/conf.d/99-custom.ini
 
 # install additional connectors
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-amqp
@@ -84,8 +84,6 @@ RUN touch /etc/cron.d/fusio
 RUN chown -R www-data: /etc/cron.d/fusio
 
 # mount volumes
-VOLUME /var/log/apache2
-VOLUME /etc/apache2/sites-available
 VOLUME /var/www/html/fusio/public
 VOLUME /var/www/html/fusio/resources
 VOLUME /var/www/html/fusio/src

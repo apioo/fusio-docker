@@ -1,4 +1,8 @@
-Default-Connection:
-  class: Fusio\Adapter\Sql\Connection\SqlAdvanced
+Mysql-1:
+  class: Fusio\Adapter\Sql\Connection\Sql
   config:
-    url: "sqlite:///${dir.cache}/todo-app.db"
+    type: pdo_mysql
+    host: mysql_1
+    username: app
+    password: 57cd4fee0ed0
+    database: app

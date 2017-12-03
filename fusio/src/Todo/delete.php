@@ -12,7 +12,7 @@
 use PSX\Http\Exception as StatusCode;
 
 /** @var \Doctrine\DBAL\Connection $connection */
-$connection = $connector->getConnection('Default-Connection');
+$connection = $connector->getConnection('Mysql-1');
 
 $affected = $connection->update('app_todo', [
     'status' => 0,

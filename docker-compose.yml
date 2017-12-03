@@ -1,5 +1,6 @@
 version: '2'
 services:
+  # Fusio container
   fusio:
     image: fusio/fusio
     environment:
@@ -7,24 +8,29 @@ services:
       FUSIO_URL: "http://localhost"
       FUSIO_DB_USER: "fusio"
       FUSIO_DB_PW: "61ad6c605975"
-      FUSIO_DB_HOST: "db"
+      FUSIO_DB_HOST: "mysql_fusio"
       FUSIO_DB_NAME: "fusio"
       FUSIO_MEMCACHE_HOST: "memcached"
       FUSIO_BACKEND_USER: "demo"
       FUSIO_BACKEND_EMAIL: "demo@fusio-project.org"
-      FUSIO_BACKEND_PW: "c6/337d2ef_c"
+      FUSIO_BACKEND_PW: "75dafcb12c4f"
     volumes:
-      - ./apache/log:/var/log/apache2
-      - ./apache/sites-available:/etc/apache2/sites-available
       - ./fusio/public:/var/www/html/fusio/public
       - ./fusio/resources:/var/www/html/fusio/resources
       - ./fusio/src:/var/www/html/fusio/src
     links:
-      - db
       - memcached
+      - mysql_fusio
+      - mysql_1
     ports:
       - "80:80"
-  db:
+
+  # Memcached container for caching
+  memcached:
+    image: memcached
+
+  # Fusio system database
+  mysql_fusio:
     image: mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD: "7f3e5186032a"
@@ -32,7 +38,15 @@ services:
       MYSQL_PASSWORD: "61ad6c605975"
       MYSQL_DATABASE: "fusio"
     volumes:
-      - ./mysql:/var/lib/mysql
-    restart: always
-  memcached:
-    image: memcached
+      - ./db/fusio:/var/lib/mysql
+
+  # Mysql database for the app
+  mysql_1:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: "290f0be801b3"
+      MYSQL_USER: "app"
+      MYSQL_PASSWORD: "57cd4fee0ed0"
+      MYSQL_DATABASE: "app"
+    volumes:
+      - ./db/mysql-1:/var/lib/mysql
