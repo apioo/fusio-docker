@@ -1,2 +1,2 @@
-Default-Connection:
+Mysql-1:
   - resources/migration/v1_schema.php
