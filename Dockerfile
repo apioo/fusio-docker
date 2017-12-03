@@ -26,16 +26,14 @@ ENV COMPOSER_SHA1 "6dc307027b69892191dca036dcc64bb02dd74ab2"
 
 # install default packages
 RUN apt-get update -y
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install memcached wget git unzip apache2 libapache2-mod-php7.0 php7.0 mysql-client
-
-# install libs
-COPY ./lib/libv8 /usr/lib
-COPY ./lib/libmemcached /usr/lib
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install wget git unzip apache2 libapache2-mod-php7.0 php7.0 mysql-client
 
 # install php7 extensions
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install php7.0-mysql php7.0-pgsql php7.0-sqlite3 php7.0-simplexml php7.0-dom php7.0-bcmath php7.0-curl php7.0-zip php7.0-mbstring php7.0-intl php7.0-xml php7.0-curl php7.0-gd php7.0-soap
 
-# copy specific extensions
+# install libs
+COPY ./lib/libv8 /usr/lib
+COPY ./lib/libmemcached /usr/lib
 COPY ./lib/php/20151012 /usr/lib/php/20151012
 
 # install composer
