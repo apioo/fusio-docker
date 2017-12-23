@@ -1,6 +1,11 @@
 <?php
 
-return array(
+if (!getenv('FUSIO_ENV')) {
+    $dotenv = new \Symfony\Component\Dotenv\Dotenv();
+    $dotenv->load(__DIR__ . '/.env');
+}
+
+return [
 
     // Whether the implicit flow is allowed. This is mostly needed for 
     // javascript apps
@@ -11,6 +16,10 @@ return array(
     'fusio_expire_app'        => 'P2D',
     'fusio_expire_backend'    => 'PT1H',
     'fusio_expire_consumer'   => 'PT1H',
+
+    // How long can you use the refresh token after the access token was
+    // generated
+    'fusio_expire_refresh'    => 'P3D',
 
     // The secret key of a project. It is recommended to change this to another
     // random value. This is used i.e. to encrypt the connection credentials in 
@@ -55,7 +64,7 @@ return array(
 
     // Whether PSX runs in debug mode or not. If not error reporting is set to 0
     // Also several caches are used if the debug mode is false
-    'psx_debug'               => false,
+    'psx_debug'               => getenv('FUSIO_ENV') != 'prod',
 
     // Database parameters which are used for the doctrine DBAL connection
     // http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html
@@ -64,7 +73,6 @@ return array(
         'user'                => getenv('FUSIO_DB_USER'),
         'password'            => getenv('FUSIO_DB_PW'),
         'host'                => getenv('FUSIO_DB_HOST'),
-        'port'                => getenv('FUSIO_DB_PORT'),
         'driver'              => 'pdo_mysql',
     ],
 
@@ -108,4 +116,4 @@ return array(
     // specify a custom template
     //'psx_error_template'      => null,
 
-);
+];

@@ -6,10 +6,11 @@ services:
     environment:
       FUSIO_PROJECT_KEY: "42eec18ffdbffc9fda6110dcc705d6ce"
       FUSIO_URL: "http://localhost"
+      FUSIO_ENV: "prod"
+      FUSIO_DB_NAME: "fusio"
       FUSIO_DB_USER: "fusio"
       FUSIO_DB_PW: "61ad6c605975"
       FUSIO_DB_HOST: "mysql_fusio"
-      FUSIO_DB_NAME: "fusio"
       FUSIO_MEMCACHE_HOST: "memcached"
       FUSIO_BACKEND_USER: "demo"
       FUSIO_BACKEND_EMAIL: "demo@fusio-project.org"
