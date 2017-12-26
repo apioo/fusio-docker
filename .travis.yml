@@ -6,9 +6,9 @@ services:
   - docker
 before_install:
   - 'sed -i "s#image: fusio\/fusio#build: \.#g" docker-compose.yml'
+  - 'sed -i "s#80:80#8080:80#g" docker-compose.yml'
 install:
   - composer install
   - docker-compose up
-  - while ! httping -qc1 http://localhost; do sleep 1; done
 script:
   - vendor/bin/phpunit
