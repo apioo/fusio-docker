@@ -1,0 +1,13 @@
+sudo: required
+language: php
+php:
+  - 7.1
+services:
+  - docker
+before_install:
+  - sed -i 's#image: fusio\/fusio#build: \.#g' docker-compose.yml
+install:
+  - docker-compose up
+  - while ! httping -qc1 http://localhost; do sleep 1; done
+script:
+  - vendor/bin/phpunit
