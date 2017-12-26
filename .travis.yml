@@ -5,7 +5,7 @@ php:
 services:
   - docker
 before_install:
-  - "sed -i 's#image: fusio\/fusio#build: \.#g' docker-compose.yml"
+  - 'sed -i "s#image: fusio\/fusio#build: \.#g" docker-compose.yml'
 install:
   - composer install
   - docker-compose up
