@@ -10,6 +10,6 @@ before_install:
 install:
   - composer install
   - docker-compose up -d
-  - while ! httping -qc1 http://localhost; do sleep 1; done
+  - while ! httping -qc1 http://localhost:8080; do sleep 1; done
 script:
   - vendor/bin/phpunit
