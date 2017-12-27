@@ -19,7 +19,16 @@ class WelcomeTest extends HttpTestCase
 
         $actual = (string) $response->getBody();
         $expect = <<<JSON
-{}
+{
+    "message": "Congratulations the installation of Fusio was successful",
+    "version": "1.1.7",
+    "links": [
+        {
+            "rel": "about",
+            "name": "http:\/\/fusio-project.org"
+        }
+    ]
+}
 JSON;
 
         $this->assertEquals(200, $response->getStatusCode());
