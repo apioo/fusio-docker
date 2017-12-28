@@ -24,6 +24,11 @@ ENV FUSIO_SHA1 "bfddb4a571f510a3c32a5a232bf2dc91b5537904"
 ENV COMPOSER_VERSION "1.5.2"
 ENV COMPOSER_SHA1 "6dc307027b69892191dca036dcc64bb02dd74ab2"
 
+ENV APP_MYSQL_1_NAME: "app"
+ENV APP_MYSQL_1_USER: "app"
+ENV APP_MYSQL_1_PW: "57cd4fee0ed0"
+ENV APP_MYSQL_1_HOST: "localhost"
+
 # install default packages
 RUN apt-get update -y
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install wget git unzip apache2 libapache2-mod-php7.0 php7.0 mysql-client

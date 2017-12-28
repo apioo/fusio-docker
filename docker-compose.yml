@@ -15,6 +15,10 @@ services:
       FUSIO_BACKEND_USER: "demo"
       FUSIO_BACKEND_EMAIL: "demo@fusio-project.org"
       FUSIO_BACKEND_PW: "75dafcb12c4f"
+      APP_MYSQL_1_NAME: "app"
+      APP_MYSQL_1_USER: "app"
+      APP_MYSQL_1_PW: "57cd4fee0ed0"
+      APP_MYSQL_1_HOST: "mysql_1"
     volumes:
       - ./fusio/public:/var/www/html/fusio/public
       - ./fusio/resources:/var/www/html/fusio/resources

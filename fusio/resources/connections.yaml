@@ -2,10 +2,10 @@ Mysql-1:
   class: Fusio\Adapter\Sql\Connection\Sql
   config:
     type: pdo_mysql
-    host: mysql_1
-    username: app
-    password: 57cd4fee0ed0
-    database: app
+    host: "${env.APP_MYSQL_1_HOST}"
+    username: "${env.APP_MYSQL_1_USER}"
+    password: "${env.APP_MYSQL_1_PW}"
+    database: "${env.APP_MYSQL_1_NAME}"
 
 # SQL
 # Connects to a SQL database using the doctrine DBAL library.
