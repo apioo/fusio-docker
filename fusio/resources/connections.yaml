@@ -1,11 +1,7 @@
-Mysql-1:
-  class: Fusio\Adapter\Sql\Connection\Sql
+Default-Connection:
+  class: Fusio\Adapter\Sql\Connection\SqlAdvanced
   config:
-    type: pdo_mysql
-    host: "${env.APP_MYSQL_1_HOST}"
-    username: "${env.APP_MYSQL_1_USER}"
-    password: "${env.APP_MYSQL_1_PW}"
-    database: "${env.APP_MYSQL_1_NAME}"
+    url: "sqlite:///${dir.cache}/app.db"
 
 # SQL
 # Connects to a SQL database using the doctrine DBAL library.

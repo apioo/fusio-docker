@@ -10,7 +10,7 @@
  */
 
 /** @var \Doctrine\DBAL\Connection $connection */
-$connection = $connector->getConnection('Mysql-1');
+$connection = $connector->getConnection('Default-Connection');
 
 $count   = $connection->fetchColumn('SELECT COUNT(*) FROM app_todo');
 $entries = $connection->fetchAll('SELECT * FROM app_todo WHERE status = 1 ORDER BY insertDate DESC LIMIT 16');

@@ -12,7 +12,7 @@
 use PSX\Http\Exception as StatusCode;
 
 /** @var \Doctrine\DBAL\Connection $connection */
-$connection = $connector->getConnection('Mysql-1');
+$connection = $connector->getConnection('Default-Connection');
 
 $todo = $connection->fetchAssoc('SELECT * FROM app_todo WHERE id = :id', [
     'id' => $request->getUriFragment('todo_id')
