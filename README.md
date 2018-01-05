@@ -1,7 +1,7 @@
 # Fusio docker container
 
 Official docker container of Fusio. More information about Fusio at: 
-http://fusio-project.org
+https://fusio-project.org
 
 ## Usage
 
@@ -32,36 +32,18 @@ $ docker run -d --name fusio-db \
   mysql:5.7
 ```
 
-#### Memcache
-
-```
-$ docker run -d --name fusio-memcached \
-  memcached:1.5.1
-```
-
 #### Fusio
 
 ```
 $ docker run -d --name fusio \
   -p 80:80 \
   --link fusio-db:db \
-  --link fusio-memcached:memcached \
   -e "FUSIO_DB_USER=fusio" \
   -e "FUSIO_DB_PW=61ad6c605975" \
   -e "FUSIO_DB_HOST=db" \
   -e "FUSIO_DB_NAME=fusio" \
-  -e "FUSIO_MEMCACHE_HOST=memcached" \
   -e "FUSIO_BACKEND_USER=demo" \
   -e "FUSIO_BACKEND_EMAIL=demo@fusio-project.org" \
   -e "FUSIO_BACKEND_PW=c6/337d2ef_c" \
   fusio/fusio:latest
-```
-
-It is also possible to mount specific volumes to simplify development of custom
-actions. Therefor you could use the following arguments:
-
-```
-  -v /opt/fusio/public:/var/www/html/fusio/public \
-  -v /opt/fusio/resources:/var/www/html/fusio/resources \
-  -v /opt/fusio/src:/var/www/html/fusio/src \
 ```
