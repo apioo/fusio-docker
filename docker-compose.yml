@@ -11,7 +11,6 @@ services:
       FUSIO_DB_USER: "fusio"
       FUSIO_DB_PW: "61ad6c605975"
       FUSIO_DB_HOST: "mysql_fusio"
-      FUSIO_MEMCACHE_HOST: "memcached"
       FUSIO_BACKEND_USER: "demo"
       FUSIO_BACKEND_EMAIL: "demo@fusio-project.org"
       FUSIO_BACKEND_PW: "75dafcb12c4f"
@@ -19,24 +18,10 @@ services:
       PROVIDER_GOOGLE_SECRET: ""
       PROVIDER_GITHUB_SECRET: ""
       RECAPTCHA_SECRET: ""
-      APP_MYSQL_1_NAME: "app"
-      APP_MYSQL_1_USER: "app"
-      APP_MYSQL_1_PW: "57cd4fee0ed0"
-      APP_MYSQL_1_HOST: "mysql_1"
-    volumes:
-      - ./fusio/public:/var/www/html/fusio/public
-      - ./fusio/resources:/var/www/html/fusio/resources
-      - ./fusio/src:/var/www/html/fusio/src
     links:
-      - memcached
       - mysql_fusio
-      - mysql_1
     ports:
       - "80:80"
-
-  # Memcached container for caching
-  memcached:
-    image: memcached
 
   # Fusio system database
   mysql_fusio:
@@ -48,14 +33,3 @@ services:
       MYSQL_DATABASE: "fusio"
     volumes:
       - ./db/fusio:/var/lib/mysql
-
-  # Mysql database for the app
-  mysql_1:
-    image: mysql:5.7
-    environment:
-      MYSQL_ROOT_PASSWORD: "290f0be801b3"
-      MYSQL_USER: "app"
-      MYSQL_PASSWORD: "57cd4fee0ed0"
-      MYSQL_DATABASE: "app"
-    volumes:
-      - ./db/mysql-1:/var/lib/mysql
