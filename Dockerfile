@@ -11,9 +11,6 @@ ENV FUSIO_DB_USER "fusio"
 ENV FUSIO_DB_PW "61ad6c605975"
 ENV FUSIO_DB_HOST "localhost"
 
-ENV FUSIO_MEMCACHE_HOST "localhost"
-ENV FUSIO_MEMCACHE_PORT "11211"
-
 ENV FUSIO_BACKEND_USER "demo"
 ENV FUSIO_BACKEND_EMAIL "demo@fusio-project.org"
 ENV FUSIO_BACKEND_PW "75dafcb12c4f"
@@ -23,20 +20,18 @@ ENV PROVIDER_GOOGLE_SECRET ""
 ENV PROVIDER_GITHUB_SECRET ""
 ENV RECAPTCHA_SECRET ""
 
+ENV FUSIO_MEMCACHE_HOST "localhost"
+ENV FUSIO_MEMCACHE_PORT "11211"
+
 ENV FUSIO_VERSION "1.0.0-RC8"
 ENV FUSIO_SHA1 "253a6f8ef031020b35d0a37df6d22acbfc007d3d"
 
 ENV COMPOSER_VERSION "1.5.2"
 ENV COMPOSER_SHA1 "6dc307027b69892191dca036dcc64bb02dd74ab2"
 
-ENV APP_MYSQL_1_NAME "app"
-ENV APP_MYSQL_1_USER "app"
-ENV APP_MYSQL_1_PW "57cd4fee0ed0"
-ENV APP_MYSQL_1_HOST "localhost"
-
 # install default packages
 RUN apt-get update -y
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install wget git unzip apache2 libapache2-mod-php7.0 php7.0 mysql-client
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install wget git unzip apache2 memcached libapache2-mod-php7.0 php7.0 mysql-client
 
 # install php7 extensions
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install php7.0-mysql php7.0-pgsql php7.0-sqlite3 php7.0-simplexml php7.0-dom php7.0-bcmath php7.0-curl php7.0-zip php7.0-mbstring php7.0-intl php7.0-xml php7.0-curl php7.0-gd php7.0-soap php-memcached
@@ -90,10 +85,8 @@ RUN a2enmod rewrite
 RUN touch /etc/cron.d/fusio
 RUN chown -R www-data: /etc/cron.d/fusio
 
-# mount volumes
-VOLUME /var/www/html/fusio/public
-VOLUME /var/www/html/fusio/resources
-VOLUME /var/www/html/fusio/src
+# start memcache
+RUN service memcached start
 
 # add entrypoint
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
