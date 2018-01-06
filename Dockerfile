@@ -82,7 +82,7 @@ RUN a2enmod rewrite
 
 # install cron
 RUN touch /etc/cron.d/fusio
-RUN chown -R www-data: /etc/cron.d/fusio
+RUN chown www-data: /etc/cron.d/fusio
 
 # start memcache
 RUN service memcached start
