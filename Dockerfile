@@ -45,9 +45,9 @@ RUN echo "${COMPOSER_SHA1} */usr/bin/composer" | sha1sum -c -
 RUN chmod +x /usr/bin/composer
 
 # install fusio
-RUN mkdir /var/www/html/fusio
-RUN wget -O /var/www/html/fusio/fusio.zip "https://github.com/apioo/fusio/archive/${FUSIO_VERSION}.zip"
-RUN cd /var/www/html/fusio && unzip fusio.zip
+RUN wget -O /var/www/html/fusio.zip "https://github.com/apioo/fusio/archive/${FUSIO_VERSION}.zip"
+RUN cd /var/www/html && unzip fusio.zip
+RUN cd /var/www/html && mv fusio-${FUSIO_VERSION} fusio
 RUN cd /var/www/html/fusio && /usr/bin/composer install
 COPY ./fusio/public /var/www/html/fusio/public
 COPY ./fusio/resources /var/www/html/fusio/resources
