@@ -14,6 +14,7 @@ services:
       FUSIO_BACKEND_USER: "demo"
       FUSIO_BACKEND_EMAIL: "demo@fusio-project.org"
       FUSIO_BACKEND_PW: "75dafcb12c4f"
+      FUSIO_VERSION: "master"
       PROVIDER_FACEBOOK_SECRET: ""
       PROVIDER_GOOGLE_SECRET: ""
       PROVIDER_GITHUB_SECRET: ""

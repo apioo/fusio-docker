@@ -7,8 +7,6 @@ services:
 before_install:
   - 'sed -i "s#image: fusio\/fusio#build: \.#g" docker-compose.yml'
   - 'sed -i "s#80:80#8080:80#g" docker-compose.yml'
-  - 'sed -i "s#https:\/\/github\.com\/apioo\/fusio\/releases\/download\/v${FUSIO_VERSION}\/fusio_${FUSIO_VERSION}\.zip#https:\/\/github\.com\/apioo\/fusio\/archive\/master\.zip#g" docker-compose.yml'
-  - 'sed -i "s# \| sha1sum \-c \-##g" docker-compose.yml'
 install:
   - composer install
   - docker-compose up -d
