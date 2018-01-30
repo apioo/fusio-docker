@@ -77,7 +77,7 @@ return [
     ],
 
     // Folder locations
-    'psx_path_cache'          => '/tmp',
+    'psx_path_cache'          => __DIR__ . '/cache',
     'psx_path_library'        => __DIR__ . '/src',
 
     // Supported writers
