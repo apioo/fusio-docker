@@ -12,7 +12,7 @@ mail_register_body: "Hello {name},
 
   you have successful registered at Fusio.
   To activate you account please visit the following url:
-  ${env.FUSIO_URL}\/developer\/activate?token={token}"
+  http://developer.${env.FUSIO_HOST}\/activate?token={token}"
 # Email address which is used in the "From" header
 mail_sender: ""
 # Facebook app secret
@@ -23,6 +23,3 @@ provider_google_secret: "${env.PROVIDER_GOOGLE_SECRET}"
 provider_github_secret: "${env.PROVIDER_GITHUB_SECRET}"
 # ReCaptcha secret
 recaptcha_secret: "${env.RECAPTCHA_SECRET}"
-# If set each API response contains a Access-Control-Allow-Origin header with 
-# the provided value
-cors_allow_origin: "*"
