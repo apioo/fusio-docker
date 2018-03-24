@@ -4,7 +4,7 @@ LABEL version="1.0"
 
 # env
 ENV FUSIO_PROJECT_KEY "42eec18ffdbffc9fda6110dcc705d6ce"
-ENV FUSIO_URL "http://localhost"
+ENV FUSIO_HOST "acme.com"
 ENV FUSIO_ENV "prod"
 ENV FUSIO_DB_NAME "fusio"
 ENV FUSIO_DB_USER "fusio"
@@ -15,9 +15,13 @@ ENV FUSIO_BACKEND_USER "demo"
 ENV FUSIO_BACKEND_EMAIL "demo@fusio-project.org"
 ENV FUSIO_BACKEND_PW "75dafcb12c4f"
 
+ENV PROVIDER_FACEBOOK_KEY ""
 ENV PROVIDER_FACEBOOK_SECRET ""
+ENV PROVIDER_GOOGLE_KEY ""
 ENV PROVIDER_GOOGLE_SECRET ""
+ENV PROVIDER_GITHUB_KEY ""
 ENV PROVIDER_GITHUB_SECRET ""
+ENV RECAPTCHA_KEY ""
 ENV RECAPTCHA_SECRET ""
 
 ENV FUSIO_MEMCACHE_HOST "localhost"
@@ -49,16 +53,23 @@ RUN wget -O /var/www/html/fusio.zip "https://github.com/apioo/fusio/archive/${FU
 RUN cd /var/www/html && unzip fusio.zip
 RUN cd /var/www/html && mv fusio-${FUSIO_VERSION} fusio
 RUN cd /var/www/html/fusio && /usr/bin/composer install
-COPY ./fusio/public /var/www/html/fusio/public
+COPY ./fusio/apps /var/www/html/fusio/apps
 COPY ./fusio/resources /var/www/html/fusio/resources
 COPY ./fusio/src /var/www/html/fusio/src
+COPY ./fusio/.env /var/www/html/fusio/.env
 COPY ./fusio/configuration.php /var/www/html/fusio/configuration.php
 COPY ./fusio/container.php /var/www/html/fusio/container.php
 RUN chown -R www-data: /var/www/html/fusio
 RUN chmod +x /var/www/html/fusio/bin/fusio
 
-# apache config
-COPY ./etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf
+# remove apps from public folder
+RUN rm -r /var/www/html/fusio/public/developer
+RUN rm -r /var/www/html/fusio/public/documentation
+RUN rm -r /var/www/html/fusio/public/fusio
+RUN rm -r /var/www/html/fusio/public/swagger-ui
+
+# create apache config
+RUN touch /etc/apache2/sites-available/000-fusio.conf
 
 # php config
 COPY ./etc/php/99-custom.ini /etc/php/7.0/apache2/conf.d/99-custom.ini
@@ -73,9 +84,6 @@ RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-mongodb
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-redis
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-smtp
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-soap
-
-# adjust js apps url
-RUN find /var/www/html/fusio/public/ -type f -exec sed -i 's#\${FUSIO_URL}#'"$FUSIO_URL"'#g' {} \;
 
 # apache config
 RUN a2enmod rewrite

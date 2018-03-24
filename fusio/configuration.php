@@ -50,6 +50,15 @@ return [
     // file
     'fusio_cron_exec'         => '/usr/bin/php ' . __DIR__ . '/bin/fusio',
 
+    // The web server type, based on this type Fusio generates the fitting
+    // configuration format
+    'fusio_server_type'       => \Fusio\Impl\Service\System\WebServer::APACHE2,
+
+    // Location of the automatically generated web server config file. Note
+    // Fusio writes only to this file if it exists. Also you may need to restart
+    // the web server so that the config changes take affect
+    'fusio_server_conf'       => '/etc/apache2/sites-available/000-fusio.conf',
+
     // In case you want to host the backend app on a different domain you need
     // to set a fitting Access-Control-Allow-Origin header. To set a CORS header
     // for your app please use the system setting
@@ -57,7 +66,7 @@ return [
 
     // The url to the psx public folder (i.e. http://127.0.0.1/psx/public or 
     // http://localhost.com)
-    'psx_url'                 => getenv('FUSIO_URL'),
+    'psx_url'                 => 'http://' . getenv('FUSIO_HOST'),
 
     // The default timezone
     'psx_timezone'            => 'UTC',
@@ -78,7 +87,8 @@ return [
 
     // Folder locations
     'psx_path_cache'          => __DIR__ . '/cache',
-    'psx_path_library'        => __DIR__ . '/src',
+    'psx_path_public'         => __DIR__ . '/public',
+    'psx_path_src'            => __DIR__ . '/src',
 
     // Supported writers
     'psx_supported_writer'    => [

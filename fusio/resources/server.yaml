@@ -1,0 +1,29 @@
+# This config helps to generate a fitting configuration for a web server on 
+# deployment. The type and location of the web server configuration must be 
+# configured in the configuration.php file. This config is complete optional and 
+# is only used in case you have provided an existing config file
+api:
+  host: "${env.FUSIO_HOST}"
+  root: "${dir.public}"
+  index: "index.php"
+  error_log: "/dev/stderr"
+  access_log: "/dev/stdout combined"
+#  port: 80
+#  index: ""
+#  ssl_port: 443
+#  ssl_cert: ""
+#  ssl_cert_key: ""
+#  ssl_force: false
+apps:
+  - host: "developer.${env.FUSIO_HOST}"
+    root: "/var/www/html/fusio/apps/developer" 
+    index: "index.html"
+  - host: "documentation.${env.FUSIO_HOST}"
+    root: "/var/www/html/fusio/apps/documentation" 
+    index: "index.html"
+  - host: "fusio.${env.FUSIO_HOST}"
+    root: "/var/www/html/fusio/apps/fusio"
+    index: "index.htm"
+  - host: "swagger-ui.${env.FUSIO_HOST}"
+    root: "/var/www/html/fusio/apps/swagger-ui" 
+    index: "index.html"

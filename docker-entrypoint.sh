@@ -13,9 +13,6 @@ exitCode=$?
 if [ $exitCode -ne 0 ]; then
     php bin/fusio install
 
-    # adjust js apps url
-    find public/ -type f -exec sed -i 's#\${FUSIO_URL}#'"$FUSIO_URL"'#g' {} \;
-
     # register adapters
     php bin/fusio system:register -y "Fusio\Adapter\Amqp\Adapter"
     php bin/fusio system:register -y "Fusio\Adapter\Beanstalk\Adapter"
