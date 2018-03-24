@@ -43,7 +43,7 @@ class HttpTestCase extends \PHPUnit_Framework_TestCase
     {
         if (!self::$httpClient) {
             self::$httpClient = new Client([
-                'base_uri' => 'http://localhost:8080'
+                'base_uri' => 'http://acme.com:8080'
             ]);
         }
 
