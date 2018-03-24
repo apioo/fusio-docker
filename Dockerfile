@@ -57,6 +57,7 @@ COPY ./fusio/apps /var/www/html/fusio/apps
 COPY ./fusio/resources /var/www/html/fusio/resources
 COPY ./fusio/src /var/www/html/fusio/src
 COPY ./fusio/.env /var/www/html/fusio/.env
+COPY ./fusio/.fusio.yml /var/www/html/fusio/.fusio.yml
 COPY ./fusio/configuration.php /var/www/html/fusio/configuration.php
 COPY ./fusio/container.php /var/www/html/fusio/container.php
 RUN chown -R www-data: /var/www/html/fusio
