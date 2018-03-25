@@ -7,7 +7,7 @@ api:
   root: "${dir.public}"
   index: "index.php"
   error_log: "/dev/stderr"
-  access_log: "/dev/stdout combined"
+  access_log: "/dev/stdout"
 #  port: 80
 #  index: ""
 #  ssl_port: 443
