@@ -88,6 +88,7 @@ RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-soap
 
 # apache config
 RUN a2enmod rewrite
+RUN a2dissite 000-default
 RUN a2ensite 000-fusio
 
 # install cron
