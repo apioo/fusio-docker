@@ -21,7 +21,7 @@ class WelcomeTest extends HttpTestCase
         $expect = <<<JSON
 {
     "message": "Congratulations the installation of Fusio was successful",
-    "apiVersion": "3.0.4",
+    "apiVersion": "3.0.5",
     "links": [
         {
             "rel": "about",
