@@ -28,6 +28,15 @@ return [
     // CHANGE THE KEY ONLY BEFORE THE INSTALLATION
     'fusio_project_key'       => getenv('FUSIO_PROJECT_KEY'),
 
+    // Indicates whether the PHP sandbox feature is enabled. If yes it is
+    // possible to create an action at the backend which contains PHP code. This
+    // helps to quickly develop new actions but you should also be aware of the
+    // security implications. The code gets checked by a parser which prevents
+    // the use of unsafe functions but there is no guarantee that this is
+    // complete safe. If you dont need this feature it is recommended to turn it
+    // off, then it is not possible to create or update such actions
+    'fusio_php_sandbox'       => true,
+
     // Settings of the internal mailer. By default we use the internal PHP mail
     // function
     /*
@@ -113,12 +122,5 @@ return [
     // A closure which returns a monolog handler implementation. If null the
     // system handler is used
     //'psx_logger_factory'      => null,
-
-    // Class name of the error controller
-    //'psx_error_controller'    => null,
-
-    // If you only want to change the appearance of the error page you can 
-    // specify a custom template
-    //'psx_error_template'      => null,
 
 ];
