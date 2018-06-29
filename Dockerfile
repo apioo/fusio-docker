@@ -1,4 +1,4 @@
-FROM ubuntu:xenial
+FROM ubuntu:bionic
 MAINTAINER Christoph Kappestein <christoph.kappestein@apioo.de>
 LABEL version="1.0"
 
@@ -34,14 +34,10 @@ ENV COMPOSER_SHA1 "6dc307027b69892191dca036dcc64bb02dd74ab2"
 
 # install default packages
 RUN apt-get update -y
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install wget git unzip apache2 memcached libapache2-mod-php7.0 php7.0 mysql-client
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install wget git unzip apache2 memcached libapache2-mod-php7.2 php7.2 mysql-client
 
 # install php7 extensions
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install php7.0-mysql php7.0-pgsql php7.0-sqlite3 php7.0-simplexml php7.0-dom php7.0-bcmath php7.0-curl php7.0-zip php7.0-mbstring php7.0-intl php7.0-xml php7.0-curl php7.0-gd php7.0-soap php-memcached
-
-# install libs
-COPY ./lib/libv8 /usr/lib
-COPY ./lib/php/20151012 /usr/lib/php/20151012
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install php7.2-mysql php7.2-pgsql php7.2-sqlite3 php7.2-simplexml php7.2-dom php7.2-bcmath php7.2-curl php7.2-zip php7.2-mbstring php7.2-intl php7.2-xml php7.2-curl php7.2-gd php7.2-soap php-memcached php-mongodb
 
 # install composer
 RUN wget -O /usr/bin/composer https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar
@@ -73,8 +69,8 @@ RUN rm -r /var/www/html/fusio/public/swagger-ui
 RUN touch /etc/apache2/sites-available/000-fusio.conf
 
 # php config
-COPY ./etc/php/99-custom.ini /etc/php/7.0/apache2/conf.d/99-custom.ini
-COPY ./etc/php/99-custom.ini /etc/php/7.0/cli/conf.d/99-custom.ini
+COPY ./etc/php/99-custom.ini /etc/php/7.2/apache2/conf.d/99-custom.ini
+COPY ./etc/php/99-custom.ini /etc/php/7.2/cli/conf.d/99-custom.ini
 
 # install additional connectors
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-amqp
