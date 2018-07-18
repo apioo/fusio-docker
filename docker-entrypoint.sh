@@ -8,10 +8,11 @@ done
 pushd /var/www/html/fusio
 
 # install fusio
-php bin/fusio system:check install
+php bin/fusio migration:up-to-date
 exitCode=$?
 if [ $exitCode -ne 0 ]; then
-    php bin/fusio install
+    # migrate fusio
+    php bin/fusio migration:migrate --no-interaction
 
     # register adapters
     php bin/fusio system:register -y "Fusio\Adapter\Amqp\Adapter"
@@ -23,11 +24,12 @@ if [ $exitCode -ne 0 ]; then
     php bin/fusio system:register -y "Fusio\Adapter\Soap\Adapter"
 fi
 
-# execute install in case we need to upgrade
-php bin/fusio system:check upgrade
+# install app
+php bin/fusio migration:up-to-date --connection=System
 exitCode=$?
 if [ $exitCode -ne 0 ]; then
-    php bin/fusio install
+    # migrate app
+    php bin/fusio migration:migrate --connection=System --no-interaction
 fi
 
 # add initial backend user
