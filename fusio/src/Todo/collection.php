@@ -16,7 +16,7 @@ class Collection extends ActionAbstract
         $connection = $this->connector->getConnection('System');
 
         $count   = $connection->fetchColumn('SELECT COUNT(*) FROM app_todo');
-        $entries = $connection->fetchAll('SELECT * FROM app_todo WHERE status = 1 ORDER BY insertDate DESC LIMIT 16');
+        $entries = $connection->fetchAll('SELECT * FROM app_todo WHERE status = 1 ORDER BY id ASC LIMIT 16');
 
         return $this->response->build(200, [], [
             'totalResults' => $count,
