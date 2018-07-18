@@ -1,30 +1,33 @@
 <?php
-/**
- * @var \Fusio\Engine\ConnectorInterface $connector
- * @var \Fusio\Engine\ContextInterface $context
- * @var \Fusio\Engine\RequestInterface $request
- * @var \Fusio\Engine\Response\FactoryInterface $response
- * @var \Fusio\Engine\ProcessorInterface $processor
- * @var \Psr\Log\LoggerInterface $logger
- * @var \Psr\SimpleCache\CacheInterface $cache
- */
 
+namespace App\Todo;
+
+use Fusio\Engine\ActionAbstract;
+use Fusio\Engine\ContextInterface;
+use Fusio\Engine\ParametersInterface;
+use Fusio\Engine\RequestInterface;
 use PSX\Http\Exception as StatusCode;
 
-/** @var \Doctrine\DBAL\Connection $connection */
-$connection = $connector->getConnection('Default-Connection');
+class Delete extends ActionAbstract
+{
+    public function handle(RequestInterface $request, ParametersInterface $configuration, ContextInterface $context)
+    {
+        /** @var \Doctrine\DBAL\Connection $connection */
+        $connection = $this->connector->getConnection('System');
 
-$affected = $connection->update('app_todo', [
-    'status' => 0,
-], [
-    'id' => $request->getUriFragment('todo_id')
-]);
+        $affected = $connection->update('app_todo', [
+            'status' => 0,
+        ], [
+            'id' => $request->getUriFragment('todo_id')
+        ]);
 
-if (empty($affected)) {
-    throw new StatusCode\NotFoundException('Entry not available');
+        if (empty($affected)) {
+            throw new StatusCode\NotFoundException('Entry not available');
+        }
+
+        return $this->response->build(200, [], [
+            'success' => true,
+            'message' => 'Delete successful',
+        ]);
+    }
 }
-
-return $response->build(200, [], [
-    'success' => true,
-    'message' => 'Delete successful',
-]);
