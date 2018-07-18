@@ -31,7 +31,7 @@ mail_register_body: "Hello {name},
 
   you have successful registered at Fusio.
   To activate you account please visit the following url:
-  ${env.FUSIO_URL}\/developer\/activate?token={token}"
+  http://developer.${env.FUSIO_HOST}\/activate?token={token}"
 # Email address which is used in the "From" header
 mail_sender: ""
 
