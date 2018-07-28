@@ -68,6 +68,7 @@ RUN rm -r /var/www/html/fusio/public/swagger-ui
 # apache config
 COPY ./etc/apache2/apache2.conf /etc/apache2/apache2.conf
 COPY ./etc/apache2/ports.conf /etc/apache2/ports.conf
+COPY ./etc/apache2/conf-available/other-vhosts-access-log.conf /etc/apache2/conf-available/other-vhosts-access-log.conf
 RUN touch /etc/apache2/sites-available/000-fusio.conf
 
 # php config
