@@ -26,7 +26,7 @@ services:
     links:
       - mysql_fusio
     ports:
-      - "80:80"
+      - "80:8080"
 
   # Fusio system database
   mysql_fusio:
