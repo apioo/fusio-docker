@@ -44,6 +44,9 @@ php bin/fusio deploy
 
 popd
 
+# remove existing pid
+rm -f /var/run/apache2/apache2.pid
+
 # start apache
 source /etc/apache2/envvars
 exec /usr/sbin/apache2 -D FOREGROUND
