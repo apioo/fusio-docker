@@ -65,7 +65,8 @@ RUN rm -r /var/www/html/fusio/public/documentation
 RUN rm -r /var/www/html/fusio/public/fusio
 RUN rm -r /var/www/html/fusio/public/swagger-ui
 
-# create apache config
+# apache config
+COPY ./etc/apache2/ports.conf /etc/apache2/ports.conf
 RUN touch /etc/apache2/sites-available/000-fusio.conf
 
 # php config
@@ -98,6 +99,6 @@ RUN service memcached start
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 
-EXPOSE 80
+EXPOSE 8080
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
