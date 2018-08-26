@@ -18,10 +18,12 @@ class WelcomeTest extends HttpTestCase
         $response = $this->sendRequest('/', 'GET');
 
         $actual = (string) $response->getBody();
+        $actual = preg_replace('/[0-9a-fA-F]{40}/', '[hash]', $actual);
+
         $expect = <<<JSON
 {
     "message": "Congratulations the installation of Fusio was successful",
-    "apiVersion": "v4.0.1@26253dcc33e3ab23f2e2f285c23ac9405fac32cb",
+    "apiVersion": "v4.0.1@[hash]",
     "links": [
         {
             "rel": "about",
