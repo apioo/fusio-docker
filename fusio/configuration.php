@@ -90,7 +90,7 @@ return [
     ],
 
     // Folder locations
-    'psx_path_cache'          => __DIR__ . '/cache',
+    'psx_path_cache'          => '/tmp',
     'psx_path_public'         => __DIR__ . '/public',
     'psx_path_src'            => __DIR__ . '/src',
 
