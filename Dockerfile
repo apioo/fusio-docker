@@ -70,6 +70,7 @@ COPY ./etc/apache2/apache2.conf /etc/apache2/apache2.conf
 COPY ./etc/apache2/ports.conf /etc/apache2/ports.conf
 COPY ./etc/apache2/conf-available/other-vhosts-access-log.conf /etc/apache2/conf-available/other-vhosts-access-log.conf
 RUN touch /etc/apache2/sites-available/000-fusio.conf
+RUN chmod a+rwx /etc/apache2/sites-available/000-fusio.conf
 RUN mkdir -p /run/apache2/
 RUN chmod a+rwx /run/apache2/
 
@@ -94,7 +95,7 @@ RUN a2ensite 000-fusio
 
 # install cron
 RUN touch /etc/cron.d/fusio
-RUN chown www-data: /etc/cron.d/fusio
+RUN chmod a+rwx /etc/cron.d/fusio
 
 # start memcache
 RUN service memcached start
