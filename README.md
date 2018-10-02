@@ -6,7 +6,7 @@ https://fusio-project.org
 ## Usage
 
 The most simple usage is to use the provided `docker-compose.yml` file. Use the
-following command to setup a mysql, memcache and fusio container.
+following command to setup a mysql and fusio container.
 
 ```
 docker-compose up -d
