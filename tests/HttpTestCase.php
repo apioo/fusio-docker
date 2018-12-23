@@ -3,6 +3,7 @@
 namespace App\Tests;
 
 use GuzzleHttp\Client;
+use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -12,7 +13,7 @@ use Psr\Http\Message\ResponseInterface;
  * @license http://www.apache.org/licenses/LICENSE-2.0
  * @link    http://phpsx.org
  */
-class HttpTestCase extends \PHPUnit_Framework_TestCase
+class HttpTestCase extends TestCase
 {
     /**
      * @var Client
