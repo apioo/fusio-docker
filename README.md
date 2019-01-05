@@ -1,7 +1,7 @@
 # Fusio docker container
 
 Official docker container of Fusio. More information about Fusio at: 
-https://fusio-project.org
+https://www.fusio-project.org
 
 ## Usage
 
