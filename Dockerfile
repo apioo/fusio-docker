@@ -67,6 +67,7 @@ RUN rm -r /var/www/html/fusio/public/swagger-ui
 
 # remove install file
 RUN rm /var/www/html/fusio/public/install.php
+RUN rm /var/www/html/fusio/public/.htaccess
 
 # apache config
 COPY ./etc/apache2/apache2.conf /etc/apache2/apache2.conf
