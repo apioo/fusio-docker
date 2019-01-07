@@ -49,7 +49,6 @@ RUN wget -O /var/www/html/fusio.zip "https://github.com/apioo/fusio/archive/${FU
 RUN cd /var/www/html && unzip fusio.zip
 RUN cd /var/www/html && mv fusio-${FUSIO_VERSION} fusio
 RUN cd /var/www/html/fusio && /usr/bin/composer install
-COPY ./fusio/apps /var/www/html/fusio/apps
 COPY ./fusio/resources /var/www/html/fusio/resources
 COPY ./fusio/src /var/www/html/fusio/src
 COPY ./fusio/.env /var/www/html/fusio/.env
@@ -61,9 +60,6 @@ RUN chmod +x /var/www/html/fusio/bin/fusio
 
 # remove apps from public folder
 RUN rm -r /var/www/html/fusio/public/developer
-RUN rm -r /var/www/html/fusio/public/documentation
-RUN rm -r /var/www/html/fusio/public/fusio
-RUN rm -r /var/www/html/fusio/public/swagger-ui
 
 # remove install file
 RUN rm /var/www/html/fusio/public/install.php
