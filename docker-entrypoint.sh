@@ -21,6 +21,7 @@ if [ $exitCode -ne 0 ]; then
     php bin/fusio system:register -y "Fusio\Adapter\Memcache\Adapter"
     php bin/fusio system:register -y "Fusio\Adapter\Mongodb\Adapter"
     php bin/fusio system:register -y "Fusio\Adapter\Redis\Adapter"
+    php bin/fusio system:register -y "Fusio\Adapter\Smtp\Adapter"
     php bin/fusio system:register -y "Fusio\Adapter\Soap\Adapter"
 fi
 
