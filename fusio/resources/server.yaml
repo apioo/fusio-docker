@@ -14,20 +14,3 @@ api:
 #  ssl_cert: ""
 #  ssl_cert_key: ""
 #  ssl_force: false
-apps:
-  - host: "developer.${env.FUSIO_HOST}"
-    root: "/var/www/html/fusio/apps/developer" 
-    index: "index.html"
-    port: 8080
-  - host: "documentation.${env.FUSIO_HOST}"
-    root: "/var/www/html/fusio/apps/documentation" 
-    index: "index.html"
-    port: 8080
-  - host: "fusio.${env.FUSIO_HOST}"
-    root: "/var/www/html/fusio/apps/fusio"
-    index: "index.htm"
-    port: 8080
-  - host: "swagger-ui.${env.FUSIO_HOST}"
-    root: "/var/www/html/fusio/apps/swagger-ui" 
-    index: "index.html"
-    port: 8080
