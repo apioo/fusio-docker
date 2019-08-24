@@ -58,9 +58,6 @@ COPY ./fusio/container.php /var/www/html/fusio/container.php
 RUN chown -R www-data: /var/www/html/fusio
 RUN chmod +x /var/www/html/fusio/bin/fusio
 
-# remove apps from public folder
-RUN rm -r /var/www/html/fusio/public/developer
-
 # remove install file
 RUN rm /var/www/html/fusio/public/install.php
 RUN rm /var/www/html/fusio/public/.htaccess
