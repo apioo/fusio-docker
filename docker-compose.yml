@@ -27,6 +27,8 @@ services:
       - mysql_fusio
     ports:
       - "80:8080"
+    volumes:
+      - ./public:/var/www/html/fusio/public
 
   # Fusio system database
   mysql_fusio:
@@ -37,4 +39,4 @@ services:
       MYSQL_PASSWORD: "61ad6c605975"
       MYSQL_DATABASE: "fusio"
     volumes:
-      - ./db/fusio:/var/lib/mysql
+      - ./db:/var/lib/mysql

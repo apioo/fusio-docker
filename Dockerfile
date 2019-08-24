@@ -106,4 +106,6 @@ RUN chmod +x /docker-entrypoint.sh
 
 EXPOSE 8080
 
+VOLUME /var/www/html/fusio/public
+
 ENTRYPOINT ["/docker-entrypoint.sh"]
