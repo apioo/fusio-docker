@@ -43,6 +43,9 @@ fi
 # deploy
 php bin/fusio deploy
 
+# install backend app
+php bin/fusio marketplace:install fusio
+
 popd
 
 # remove existing pid
