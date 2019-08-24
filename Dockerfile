@@ -97,6 +97,10 @@ RUN a2ensite 000-fusio
 RUN touch /etc/cron.d/fusio
 RUN chmod a+rwx /etc/cron.d/fusio
 
+# mount volumes
+VOLUME /var/www/html/fusio/cache
+VOLUME /var/www/html/fusio/public
+
 # start memcache
 RUN service memcached start
 
@@ -105,7 +109,5 @@ COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 
 EXPOSE 8080
-
-VOLUME /var/www/html/fusio/public
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
