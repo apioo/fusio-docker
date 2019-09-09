@@ -74,7 +74,6 @@ RUN chmod a+rwx /run/apache2/
 # php config
 COPY ./etc/php/99-custom.ini /etc/php/7.2/apache2/conf.d/99-custom.ini
 COPY ./etc/php/99-custom.ini /etc/php/7.2/cli/conf.d/99-custom.ini
-COPY ./etc/php/cacert.pem /etc/php/cacert.pem
 
 # install additional connectors
 RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-amqp
