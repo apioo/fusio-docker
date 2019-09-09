@@ -37,6 +37,14 @@ return [
     // off, then it is not possible to create or update such actions
     'fusio_php_sandbox'       => true,
 
+    // The three-character ISO-4217 currency code which is used to process
+    // payments
+    'fusio_payment_currency'  => 'EUR',
+
+    // Points to the Fusio provider file which contains specific classes for the
+    // system. Please take a look at the provider file for more information
+    'fusio_provider'          => __DIR__ . '/provider.php',
+
     // Settings of the internal mailer. By default we use the internal PHP mail
     // function
     /*
@@ -49,6 +57,10 @@ return [
         'encryption'          => 'tls',
     ],
     */
+
+    // Endpoint of the apps repository. All listed apps can be installed by the
+    // user at the backend app
+    'fusio_marketplace_url'   => 'https://raw.githubusercontent.com/apioo/fusio/master/marketplace.yaml',
 
     // Location of the automatically generated cron file. Note Fusio writes only
     // to this file if it exists. In order to use the cronjob service you need
@@ -118,6 +130,9 @@ return [
 
         return $memcache;
     },
+
+    // Specify a specific log level
+    //'psx_log_level' => \Monolog\Logger::ERROR,
 
     // A closure which returns a monolog handler implementation. If null the
     // system handler is used
