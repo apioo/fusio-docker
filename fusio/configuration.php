@@ -83,6 +83,7 @@ return [
     // The url to the psx public folder (i.e. http://127.0.0.1/psx/public or 
     // http://localhost.com)
     'psx_url'                 => 'http://' . getenv('FUSIO_HOST'),
+    'psx_dispatch'            => '',
 
     // The default timezone
     'psx_timezone'            => 'UTC',
