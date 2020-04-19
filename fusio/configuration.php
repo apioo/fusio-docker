@@ -82,7 +82,10 @@ return [
 
     // The url to the psx public folder (i.e. http://127.0.0.1/psx/public or 
     // http://localhost.com)
-    'psx_url'                 => 'http://' . getenv('FUSIO_HOST'),
+    'psx_url'                 => getenv('FUSIO_URL'),
+
+    // To enable clean urls you need to set this to '' this works only in case
+    // mod rewrite is activated
     'psx_dispatch'            => '',
 
     // The default timezone
@@ -100,6 +103,10 @@ return [
         'password'            => getenv('FUSIO_DB_PW'),
         'host'                => getenv('FUSIO_DB_HOST'),
         'driver'              => 'pdo_mysql',
+        'driverOptions'       => [
+            // dont emulate so that we can use prepared statements in limit clause
+            \PDO::ATTR_EMULATE_PREPARES => false
+        ],
     ],
 
     // Folder locations
