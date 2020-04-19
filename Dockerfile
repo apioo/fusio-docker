@@ -4,7 +4,7 @@ LABEL version="1.0"
 
 # env
 ENV FUSIO_PROJECT_KEY "42eec18ffdbffc9fda6110dcc705d6ce"
-ENV FUSIO_HOST "acme.com"
+ENV FUSIO_URL "http://acme.com"
 ENV FUSIO_ENV "prod"
 ENV FUSIO_DB_NAME "fusio"
 ENV FUSIO_DB_USER "fusio"
