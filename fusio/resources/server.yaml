@@ -14,3 +14,9 @@ api:
 #  ssl_cert: ""
 #  ssl_cert_key: ""
 #  ssl_force: false
+apps:
+  host: "apps.${env.FUSIO_HOST}"
+  root: "${dir.apps}"
+  error_log: "/dev/stderr"
+  access_log: "/dev/stdout"
+  port: 8080
