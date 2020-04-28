@@ -30,8 +30,8 @@ ENV FUSIO_MEMCACHE_PORT "11211"
 
 ENV FUSIO_VERSION "master"
 
-ENV COMPOSER_VERSION "1.5.2"
-ENV COMPOSER_SHA1 "6dc307027b69892191dca036dcc64bb02dd74ab2"
+ENV COMPOSER_VERSION "1.10.5"
+ENV COMPOSER_SHA256 "d5f3fddd0be28a5fc9bf2634a06f51bc9bd581fabda93fee7ca8ca781ae43129"
 
 # install default packages
 RUN apt-get update -y
@@ -42,7 +42,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install php7.2-mysql php7.2-pgsql 
 
 # install composer
 RUN wget -O /usr/bin/composer https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar
-RUN echo "${COMPOSER_SHA1} */usr/bin/composer" | sha1sum -c -
+RUN echo "${COMPOSER_SHA256} */usr/bin/composer" | sha256sum -c -
 RUN chmod +x /usr/bin/composer
 
 # install fusio
