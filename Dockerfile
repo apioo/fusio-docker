@@ -4,7 +4,8 @@ LABEL version="1.0"
 
 # env
 ENV FUSIO_PROJECT_KEY "42eec18ffdbffc9fda6110dcc705d6ce"
-ENV FUSIO_URL "http://acme.com"
+ENV FUSIO_HOST "acme.com"
+ENV FUSIO_URL "http://${FUSIO_HOST}"
 ENV FUSIO_ENV "prod"
 ENV FUSIO_DB_NAME "fusio"
 ENV FUSIO_DB_USER "fusio"
@@ -95,6 +96,7 @@ RUN touch /etc/cron.d/fusio
 RUN chmod a+rwx /etc/cron.d/fusio
 
 # mount volumes
+VOLUME /var/www/html/fusio/apps
 VOLUME /var/www/html/fusio/cache
 VOLUME /var/www/html/fusio/public
 
