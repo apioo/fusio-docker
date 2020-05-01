@@ -28,6 +28,7 @@ services:
     ports:
       - "80:8080"
     volumes:
+      - ./apps:/var/www/html/fusio/apps
       - ./public:/var/www/html/fusio/public
 
   # Fusio system database
