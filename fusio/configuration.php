@@ -62,6 +62,10 @@ return [
     // user at the backend app
     'fusio_marketplace_url'   => 'https://raw.githubusercontent.com/apioo/fusio/master/marketplace.yaml',
 
+    // The public url to the apps folder (i.e. http://acme.com/apps or 
+    // http://apps.acme.com)
+    'fusio_apps_url'          => getenv('FUSIO_APPS_URL'),
+
     // Location where the apps are persisted from the marketplace. By default
     // this is the public dir to access the apps directly, but it is also
     // possible to specify a different folder
@@ -85,8 +89,8 @@ return [
     // the web server so that the config changes take affect
     'fusio_server_conf'       => '/etc/apache2/sites-available/000-fusio.conf',
 
-    // The url to the psx public folder (i.e. http://127.0.0.1/psx/public or 
-    // http://localhost.com)
+    // The public url to the public folder (i.e. http://acme.com/public or 
+    // http://acme.com)
     'psx_url'                 => getenv('FUSIO_URL'),
 
     // To enable clean urls you need to set this to '' this works only in case
