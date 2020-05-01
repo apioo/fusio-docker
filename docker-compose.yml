@@ -6,8 +6,8 @@ services:
     environment:
       FUSIO_PROJECT_KEY: "42eec18ffdbffc9fda6110dcc705d6ce"
       FUSIO_HOST: "acme.com"
-      FUSIO_URL: "http://${FUSIO_HOST}"
-      FUSIO_APPS_URL: "http://apps.${FUSIO_HOST}"
+      FUSIO_URL: "http://acme.com"
+      FUSIO_APPS_URL: "http://apps.acme.com"
       FUSIO_ENV: "prod"
       FUSIO_DB_NAME: "fusio"
       FUSIO_DB_USER: "fusio"
