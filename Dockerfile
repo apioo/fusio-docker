@@ -5,8 +5,8 @@ LABEL version="1.0"
 # env
 ENV FUSIO_PROJECT_KEY "42eec18ffdbffc9fda6110dcc705d6ce"
 ENV FUSIO_HOST "acme.com"
-ENV FUSIO_URL "http://${FUSIO_HOST}"
-ENV FUSIO_APPS_URL "http://apps.${FUSIO_HOST}"
+ENV FUSIO_URL "http://acme.com"
+ENV FUSIO_APPS_URL "http://apps.acme.com"
 ENV FUSIO_ENV "prod"
 ENV FUSIO_DB_NAME "fusio"
 ENV FUSIO_DB_USER "fusio"
@@ -102,6 +102,9 @@ VOLUME /var/www/html/fusio/public
 
 # start memcache
 RUN service memcached start
+
+# healthcheck
+HEALTHCHECK CMD curl -f "${FUSIO_URL}/export/health" || exit 1;
 
 # add entrypoint
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
