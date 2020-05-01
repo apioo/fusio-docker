@@ -20,7 +20,7 @@ class Collection extends ActionAbstract
                        insert_date AS insertDate 
                   FROM app_todo 
                  WHERE status = 1 
-              ORDER BY insert_date DESC';
+              ORDER BY id ASC';
 
         $sql = $connection->getDatabasePlatform()->modifyLimitQuery($sql, 16);
 
