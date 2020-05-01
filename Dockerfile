@@ -97,7 +97,6 @@ RUN chmod a+rwx /etc/cron.d/fusio
 
 # mount volumes
 VOLUME /var/www/html/fusio/apps
-VOLUME /var/www/html/fusio/cache
 VOLUME /var/www/html/fusio/public
 
 # start memcache
