@@ -36,7 +36,7 @@ ENV COMPOSER_VERSION "1.10.5"
 ENV COMPOSER_SHA256 "d5f3fddd0be28a5fc9bf2634a06f51bc9bd581fabda93fee7ca8ca781ae43129"
 
 # install default packages
-RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get -y install \
+RUN DEBIAN_FRONTEND=noninteractive apt-get update -y && apt-get -y install \
     wget \
     git \
     unzip \
@@ -46,7 +46,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get -y install \
     php7.2
 
 # install php7 extensions
-RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get -y install \
+RUN DEBIAN_FRONTEND=noninteractive apt-get update -y && apt-get -y install \
     php7.2-mysql \
     php7.2-pgsql \
     php7.2-sqlite3 \
