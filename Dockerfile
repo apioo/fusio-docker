@@ -126,9 +126,6 @@ VOLUME /var/www/html/fusio/public
 # start memcache
 RUN service memcached start
 
-# healthcheck
-HEALTHCHECK CMD curl -f "${FUSIO_URL}/export/health" || exit 1;
-
 # add entrypoint
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
