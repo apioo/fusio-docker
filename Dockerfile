@@ -43,7 +43,8 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install \
     apache2 \
     memcached \
     libapache2-mod-php7.2 \
-    php7.2
+    php7.2 \
+    mysql-client
 
 # install php7 extensions
 RUN apt-get update && apt-get -y install \
