@@ -16,7 +16,7 @@ install:
   - if [ "$TRAVIS_TAG" != '' ]; then docker build --tag fusio/fusio:$TRAVIS_TAG .; fi;
   - composer install
   - docker-compose up -d
-  - 'while [[ $(curl -v -s -o /dev/null -w "%{http_code}" acme.com:8080) != "200" ]]; do sleep 5; done'
+  - 'while [[ $(curl -s -o /dev/null -w "%{http_code}" acme.com:8080) != "200" ]]; do sleep 5; done'
 script:
   - vendor/bin/phpunit
 before_deploy:
