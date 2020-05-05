@@ -101,14 +101,15 @@ COPY ./etc/php/99-custom.ini /etc/php/7.2/apache2/conf.d/99-custom.ini
 COPY ./etc/php/99-custom.ini /etc/php/7.2/cli/conf.d/99-custom.ini
 
 # install additional connectors
-RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-amqp
-RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-beanstalk
-RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-elasticsearch
-RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-memcache
-RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-mongodb
-RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-redis
-RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-smtp
-RUN cd /var/www/html/fusio && /usr/bin/composer require fusio/adapter-soap
+RUN cd /var/www/html/fusio && \
+    /usr/bin/composer require fusio/adapter-amqp && \
+    /usr/bin/composer require fusio/adapter-beanstalk && \
+    /usr/bin/composer require fusio/adapter-elasticsearch && \
+    /usr/bin/composer require fusio/adapter-memcache && \
+    /usr/bin/composer require fusio/adapter-mongodb && \
+    /usr/bin/composer require fusio/adapter-redis && \
+    /usr/bin/composer require fusio/adapter-smtp && \
+    /usr/bin/composer require fusio/adapter-soap
 
 # apache config
 RUN a2enmod rewrite
