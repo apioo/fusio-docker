@@ -30,7 +30,7 @@ ENV RECAPTCHA_SECRET ""
 ENV FUSIO_MEMCACHE_HOST "localhost"
 ENV FUSIO_MEMCACHE_PORT "11211"
 
-ENV FUSIO_VERSION "v1.9.4"
+ENV FUSIO_VERSION "1.9.4"
 
 ENV COMPOSER_VERSION "1.10.5"
 ENV COMPOSER_SHA256 "d5f3fddd0be28a5fc9bf2634a06f51bc9bd581fabda93fee7ca8ca781ae43129"
@@ -71,7 +71,7 @@ RUN echo "${COMPOSER_SHA256} */usr/bin/composer" | sha256sum -c -
 RUN chmod +x /usr/bin/composer
 
 # install fusio
-RUN wget -O /var/www/html/fusio.zip "https://github.com/apioo/fusio/archive/${FUSIO_VERSION}.zip"
+RUN wget -O /var/www/html/fusio.zip "https://github.com/apioo/fusio/archive/v${FUSIO_VERSION}.zip"
 RUN cd /var/www/html && unzip fusio.zip
 RUN cd /var/www/html && mv fusio-${FUSIO_VERSION} fusio
 RUN cd /var/www/html/fusio && /usr/bin/composer install
