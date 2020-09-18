@@ -30,7 +30,7 @@ ENV RECAPTCHA_SECRET ""
 ENV FUSIO_MEMCACHE_HOST "localhost"
 ENV FUSIO_MEMCACHE_PORT "11211"
 
-ENV FUSIO_VERSION "master"
+ENV FUSIO_VERSION "v1.9.4"
 
 ENV COMPOSER_VERSION "1.10.5"
 ENV COMPOSER_SHA256 "d5f3fddd0be28a5fc9bf2634a06f51bc9bd581fabda93fee7ca8ca781ae43129"
@@ -103,14 +103,14 @@ COPY ./etc/php/99-custom.ini /etc/php/7.2/cli/conf.d/99-custom.ini
 
 # install additional connectors
 RUN cd /var/www/html/fusio && \
-    /usr/bin/composer require fusio/adapter-amqp && \
-    /usr/bin/composer require fusio/adapter-beanstalk && \
-    /usr/bin/composer require fusio/adapter-elasticsearch && \
-    /usr/bin/composer require fusio/adapter-memcache && \
-    /usr/bin/composer require fusio/adapter-mongodb && \
-    /usr/bin/composer require fusio/adapter-redis && \
-    /usr/bin/composer require fusio/adapter-smtp && \
-    /usr/bin/composer require fusio/adapter-soap
+    /usr/bin/composer require fusio/adapter-amqp ^3.0 && \
+    /usr/bin/composer require fusio/adapter-beanstalk ^3.0 && \
+    /usr/bin/composer require fusio/adapter-elasticsearch ^3.0 && \
+    /usr/bin/composer require fusio/adapter-memcache ^3.0 && \
+    /usr/bin/composer require fusio/adapter-mongodb ^3.0 && \
+    /usr/bin/composer require fusio/adapter-redis ^3.0 && \
+    /usr/bin/composer require fusio/adapter-smtp ^3.0 && \
+    /usr/bin/composer require fusio/adapter-soap ^3.0
 
 # apache config
 RUN a2enmod rewrite
