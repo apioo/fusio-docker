@@ -3,7 +3,7 @@
  * Fusio
  * A web-application to create dynamically RESTful APIs
  *
- * Copyright (C) 2015-2018 Christoph Kappestein <christoph.kappestein@gmail.com>
+ * Copyright (C) 2015-2020 Christoph Kappestein <christoph.kappestein@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -23,7 +23,6 @@ require_once(__DIR__ . '/../vendor/autoload.php');
 
 $container = require_once(__DIR__ . '/../container.php');
 
-$engine      = new \PSX\Framework\Environment\WebServer\Engine();
-$environment = new \PSX\Framework\Environment\Environment($container, $engine);
-
-return $environment->serve();
+$engine      = null;
+$environment = \PSX\Framework\Environment\Environment::fromContainer($container, $engine);
+$environment->serve();

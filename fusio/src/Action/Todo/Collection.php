@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Todo;
+namespace App\Action\Todo;
 
 use Fusio\Engine\ActionAbstract;
 use Fusio\Engine\ContextInterface;
@@ -20,7 +20,7 @@ class Collection extends ActionAbstract
                        insert_date AS insertDate 
                   FROM app_todo 
                  WHERE status = 1 
-              ORDER BY id ASC';
+              ORDER BY insert_date DESC';
 
         $sql = $connection->getDatabasePlatform()->modifyLimitQuery($sql, 16);
 

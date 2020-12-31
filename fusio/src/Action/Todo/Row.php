@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Todo;
+namespace App\Action\Todo;
 
 use Fusio\Engine\ActionAbstract;
 use Fusio\Engine\ContextInterface;
@@ -23,7 +23,7 @@ class Row extends ActionAbstract
                  WHERE id = :id';
 
         $todo = $connection->fetchAssoc($sql, [
-            'id' => $request->getUriFragment('todo_id')
+            'id' => $request->get('todo_id')
         ]);
 
         if (empty($todo)) {

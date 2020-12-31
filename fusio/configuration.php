@@ -2,23 +2,16 @@
 
 if (!getenv('FUSIO_ENV')) {
     $dotenv = new \Symfony\Component\Dotenv\Dotenv();
+    $dotenv->usePutenv(true);
     $dotenv->load(__DIR__ . '/.env');
 }
 
 return [
 
-    // Whether the implicit flow is allowed. This is mostly needed for 
-    // javascript apps
-    'fusio_grant_implicit'    => true,
-
-    // Expire times of the different tokens which can be issued
-    'fusio_expire_implicit'   => 'PT1H',
-    'fusio_expire_app'        => 'P2D',
-    'fusio_expire_backend'    => 'PT1H',
-    'fusio_expire_consumer'   => 'PT1H',
-
-    // How long can you use the refresh token after the access token was
-    // generated
+    // OAuth2 access token expiration settings. How long can you use an access
+    // token and the refresh token. After the expiration a user either need to
+    // use a refresh token to extend the token or request a new token
+    'fusio_expire_token'      => 'P2D',
     'fusio_expire_refresh'    => 'P3D',
 
     // The secret key of a project. It is recommended to change this to another
@@ -111,7 +104,7 @@ return [
         'user'                => getenv('FUSIO_DB_USER'),
         'password'            => getenv('FUSIO_DB_PW'),
         'host'                => getenv('FUSIO_DB_HOST'),
-        'driver'              => 'pdo_mysql',
+        'driver'              => getenv('FUSIO_DB_DRIVER') ?: 'pdo_mysql',
         'driverOptions'       => [
             // dont emulate so that we can use prepared statements in limit clause
             \PDO::ATTR_EMULATE_PREPARES => false
@@ -131,7 +124,7 @@ return [
     ],
 
     // Global middleware which are applied before and after every request. Must
-    // bei either a classname, closure or PSX\Dispatch\FilterInterface instance
+    // bei either a classname, closure or PSX\Http\FilterInterface instance
     //'psx_filter_pre'          => [],
     //'psx_filter_post'         => [],
 

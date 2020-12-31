@@ -9,10 +9,11 @@
 routes: !include resources/routes.yaml
 
 # ------------------------------------------------------------------------------
-# Contains all available schema definitions. Each schema reference a json file
-# which contains a json schema. These schema names can be referenced in a route.
+# Optional contains all available schema definitions. Each schema reference a json file
+# which contains a type schema. These schema names can be referenced in a route.
+# You dont need this in case your route directly references a model class.
 # Documentation: https://fusio.readthedocs.io/en/latest/development/deploy.html#schema
-schema: !include resources/schemas.yaml
+#schema: !include resources/schemas.yaml
 
 # ------------------------------------------------------------------------------
 # Contains all available connections to remote services i.e. a database or 
