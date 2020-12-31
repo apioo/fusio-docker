@@ -1,4 +1,4 @@
-FROM ubuntu:bionic
+FROM ubuntu:20.04
 MAINTAINER Christoph Kappestein <christoph.kappestein@apioo.de>
 LABEL version="1.0"
 LABEL description="Fusio API management"
@@ -30,7 +30,7 @@ ENV RECAPTCHA_SECRET ""
 ENV FUSIO_MEMCACHE_HOST "localhost"
 ENV FUSIO_MEMCACHE_PORT "11211"
 
-ENV FUSIO_VERSION "1.9.4"
+ENV FUSIO_VERSION "2.0.0-RC1"
 
 ENV COMPOSER_VERSION "1.10.5"
 ENV COMPOSER_SHA256 "d5f3fddd0be28a5fc9bf2634a06f51bc9bd581fabda93fee7ca8ca781ae43129"
@@ -42,26 +42,26 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install \
     unzip \
     apache2 \
     memcached \
-    libapache2-mod-php7.2 \
-    php7.2 \
+    libapache2-mod-php7.4 \
+    php7.4 \
     mysql-client
 
 # install php7 extensions
 RUN apt-get update && apt-get -y install \
-    php7.2-mysql \
-    php7.2-pgsql \
-    php7.2-sqlite3 \
-    php7.2-simplexml \
-    php7.2-dom \
-    php7.2-bcmath \
-    php7.2-curl \
-    php7.2-zip \
-    php7.2-mbstring \
-    php7.2-intl \
-    php7.2-xml \
-    php7.2-curl \
-    php7.2-gd \
-    php7.2-soap \
+    php7.4-mysql \
+    php7.4-pgsql \
+    php7.4-sqlite3 \
+    php7.4-simplexml \
+    php7.4-dom \
+    php7.4-bcmath \
+    php7.4-curl \
+    php7.4-zip \
+    php7.4-mbstring \
+    php7.4-intl \
+    php7.4-xml \
+    php7.4-curl \
+    php7.4-gd \
+    php7.4-soap \
     php-memcached \
     php-mongodb
 
@@ -98,19 +98,19 @@ RUN mkdir -p /run/apache2/
 RUN chmod a+rwx /run/apache2/
 
 # php config
-COPY ./etc/php/99-custom.ini /etc/php/7.2/apache2/conf.d/99-custom.ini
-COPY ./etc/php/99-custom.ini /etc/php/7.2/cli/conf.d/99-custom.ini
+COPY ./etc/php/99-custom.ini /etc/php/7.4/apache2/conf.d/99-custom.ini
+COPY ./etc/php/99-custom.ini /etc/php/7.4/cli/conf.d/99-custom.ini
 
 # install additional connectors
 RUN cd /var/www/html/fusio && \
-    /usr/bin/composer require fusio/adapter-amqp ^3.0 && \
-    /usr/bin/composer require fusio/adapter-beanstalk ^3.0 && \
-    /usr/bin/composer require fusio/adapter-elasticsearch ^3.0 && \
-    /usr/bin/composer require fusio/adapter-memcache ^3.0 && \
-    /usr/bin/composer require fusio/adapter-mongodb ^3.0 && \
-    /usr/bin/composer require fusio/adapter-redis ^3.0 && \
-    /usr/bin/composer require fusio/adapter-smtp ^3.0 && \
-    /usr/bin/composer require fusio/adapter-soap ^3.0
+    /usr/bin/composer require fusio/adapter-amqp ^4.0 && \
+    /usr/bin/composer require fusio/adapter-beanstalk ^4.0 && \
+    /usr/bin/composer require fusio/adapter-elasticsearch ^4.0 && \
+    /usr/bin/composer require fusio/adapter-memcache ^4.0 && \
+    /usr/bin/composer require fusio/adapter-mongodb ^4.0 && \
+    /usr/bin/composer require fusio/adapter-redis ^4.0 && \
+    /usr/bin/composer require fusio/adapter-smtp ^4.0 && \
+    /usr/bin/composer require fusio/adapter-soap ^4.0
 
 # apache config
 RUN a2enmod rewrite
