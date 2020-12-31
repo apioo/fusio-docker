@@ -27,7 +27,7 @@ fi
 php bin/fusio system:check user
 exitCode=$?
 if [ $exitCode -ne 0 ]; then
-    php bin/fusio user:add --status=1 --username="$FUSIO_BACKEND_USER" --email="$FUSIO_BACKEND_EMAIL" --password="$FUSIO_BACKEND_PW"
+    php bin/fusio user:add --role=1 --username="$FUSIO_BACKEND_USER" --email="$FUSIO_BACKEND_EMAIL" --password="$FUSIO_BACKEND_PW"
 
     # register adapters
     php bin/fusio system:register -y "Fusio\Adapter\Amqp\Adapter"
