@@ -35,7 +35,7 @@ services:
 
   # Fusio system database
   mysql_fusio:
-    image: mysql:5.7
+    image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: "7f3e5186032a"
       MYSQL_USER: "fusio"
