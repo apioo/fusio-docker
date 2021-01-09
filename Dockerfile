@@ -75,18 +75,15 @@ RUN wget -O /var/www/html/fusio.zip "https://github.com/apioo/fusio/archive/v${F
 RUN cd /var/www/html && unzip fusio.zip
 RUN cd /var/www/html && mv fusio-${FUSIO_VERSION} fusio
 RUN cd /var/www/html/fusio && /usr/bin/composer install
-COPY ./fusio/resources /var/www/html/fusio/resources
-COPY ./fusio/src /var/www/html/fusio/src
-COPY ./fusio/.env /var/www/html/fusio/.env
-COPY ./fusio/.fusio.yml /var/www/html/fusio/.fusio.yml
-COPY ./fusio/configuration.php /var/www/html/fusio/configuration.php
-COPY ./fusio/container.php /var/www/html/fusio/container.php
+COPY ./fusio /var/www/html/fusio
 RUN chown -R www-data: /var/www/html/fusio
 RUN chmod +x /var/www/html/fusio/bin/fusio
 
-# remove install file
+# remove files
+RUN rm /var/www/html/fusio/apps/.htaccess
 RUN rm /var/www/html/fusio/public/install.php
 RUN rm /var/www/html/fusio/public/.htaccess
+RUN rm /var/www/html/fusio/.htaccess
 
 # apache config
 COPY ./etc/apache2/apache2.conf /etc/apache2/apache2.conf
