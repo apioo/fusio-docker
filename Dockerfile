@@ -91,9 +91,12 @@ RUN rm /var/www/html/fusio/public/.htaccess
 # apache config
 COPY ./etc/apache2/apache2.conf /etc/apache2/apache2.conf
 COPY ./etc/apache2/ports.conf /etc/apache2/ports.conf
-COPY ./etc/apache2/conf-available/other-vhosts-access-log.conf /etc/apache2/conf-available/other-vhosts-access-log.conf
-RUN touch /etc/apache2/sites-available/000-fusio.conf
-RUN chmod a+rwx /etc/apache2/sites-available/000-fusio.conf
+COPY ./etc/apache2/sites-available/000-fusio.conf /etc/apache2/sites-available/000-fusio.conf
+
+# set correct host name
+RUN sed -i 's/api.acme.com/${FUSIO_HOST}/g' /etc/apache2/sites-available/000-fusio.conf
+RUN sed -i 's/apps.acme.com/apps.${FUSIO_HOST}/g' /etc/apache2/sites-available/000-fusio.conf
+
 RUN mkdir -p /run/apache2/
 RUN chmod a+rwx /run/apache2/
 
