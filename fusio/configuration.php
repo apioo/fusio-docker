@@ -73,15 +73,6 @@ return [
     // file
     'fusio_cron_exec'         => '/usr/bin/php ' . __DIR__ . '/bin/fusio',
 
-    // The web server type, based on this type Fusio generates the fitting
-    // configuration format
-    'fusio_server_type'       => \Fusio\Impl\Service\System\WebServer::APACHE2,
-
-    // Location of the automatically generated web server config file. Note
-    // Fusio writes only to this file if it exists. Also you may need to restart
-    // the web server so that the config changes take affect
-    'fusio_server_conf'       => '/etc/apache2/sites-available/000-fusio.conf',
-
     // The public url to the public folder (i.e. http://acme.com/public or 
     // http://acme.com)
     'psx_url'                 => getenv('FUSIO_URL'),
