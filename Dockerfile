@@ -6,8 +6,8 @@ LABEL description="Fusio API management"
 # env
 ENV FUSIO_PROJECT_KEY "42eec18ffdbffc9fda6110dcc705d6ce"
 ENV FUSIO_HOST "acme.com"
-ENV FUSIO_URL "http://acme.com"
-ENV FUSIO_APPS_URL "http://apps.acme.com"
+ENV FUSIO_URL "http://${FUSIO_HOST}"
+ENV FUSIO_APPS_URL "${FUSIO_URL}/apps"
 ENV FUSIO_ENV "prod"
 ENV FUSIO_DB_NAME "fusio"
 ENV FUSIO_DB_USER "fusio"
@@ -32,8 +32,8 @@ ENV FUSIO_MEMCACHE_PORT "11211"
 
 ENV FUSIO_VERSION "2.0.0-RC1"
 
-ENV COMPOSER_VERSION "1.10.5"
-ENV COMPOSER_SHA256 "d5f3fddd0be28a5fc9bf2634a06f51bc9bd581fabda93fee7ca8ca781ae43129"
+ENV COMPOSER_VERSION "2.0.9"
+ENV COMPOSER_SHA256 "24faa5bc807e399f32e9a21a33fbb5b0686df9c8850efabe2c047c2ccfb9f9cc"
 
 # install default packages
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install \
@@ -89,10 +89,6 @@ RUN rm /var/www/html/fusio/.htaccess
 COPY ./etc/apache2/apache2.conf /etc/apache2/apache2.conf
 COPY ./etc/apache2/ports.conf /etc/apache2/ports.conf
 COPY ./etc/apache2/sites-available/000-fusio.conf /etc/apache2/sites-available/000-fusio.conf
-
-# set correct host name
-RUN sed -i 's/api.acme.com/${FUSIO_HOST}/g' /etc/apache2/sites-available/000-fusio.conf
-RUN sed -i 's/apps.acme.com/apps.${FUSIO_HOST}/g' /etc/apache2/sites-available/000-fusio.conf
 
 RUN mkdir -p /run/apache2/
 RUN chmod a+rwx /run/apache2/
