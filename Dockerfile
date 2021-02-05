@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM php:7.4-apache
 MAINTAINER Christoph Kappestein <christoph.kappestein@apioo.de>
 LABEL version="1.0"
 LABEL description="Fusio API management"
@@ -30,40 +30,40 @@ ENV RECAPTCHA_SECRET ""
 ENV FUSIO_MEMCACHE_HOST "localhost"
 ENV FUSIO_MEMCACHE_PORT "11211"
 
-ENV FUSIO_VERSION "2.0.0-RC1"
+ENV FUSIO_VERSION "master"
 
 ENV COMPOSER_VERSION "2.0.9"
 ENV COMPOSER_SHA256 "24faa5bc807e399f32e9a21a33fbb5b0686df9c8850efabe2c047c2ccfb9f9cc"
 
+ENV APACHE_DOCUMENT_ROOT /var/www/html/fusio/public
+
 # install default packages
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install \
+RUN apt-get update && apt-get -y install \
     wget \
     git \
     unzip \
-    apache2 \
     memcached \
-    libapache2-mod-php7.4 \
-    php7.4 \
     mysql-client
 
-# install php7 extensions
-RUN apt-get update && apt-get -y install \
-    php7.4-mysql \
-    php7.4-pgsql \
-    php7.4-sqlite3 \
-    php7.4-simplexml \
-    php7.4-dom \
-    php7.4-bcmath \
-    php7.4-curl \
-    php7.4-zip \
-    php7.4-mbstring \
-    php7.4-intl \
-    php7.4-xml \
-    php7.4-curl \
-    php7.4-gd \
-    php7.4-soap \
-    php-memcached \
-    php-mongodb
+# install php extensions
+RUN docker-php-ext-install \
+    pdo \
+    pdo_mysql \
+    pdo_pgsql \
+    simplexml \
+    dom \
+    bcmath \
+    curl \
+    zip \
+    mbstring \
+    intl \
+    xml \
+    gd \
+    soap
+
+RUN docker-php-ext-enable \
+    memcached \
+    mongodb
 
 # install composer
 RUN wget -O /usr/bin/composer https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar
@@ -71,7 +71,7 @@ RUN echo "${COMPOSER_SHA256} */usr/bin/composer" | sha256sum -c -
 RUN chmod +x /usr/bin/composer
 
 # install fusio
-RUN wget -O /var/www/html/fusio.zip "https://github.com/apioo/fusio/archive/v${FUSIO_VERSION}.zip"
+RUN wget -O /var/www/html/fusio.zip "https://github.com/apioo/fusio/archive/${FUSIO_VERSION}.zip"
 RUN cd /var/www/html && unzip fusio.zip
 RUN cd /var/www/html && mv fusio-${FUSIO_VERSION} fusio
 RUN cd /var/www/html/fusio && /usr/bin/composer install
@@ -80,22 +80,16 @@ RUN chown -R www-data: /var/www/html/fusio
 RUN chmod +x /var/www/html/fusio/bin/fusio
 
 # remove files
-RUN rm /var/www/html/fusio/apps/.htaccess
 RUN rm /var/www/html/fusio/public/install.php
-RUN rm /var/www/html/fusio/public/.htaccess
-RUN rm /var/www/html/fusio/.htaccess
 
 # apache config
-COPY ./etc/apache2/apache2.conf /etc/apache2/apache2.conf
-COPY ./etc/apache2/ports.conf /etc/apache2/ports.conf
-COPY ./etc/apache2/sites-available/000-fusio.conf /etc/apache2/sites-available/000-fusio.conf
-
-RUN mkdir -p /run/apache2/
-RUN chmod a+rwx /run/apache2/
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+RUN a2enmod rewrite
+COPY ./etc/apache2/000-default.conf /etc/apache2/sites-available/000-default.conf
 
 # php config
-COPY ./etc/php/99-custom.ini /etc/php/7.4/apache2/conf.d/99-custom.ini
-COPY ./etc/php/99-custom.ini /etc/php/7.4/cli/conf.d/99-custom.ini
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 # install additional connectors
 RUN cd /var/www/html/fusio && \
@@ -108,17 +102,11 @@ RUN cd /var/www/html/fusio && \
     /usr/bin/composer require fusio/adapter-smtp ^4.0 && \
     /usr/bin/composer require fusio/adapter-soap ^4.0
 
-# apache config
-RUN a2enmod rewrite
-RUN a2dissite 000-default
-RUN a2ensite 000-fusio
-
 # install cron
 RUN touch /etc/cron.d/fusio
 RUN chmod a+rwx /etc/cron.d/fusio
 
 # mount volumes
-VOLUME /var/www/html/fusio/apps
 VOLUME /var/www/html/fusio/public
 
 # start memcache
