@@ -33,6 +33,7 @@ services:
   # Fusio system database
   mysql_fusio:
     image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: "7f3e5186032a"
       MYSQL_USER: "fusio"
