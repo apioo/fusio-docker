@@ -133,7 +133,7 @@ RUN chmod +x /docker-entrypoint.sh
 
 # clean up files
 RUN rm /var/www/html/fusio.zip
-RUN rm /tmp/pear
+RUN rm -r /tmp/pear
 
 EXPOSE 80
 
