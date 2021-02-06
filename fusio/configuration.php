@@ -122,11 +122,11 @@ return [
     // A closure which returns a doctrine cache implementation. If null the
     // filesystem cache is used
     'psx_cache_factory'       => function($config, $namespace){
-        $memcached = new \Memcached();
+        $memcached = new \Memcache();
         $memcached->addServer(getenv('FUSIO_MEMCACHE_HOST'), getenv('FUSIO_MEMCACHE_PORT'));
 
-        $memcache = new \Doctrine\Common\Cache\MemcachedCache();
-        $memcache->setMemcached($memcached);
+        $memcache = new \Doctrine\Common\Cache\MemcacheCache();
+        $memcache->setMemcache($memcached);
         $memcache->setNamespace($namespace);
 
         return $memcache;
