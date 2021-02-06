@@ -1,9 +1,7 @@
 #!/bin/bash
 
 # wait for mysql server
-while ! mysqladmin ping -h"$FUSIO_DB_HOST" --silent; do
-    sleep 1
-done
+/wait-for-it.sh "$FUSIO_DB_HOST:3306"
 
 pushd /var/www/html/fusio
 

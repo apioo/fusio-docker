@@ -30,7 +30,7 @@ ENV RECAPTCHA_SECRET ""
 ENV FUSIO_MEMCACHE_HOST "localhost"
 ENV FUSIO_MEMCACHE_PORT "11211"
 
-ENV FUSIO_VERSION "master"
+ENV FUSIO_VERSION "2.0.0"
 
 ENV COMPOSER_VERSION "2.0.9"
 ENV COMPOSER_SHA256 "24faa5bc807e399f32e9a21a33fbb5b0686df9c8850efabe2c047c2ccfb9f9cc"
@@ -42,8 +42,7 @@ RUN apt-get update && apt-get -y install \
     wget \
     git \
     unzip \
-    memcached \
-    mysql-client
+    memcached
 
 # install php extensions
 RUN docker-php-ext-install \
@@ -113,6 +112,8 @@ VOLUME /var/www/html/fusio/public
 RUN service memcached start
 
 # add entrypoint
+COPY ./wait-for-it.sh /wait-for-it.sh
+RUN chmod +x /wait-for-it.sh
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 
