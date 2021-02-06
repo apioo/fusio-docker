@@ -1,6 +1,6 @@
 FROM php:7.4-apache
 MAINTAINER Christoph Kappestein <christoph.kappestein@apioo.de>
-LABEL version="1.0"
+LABEL version="2.0"
 LABEL description="Fusio API management"
 
 # env
@@ -42,10 +42,19 @@ RUN apt-get update && apt-get -y install \
     wget \
     git \
     unzip \
-    memcached
+    cron \
+    memcached \
+    libpq-dev \
+    libxml2-dev \
+    libcurl3-dev \
+    libzip-dev \
+    libonig-dev \
+    libpng-dev \
+    libmemcached-dev
 
 # install php extensions
 RUN docker-php-ext-install \
+    pgsql \
     pdo \
     pdo_mysql \
     pdo_pgsql \
@@ -60,8 +69,12 @@ RUN docker-php-ext-install \
     gd \
     soap
 
+# install pecl
+RUN pecl install memcache-4.0.5.2 \
+    && pecl install mongodb-1.9.0
+
 RUN docker-php-ext-enable \
-    memcached \
+    memcache \
     mongodb
 
 # install composer
@@ -70,7 +83,7 @@ RUN echo "${COMPOSER_SHA256} */usr/bin/composer" | sha256sum -c -
 RUN chmod +x /usr/bin/composer
 
 # install fusio
-RUN wget -O /var/www/html/fusio.zip "https://github.com/apioo/fusio/archive/${FUSIO_VERSION}.zip"
+RUN wget -O /var/www/html/fusio.zip "https://github.com/apioo/fusio/archive/v${FUSIO_VERSION}.zip"
 RUN cd /var/www/html && unzip fusio.zip
 RUN cd /var/www/html && mv fusio-${FUSIO_VERSION} fusio
 RUN cd /var/www/html/fusio && /usr/bin/composer install
@@ -82,10 +95,11 @@ RUN chmod +x /var/www/html/fusio/bin/fusio
 RUN rm /var/www/html/fusio/public/install.php
 
 # apache config
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+COPY ./apache/fusio.conf /etc/apache2/conf-available/fusio.conf
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/000-default.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+RUN sed -ri -e 's!#Include conf-available/serve-cgi-bin.conf!Include conf-available/fusio.conf!g' /etc/apache2/sites-available/000-default.conf
 RUN a2enmod rewrite
-COPY ./etc/apache2/000-default.conf /etc/apache2/sites-available/000-default.conf
 
 # php config
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
@@ -117,6 +131,10 @@ RUN chmod +x /wait-for-it.sh
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 
-EXPOSE 8080
+# clean up files
+RUN rm /var/www/html/fusio.zip
+RUN rm /tmp/pear
+
+EXPOSE 80
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
