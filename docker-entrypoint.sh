@@ -1,9 +1,7 @@
 #!/bin/bash
 
 # wait for mysql server
-while ! mysqladmin ping -h"$FUSIO_DB_HOST" --silent; do
-    sleep 1
-done
+/wait-for-it.sh "$FUSIO_DB_HOST:3306"
 
 pushd /var/www/html/fusio
 
@@ -13,16 +11,6 @@ exitCode=$?
 if [ $exitCode -ne 0 ]; then
     # migrate fusio
     php bin/fusio migration:migrate --no-interaction
-
-    # register adapters
-    php bin/fusio system:register -y "Fusio\Adapter\Amqp\Adapter"
-    php bin/fusio system:register -y "Fusio\Adapter\Beanstalk\Adapter"
-    php bin/fusio system:register -y "Fusio\Adapter\Elasticsearch\Adapter"
-    php bin/fusio system:register -y "Fusio\Adapter\Memcache\Adapter"
-    php bin/fusio system:register -y "Fusio\Adapter\Mongodb\Adapter"
-    php bin/fusio system:register -y "Fusio\Adapter\Redis\Adapter"
-    php bin/fusio system:register -y "Fusio\Adapter\Smtp\Adapter"
-    php bin/fusio system:register -y "Fusio\Adapter\Soap\Adapter"
 fi
 
 # install app
@@ -37,14 +25,26 @@ fi
 php bin/fusio system:check user
 exitCode=$?
 if [ $exitCode -ne 0 ]; then
-    php bin/fusio user:add --status=1 --username="$FUSIO_BACKEND_USER" --email="$FUSIO_BACKEND_EMAIL" --password="$FUSIO_BACKEND_PW"
+    php bin/fusio adduser --role=1 --username="$FUSIO_BACKEND_USER" --email="$FUSIO_BACKEND_EMAIL" --password="$FUSIO_BACKEND_PW"
+
+    # register adapters
+    php bin/fusio system:register -y "Fusio\Adapter\Amqp\Adapter"
+    php bin/fusio system:register -y "Fusio\Adapter\Beanstalk\Adapter"
+    php bin/fusio system:register -y "Fusio\Adapter\Elasticsearch\Adapter"
+    php bin/fusio system:register -y "Fusio\Adapter\Memcache\Adapter"
+    php bin/fusio system:register -y "Fusio\Adapter\Mongodb\Adapter"
+    php bin/fusio system:register -y "Fusio\Adapter\Redis\Adapter"
+    php bin/fusio system:register -y "Fusio\Adapter\Smtp\Adapter"
+    php bin/fusio system:register -y "Fusio\Adapter\Soap\Adapter"
+
+    # install backend app
+    php bin/fusio marketplace:install fusio
 fi
 
 # deploy
+php bin/fusio login --username="$FUSIO_BACKEND_USER" --password="$FUSIO_BACKEND_PW"
 php bin/fusio deploy
-
-# install backend app
-php bin/fusio marketplace:install fusio
+php bin/fusio logout
 
 popd
 

@@ -2,23 +2,16 @@
 
 if (!getenv('FUSIO_ENV')) {
     $dotenv = new \Symfony\Component\Dotenv\Dotenv();
+    $dotenv->usePutenv(true);
     $dotenv->load(__DIR__ . '/.env');
 }
 
 return [
 
-    // Whether the implicit flow is allowed. This is mostly needed for 
-    // javascript apps
-    'fusio_grant_implicit'    => true,
-
-    // Expire times of the different tokens which can be issued
-    'fusio_expire_implicit'   => 'PT1H',
-    'fusio_expire_app'        => 'P2D',
-    'fusio_expire_backend'    => 'PT1H',
-    'fusio_expire_consumer'   => 'PT1H',
-
-    // How long can you use the refresh token after the access token was
-    // generated
+    // OAuth2 access token expiration settings. How long can you use an access
+    // token and the refresh token. After the expiration a user either need to
+    // use a refresh token to extend the token or request a new token
+    'fusio_expire_token'      => 'P2D',
     'fusio_expire_refresh'    => 'P3D',
 
     // The secret key of a project. It is recommended to change this to another
@@ -69,7 +62,7 @@ return [
     // Location where the apps are persisted from the marketplace. By default
     // this is the public dir to access the apps directly, but it is also
     // possible to specify a different folder
-    'fusio_apps_dir'          => __DIR__ . '/apps',
+    'fusio_apps_dir'          => __DIR__ . '/public/apps',
 
     // Location of the automatically generated cron file. Note Fusio writes only
     // to this file if it exists. In order to use the cronjob service you need
@@ -79,15 +72,6 @@ return [
     // Command to execute the Fusio console which is used in the generated cron
     // file
     'fusio_cron_exec'         => '/usr/bin/php ' . __DIR__ . '/bin/fusio',
-
-    // The web server type, based on this type Fusio generates the fitting
-    // configuration format
-    'fusio_server_type'       => \Fusio\Impl\Service\System\WebServer::APACHE2,
-
-    // Location of the automatically generated web server config file. Note
-    // Fusio writes only to this file if it exists. Also you may need to restart
-    // the web server so that the config changes take affect
-    'fusio_server_conf'       => '/etc/apache2/sites-available/000-fusio.conf',
 
     // The public url to the public folder (i.e. http://acme.com/public or 
     // http://acme.com)
@@ -111,7 +95,7 @@ return [
         'user'                => getenv('FUSIO_DB_USER'),
         'password'            => getenv('FUSIO_DB_PW'),
         'host'                => getenv('FUSIO_DB_HOST'),
-        'driver'              => 'pdo_mysql',
+        'driver'              => getenv('FUSIO_DB_DRIVER') ?: 'pdo_mysql',
         'driverOptions'       => [
             // dont emulate so that we can use prepared statements in limit clause
             \PDO::ATTR_EMULATE_PREPARES => false
@@ -131,18 +115,18 @@ return [
     ],
 
     // Global middleware which are applied before and after every request. Must
-    // bei either a classname, closure or PSX\Dispatch\FilterInterface instance
+    // bei either a classname, closure or PSX\Http\FilterInterface instance
     //'psx_filter_pre'          => [],
     //'psx_filter_post'         => [],
 
     // A closure which returns a doctrine cache implementation. If null the
     // filesystem cache is used
     'psx_cache_factory'       => function($config, $namespace){
-        $memcached = new \Memcached();
+        $memcached = new \Memcache();
         $memcached->addServer(getenv('FUSIO_MEMCACHE_HOST'), getenv('FUSIO_MEMCACHE_PORT'));
 
-        $memcache = new \Doctrine\Common\Cache\MemcachedCache();
-        $memcache->setMemcached($memcached);
+        $memcache = new \Doctrine\Common\Cache\MemcacheCache();
+        $memcache->setMemcache($memcached);
         $memcache->setNamespace($namespace);
 
         return $memcache;

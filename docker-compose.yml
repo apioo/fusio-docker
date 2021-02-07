@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
   # Fusio container
   fusio:
@@ -6,8 +6,6 @@ services:
     environment:
       FUSIO_PROJECT_KEY: "42eec18ffdbffc9fda6110dcc705d6ce"
       FUSIO_HOST: "acme.com"
-      FUSIO_URL: "http://acme.com"
-      FUSIO_APPS_URL: "http://apps.acme.com"
       FUSIO_ENV: "prod"
       FUSIO_DB_NAME: "fusio"
       FUSIO_DB_USER: "fusio"
@@ -28,14 +26,14 @@ services:
     links:
       - mysql_fusio
     ports:
-      - "80:8080"
+      - "80:80"
     volumes:
-      - ./apps:/var/www/html/fusio/apps
       - ./public:/var/www/html/fusio/public
 
   # Fusio system database
   mysql_fusio:
-    image: mysql:5.7
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: "7f3e5186032a"
       MYSQL_USER: "fusio"

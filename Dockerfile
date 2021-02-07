@@ -1,13 +1,13 @@
-FROM ubuntu:bionic
+FROM php:7.4-apache
 MAINTAINER Christoph Kappestein <christoph.kappestein@apioo.de>
-LABEL version="1.0"
+LABEL version="2.0"
 LABEL description="Fusio API management"
 
 # env
 ENV FUSIO_PROJECT_KEY "42eec18ffdbffc9fda6110dcc705d6ce"
 ENV FUSIO_HOST "acme.com"
-ENV FUSIO_URL "http://acme.com"
-ENV FUSIO_APPS_URL "http://apps.acme.com"
+ENV FUSIO_URL "http://${FUSIO_HOST}"
+ENV FUSIO_APPS_URL "${FUSIO_URL}/apps"
 ENV FUSIO_ENV "prod"
 ENV FUSIO_DB_NAME "fusio"
 ENV FUSIO_DB_USER "fusio"
@@ -30,40 +30,52 @@ ENV RECAPTCHA_SECRET ""
 ENV FUSIO_MEMCACHE_HOST "localhost"
 ENV FUSIO_MEMCACHE_PORT "11211"
 
-ENV FUSIO_VERSION "1.9.4"
+ENV FUSIO_VERSION "2.0.0"
 
-ENV COMPOSER_VERSION "1.10.5"
-ENV COMPOSER_SHA256 "d5f3fddd0be28a5fc9bf2634a06f51bc9bd581fabda93fee7ca8ca781ae43129"
+ENV COMPOSER_VERSION "2.0.9"
+ENV COMPOSER_SHA256 "24faa5bc807e399f32e9a21a33fbb5b0686df9c8850efabe2c047c2ccfb9f9cc"
+
+ENV APACHE_DOCUMENT_ROOT /var/www/html/fusio/public
 
 # install default packages
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install \
+RUN apt-get update && apt-get -y install \
     wget \
     git \
     unzip \
-    apache2 \
+    cron \
     memcached \
-    libapache2-mod-php7.2 \
-    php7.2 \
-    mysql-client
+    libpq-dev \
+    libxml2-dev \
+    libcurl3-dev \
+    libzip-dev \
+    libonig-dev \
+    libpng-dev \
+    libmemcached-dev
 
-# install php7 extensions
-RUN apt-get update && apt-get -y install \
-    php7.2-mysql \
-    php7.2-pgsql \
-    php7.2-sqlite3 \
-    php7.2-simplexml \
-    php7.2-dom \
-    php7.2-bcmath \
-    php7.2-curl \
-    php7.2-zip \
-    php7.2-mbstring \
-    php7.2-intl \
-    php7.2-xml \
-    php7.2-curl \
-    php7.2-gd \
-    php7.2-soap \
-    php-memcached \
-    php-mongodb
+# install php extensions
+RUN docker-php-ext-install \
+    pgsql \
+    pdo \
+    pdo_mysql \
+    pdo_pgsql \
+    simplexml \
+    dom \
+    bcmath \
+    curl \
+    zip \
+    mbstring \
+    intl \
+    xml \
+    gd \
+    soap
+
+# install pecl
+RUN pecl install memcache-4.0.5.2 \
+    && pecl install mongodb-1.9.0
+
+RUN docker-php-ext-enable \
+    memcache \
+    mongodb
 
 # install composer
 RUN wget -O /usr/bin/composer https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar
@@ -75,63 +87,54 @@ RUN wget -O /var/www/html/fusio.zip "https://github.com/apioo/fusio/archive/v${F
 RUN cd /var/www/html && unzip fusio.zip
 RUN cd /var/www/html && mv fusio-${FUSIO_VERSION} fusio
 RUN cd /var/www/html/fusio && /usr/bin/composer install
-COPY ./fusio/resources /var/www/html/fusio/resources
-COPY ./fusio/src /var/www/html/fusio/src
-COPY ./fusio/.env /var/www/html/fusio/.env
-COPY ./fusio/.fusio.yml /var/www/html/fusio/.fusio.yml
-COPY ./fusio/configuration.php /var/www/html/fusio/configuration.php
-COPY ./fusio/container.php /var/www/html/fusio/container.php
+COPY ./fusio /var/www/html/fusio
 RUN chown -R www-data: /var/www/html/fusio
 RUN chmod +x /var/www/html/fusio/bin/fusio
 
-# remove install file
+# remove files
 RUN rm /var/www/html/fusio/public/install.php
-RUN rm /var/www/html/fusio/public/.htaccess
 
 # apache config
-COPY ./etc/apache2/apache2.conf /etc/apache2/apache2.conf
-COPY ./etc/apache2/ports.conf /etc/apache2/ports.conf
-COPY ./etc/apache2/conf-available/other-vhosts-access-log.conf /etc/apache2/conf-available/other-vhosts-access-log.conf
-RUN touch /etc/apache2/sites-available/000-fusio.conf
-RUN chmod a+rwx /etc/apache2/sites-available/000-fusio.conf
-RUN mkdir -p /run/apache2/
-RUN chmod a+rwx /run/apache2/
+COPY ./apache/fusio.conf /etc/apache2/conf-available/fusio.conf
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+RUN sed -ri -e 's!#Include conf-available/serve-cgi-bin.conf!Include conf-available/fusio.conf!g' /etc/apache2/sites-available/000-default.conf
+RUN a2enmod rewrite
 
 # php config
-COPY ./etc/php/99-custom.ini /etc/php/7.2/apache2/conf.d/99-custom.ini
-COPY ./etc/php/99-custom.ini /etc/php/7.2/cli/conf.d/99-custom.ini
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 # install additional connectors
 RUN cd /var/www/html/fusio && \
-    /usr/bin/composer require fusio/adapter-amqp ^3.0 && \
-    /usr/bin/composer require fusio/adapter-beanstalk ^3.0 && \
-    /usr/bin/composer require fusio/adapter-elasticsearch ^3.0 && \
-    /usr/bin/composer require fusio/adapter-memcache ^3.0 && \
-    /usr/bin/composer require fusio/adapter-mongodb ^3.0 && \
-    /usr/bin/composer require fusio/adapter-redis ^3.0 && \
-    /usr/bin/composer require fusio/adapter-smtp ^3.0 && \
-    /usr/bin/composer require fusio/adapter-soap ^3.0
-
-# apache config
-RUN a2enmod rewrite
-RUN a2dissite 000-default
-RUN a2ensite 000-fusio
+    /usr/bin/composer require fusio/adapter-amqp ^4.0 && \
+    /usr/bin/composer require fusio/adapter-beanstalk ^4.0 && \
+    /usr/bin/composer require fusio/adapter-elasticsearch ^4.0 && \
+    /usr/bin/composer require fusio/adapter-memcache ^4.0 && \
+    /usr/bin/composer require fusio/adapter-mongodb ^4.0 && \
+    /usr/bin/composer require fusio/adapter-redis ^4.0 && \
+    /usr/bin/composer require fusio/adapter-smtp ^4.0 && \
+    /usr/bin/composer require fusio/adapter-soap ^4.0
 
 # install cron
 RUN touch /etc/cron.d/fusio
 RUN chmod a+rwx /etc/cron.d/fusio
 
 # mount volumes
-VOLUME /var/www/html/fusio/apps
 VOLUME /var/www/html/fusio/public
 
 # start memcache
 RUN service memcached start
 
 # add entrypoint
+COPY ./wait-for-it.sh /wait-for-it.sh
+RUN chmod +x /wait-for-it.sh
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 
-EXPOSE 8080
+# clean up files
+RUN rm /var/www/html/fusio.zip
+RUN rm -r /tmp/pear
+
+EXPOSE 80
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
