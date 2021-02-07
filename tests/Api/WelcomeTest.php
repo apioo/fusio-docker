@@ -22,14 +22,34 @@ class WelcomeTest extends HttpTestCase
 
         $expect = <<<JSON
 {
-    "message": "Congratulations the installation of Fusio was successful",
-    "apiVersion": "v4.4.8@[hash]",
-    "links": [
-        {
-            "rel": "about",
-            "name": "http:\/\/fusio-project.org"
-        }
-    ]
+  "apiVersion": "5.0.0.0",
+  "title": "Fusio",
+  "links": [
+    {
+      "href": "http://acme.com/",
+      "rel": "root"
+    },
+    {
+      "href": "http://acme.com/system/export/openapi/*/*",
+      "rel": "openapi"
+    },
+    {
+      "href": "http://acme.com/system/jsonrpc",
+      "rel": "jsonrpc"
+    },
+    {
+      "href": "http://acme.com/authorization/token",
+      "rel": "oauth2"
+    },
+    {
+      "href": "http://acme.com/authorization/whoami",
+      "rel": "whoami"
+    },
+    {
+      "href": "https://www.fusio-project.org",
+      "rel": "about"
+    }
+  ]
 }
 JSON;
 
