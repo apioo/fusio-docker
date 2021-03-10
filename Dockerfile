@@ -50,10 +50,7 @@ RUN apt-get update && apt-get -y install \
     libzip-dev \
     libonig-dev \
     libpng-dev \
-    libmemcached-dev \
-    openssl \
-    libssl-dev \
-    libcurl4-openssl-dev
+    libmemcached-dev
 
 # install php extensions
 RUN docker-php-ext-install \
