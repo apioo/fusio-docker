@@ -9,7 +9,6 @@ addons:
     - acme.com
 before_install:
   - 'sed -i "s#image: fusio\/fusio#build: \.#g" docker-compose.yml'
-  - 'sed -i "s#80:80#8080:80#g" docker-compose.yml'
 install:
   - docker build --tag fusio/fusio:latest .
   - if [ "$TRAVIS_TAG" != '' ]; then docker build --tag fusio/fusio:$TRAVIS_TAG .; fi;
