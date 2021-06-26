@@ -26,23 +26,23 @@ class WelcomeTest extends HttpTestCase
   "title": "Fusio",
   "links": [
     {
-      "href": "http://acme.com/",
+      "href": "http://api.fusio.cloud/",
       "rel": "root"
     },
     {
-      "href": "http://acme.com/system/export/openapi/*/*",
+      "href": "http://api.fusio.cloud/system/export/openapi/*/*",
       "rel": "openapi"
     },
     {
-      "href": "http://acme.com/system/jsonrpc",
+      "href": "http://api.fusio.cloud/system/jsonrpc",
       "rel": "jsonrpc"
     },
     {
-      "href": "http://acme.com/authorization/token",
+      "href": "http://api.fusio.cloud/authorization/token",
       "rel": "oauth2"
     },
     {
-      "href": "http://acme.com/authorization/whoami",
+      "href": "http://api.fusio.cloud/authorization/whoami",
       "rel": "whoami"
     },
     {

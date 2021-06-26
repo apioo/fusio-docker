@@ -5,7 +5,7 @@ services:
     image: fusio/fusio
     environment:
       FUSIO_PROJECT_KEY: "42eec18ffdbffc9fda6110dcc705d6ce"
-      FUSIO_HOST: "acme.com"
+      FUSIO_HOST: "api.fusio.cloud"
       FUSIO_ENV: "prod"
       FUSIO_DB_NAME: "fusio"
       FUSIO_DB_USER: "fusio"
