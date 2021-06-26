@@ -44,7 +44,7 @@ class HttpTestCase extends TestCase
     {
         if (!self::$httpClient) {
             self::$httpClient = new Client([
-                'base_uri' => 'http://acme.com:8080'
+                'base_uri' => 'http://api.fusio.cloud:8080'
             ]);
         }
 
