@@ -22,8 +22,23 @@ class WelcomeTest extends HttpTestCase
 
         $expect = <<<JSON
 {
-  "apiVersion": "5.0.0.0",
+  "apiVersion": "5.0.3.0",
   "title": "Fusio",
+  "categories": [
+    "my_remote_dev",
+    "authorization",
+    "system",
+    "consumer",
+    "backend",
+    "default"
+  ],
+  "scopes": [
+    "default",
+    "todo"
+  ],
+  "apps": {
+    "fusio": "http://api.fusio.cloud/apps/fusio"
+  },
   "links": [
     {
       "href": "http://api.fusio.cloud/",
@@ -32,6 +47,18 @@ class WelcomeTest extends HttpTestCase
     {
       "href": "http://api.fusio.cloud/system/export/openapi/*/*",
       "rel": "openapi"
+    },
+    {
+      "href": "http://api.fusio.cloud/system/doc",
+      "rel": "documentation"
+    },
+    {
+      "href": "http://api.fusio.cloud/system/route",
+      "rel": "route"
+    },
+    {
+      "href": "http://api.fusio.cloud/system/health",
+      "rel": "health"
     },
     {
       "href": "http://api.fusio.cloud/system/jsonrpc",
