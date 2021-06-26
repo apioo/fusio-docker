@@ -36,39 +36,39 @@ class WelcomeTest extends HttpTestCase
     "todo"
   ],
   "apps": {
-    "fusio": "http://api.fusio.cloud/apps/fusio"
+    "fusio": "http://api.fusio.cloud:8080/apps/fusio"
   },
   "links": [
     {
-      "href": "http://api.fusio.cloud/",
+      "href": "http://api.fusio.cloud:8080/",
       "rel": "root"
     },
     {
-      "href": "http://api.fusio.cloud/system/export/openapi/*/*",
+      "href": "http://api.fusio.cloud:8080/system/export/openapi/*/*",
       "rel": "openapi"
     },
     {
-      "href": "http://api.fusio.cloud/system/doc",
+      "href": "http://api.fusio.cloud:8080/system/doc",
       "rel": "documentation"
     },
     {
-      "href": "http://api.fusio.cloud/system/route",
+      "href": "http://api.fusio.cloud:8080/system/route",
       "rel": "route"
     },
     {
-      "href": "http://api.fusio.cloud/system/health",
+      "href": "http://api.fusio.cloud:8080/system/health",
       "rel": "health"
     },
     {
-      "href": "http://api.fusio.cloud/system/jsonrpc",
+      "href": "http://api.fusio.cloud:8080/system/jsonrpc",
       "rel": "jsonrpc"
     },
     {
-      "href": "http://api.fusio.cloud/authorization/token",
+      "href": "http://api.fusio.cloud:8080/authorization/token",
       "rel": "oauth2"
     },
     {
-      "href": "http://api.fusio.cloud/authorization/whoami",
+      "href": "http://api.fusio.cloud:8080/authorization/whoami",
       "rel": "whoami"
     },
     {
