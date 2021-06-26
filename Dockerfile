@@ -5,7 +5,7 @@ LABEL description="Fusio API management"
 
 # env
 ENV FUSIO_PROJECT_KEY "42eec18ffdbffc9fda6110dcc705d6ce"
-ENV FUSIO_HOST "acme.com"
+ENV FUSIO_HOST "api.fusio.cloud"
 ENV FUSIO_URL "http://${FUSIO_HOST}"
 ENV FUSIO_APPS_URL "${FUSIO_URL}/apps"
 ENV FUSIO_ENV "prod"

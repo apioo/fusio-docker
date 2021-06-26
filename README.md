@@ -39,8 +39,8 @@ $ docker run -d --name fusio \
   -p 80:80 \
   --link fusio-db:db \
   -e "FUSIO_PROJECT_KEY=42eec18ffdbffc9fda6110dcc705d6ce" \
-  -e "FUSIO_HOST=acme.com" \
-  -e "FUSIO_URL=http://acme.com" \
+  -e "FUSIO_HOST=api.fusio.cloud" \
+  -e "FUSIO_URL=https://api.fusio.cloud" \
   -e "FUSIO_ENV=dev" \
   -e "FUSIO_DB_USER=fusio" \
   -e "FUSIO_DB_PW=61ad6c605975" \

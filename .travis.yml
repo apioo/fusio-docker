@@ -1,12 +1,12 @@
 sudo: required
 language: php
 php:
-  - 7.3
+  - 7.4
 services:
   - docker
 addons:
   hosts:
-    - acme.com
+    - api.fusio.cloud
 before_install:
   - 'sed -i "s#image: fusio\/fusio#build: \.#g" docker-compose.yml'
 install:
