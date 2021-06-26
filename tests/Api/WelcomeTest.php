@@ -25,7 +25,6 @@ class WelcomeTest extends HttpTestCase
   "apiVersion": "5.0.3.0",
   "title": "Fusio",
   "categories": [
-    "my_remote_dev",
     "authorization",
     "system",
     "consumer",
