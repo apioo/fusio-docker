@@ -25,7 +25,7 @@ jobs:
       - name: Replace image
         run: 'sed -i "s#image: fusio\/fusio#build: \.#g" docker-compose.yml'
       - name: Add hostname
-        run: 'sudo echo "127.0.0.1 api.fusio.cloud" >> /etc/hosts'
+        run: 'echo "127.0.0.1 api.fusio.cloud" | sudo tee -a /etc/hosts'
       - name: Start docker
         run: 'docker-compose up -d'
       - name: Wait for docker
