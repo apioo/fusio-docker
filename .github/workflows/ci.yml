@@ -1,0 +1,34 @@
+name: CI
+on:
+  - pull_request
+  - push
+jobs:
+  phpunit:
+    name: "PHPUnit (PHP: ${{ matrix.php-versions }})"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-versions:
+         - 7.3
+         - 7.4
+         - 8.0
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          coverage: none
+      - name: Composer install
+        run: composer install --no-interaction --no-ansi --no-progress
+      - name: Replace image
+        run: 'sed -i "s#image: fusio\/fusio#build: \.#g" docker-compose.yml'
+      - name: Add hostname
+        run: 'sudo echo "127.0.0.1 api.fusio.cloud" >> /etc/hosts'
+      - name: Start docker
+        run: 'docker-compose up -d'
+      - name: Wait for docker
+        run: 'while [[ $(curl -s -o /dev/null -w "%{http_code}" api.fusio.cloud:8080) != "200" ]]; do sleep 5; done'
+      - name: Run PHPUnit
+        run: vendor/bin/phpunit
