@@ -14,6 +14,8 @@ docker-compose up -d
 
 NOTE: You MUST change the default passwords which are defined in the 
 `docker-compose.yml` file before running this container on the internet.
+Also by default the hostname is `api.fusio.cloud` but you can adjust this
+via the env settings.
 
 ### Run
 
