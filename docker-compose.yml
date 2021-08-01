@@ -43,3 +43,13 @@ services:
       MYSQL_DATABASE: "fusio"
     volumes:
       - ./db:/var/lib/mysql
+
+  # Worker
+  worker_java:
+    image: fusio/worker-java
+  worker_javascript:
+    image: fusio/worker-javascript
+  worker_php:
+    image: fusio/worker-php
+  worker_python:
+    image: fusio/worker-python
