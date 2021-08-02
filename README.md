@@ -17,11 +17,17 @@ NOTE: You MUST change the default passwords which are defined in the
 Also by default the hostname is `api.fusio.cloud` but you can adjust this
 via the env settings.
 
+## Worker
+
+Besides the database we set up also different worker instances to enable
+the usage of different programming languages. If you dont need support
+for these programming languages you can disable them in the configuration.
+Fusio will also work if these instances are not available.
+
 ### Run
 
-If you dont want/can use the `docker-compose` command you can create and link 
-the needed containers also manually. Therefor you need to create the following 
-containers:
+If you dont want to use the `docker-compose` command you can create and link 
+the needed containers also manually:
 
 #### Mysql
 
@@ -51,5 +57,5 @@ $ docker run -d --name fusio \
   -e "FUSIO_BACKEND_USER=demo" \
   -e "FUSIO_BACKEND_EMAIL=demo@fusio-project.org" \
   -e "FUSIO_BACKEND_PW=c6/337d2ef_c" \
-  fusio/fusio:latest
+  fusio/fusio
 ```
