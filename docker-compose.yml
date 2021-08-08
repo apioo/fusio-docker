@@ -27,6 +27,10 @@ services:
       RECAPTCHA_SECRET: ""
     links:
       - mysql_fusio
+      - worker_java
+      - worker_javascript
+      - worker_php
+      - worker_python
     ports:
       - "8080:80"
     volumes:
@@ -47,9 +51,17 @@ services:
   # Worker
   worker_java:
     image: fusio/worker-java
+    volumes:
+      - ./worker/java:/worker/actions
   worker_javascript:
     image: fusio/worker-javascript
+    volumes:
+      - ./worker/javascript:/worker/actions
   worker_php:
     image: fusio/worker-php
+    volumes:
+      - ./worker/php:/worker/actions
   worker_python:
     image: fusio/worker-python
+    volumes:
+      - ./worker/python:/worker/actions
