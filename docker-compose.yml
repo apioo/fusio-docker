@@ -51,17 +51,21 @@ services:
   # Worker
   worker_java:
     image: fusio/worker-java
+    restart: always
     volumes:
       - ./worker/java:/worker/actions
   worker_javascript:
     image: fusio/worker-javascript
+    restart: always
     volumes:
       - ./worker/javascript:/worker/actions
   worker_php:
     image: fusio/worker-php
+    restart: always
     volumes:
       - ./worker/php:/worker/actions
   worker_python:
     image: fusio/worker-python
+    restart: always
     volumes:
       - ./worker/python:/worker/actions
