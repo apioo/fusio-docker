@@ -58,6 +58,7 @@ RUN apt-get update && apt-get -y install \
 # install php extensions
 RUN docker-php-ext-install \
     pgsql \
+    mysqli \
     pdo \
     pdo_mysql \
     pdo_pgsql \
