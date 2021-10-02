@@ -3,6 +3,7 @@ services:
   # Fusio container
   fusio:
     image: fusio/fusio
+    restart: always
     environment:
       FUSIO_PROJECT_KEY: "42eec18ffdbffc9fda6110dcc705d6ce"
       FUSIO_HOST: "api.fusio.cloud:8080"
@@ -33,12 +34,14 @@ services:
       - worker_python
     ports:
       - "8080:80"
+      - "8443:443"
     volumes:
       - ./public:/var/www/html/fusio/public
 
   # Fusio system database
   mysql_fusio:
     image: mysql:8.0
+    restart: always
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: "7f3e5186032a"

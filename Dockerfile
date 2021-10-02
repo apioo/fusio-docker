@@ -43,6 +43,7 @@ RUN apt-get update && apt-get -y install \
     git \
     unzip \
     cron \
+    certbot \
     memcached \
     libpq-dev \
     libxml2-dev \
@@ -99,11 +100,16 @@ RUN chmod +x /var/www/html/fusio/bin/fusio
 RUN rm /var/www/html/fusio/public/install.php
 
 # apache config
-COPY ./apache/fusio.conf /etc/apache2/conf-available/fusio.conf
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
-RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
-RUN sed -ri -e 's!#Include conf-available/serve-cgi-bin.conf!Include conf-available/fusio.conf!g' /etc/apache2/sites-available/000-default.conf
+RUN rm /etc/apache2/sites-available/*.conf
+RUN rm /etc/apache2/sites-enabled/*.conf
+COPY ./apache/fusio.conf /etc/apache2/sites-available/fusio.conf
+RUN sed -ri -e "s!__DOMAIN__!${FUSIO_HOST}!g" /etc/apache2/sites-available/fusio.conf
 RUN a2enmod rewrite
+RUN a2ensite fusio
+COPY ./apache/ssl/ssl-cron /etc/cron.d/ssl
+COPY ./apache/ssl/generate-ssl.php /home/generate-ssl.php
+RUN chmod +x /home/generate-ssl.php
+RUN sed -ri -e "s!__DOMAIN__!${FUSIO_HOST}!g" /home/generate-ssl.php
 
 # php config
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
@@ -140,5 +146,6 @@ RUN rm /var/www/html/fusio.zip
 RUN rm -r /tmp/pear
 
 EXPOSE 80
+EXPOSE 443
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
