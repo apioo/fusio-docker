@@ -1,16 +1,15 @@
 <?php
 
-// get host
-$host = getenv('FUSIO_HOST');
-if (empty($host)) {
-    file_put_contents('/home/ssl.log', 'Environment variable FUSIO_HOST does not exist');
+$domain = getenv('FUSIO_DOMAIN');
+if (empty($domain)) {
+    file_put_contents('/home/ssl.log', 'Environment variable FUSIO_DOMAIN not available');
     exit(1);
 }
 
-// get domain from host
-$domain = $host;
-if (strpos($domain, ':') !== false) {
-    $domain = explode(':', $domain)[0];
+$host = getenv('FUSIO_HOST');
+if (empty($host)) {
+    file_put_contents('/home/ssl.log', 'Environment variable FUSIO_HOST not available');
+    exit(1);
 }
 
 // resolve ip for domain

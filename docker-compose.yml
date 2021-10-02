@@ -6,6 +6,7 @@ services:
     restart: always
     environment:
       FUSIO_PROJECT_KEY: "42eec18ffdbffc9fda6110dcc705d6ce"
+      FUSIO_DOMAIN: "api.fusio.cloud"
       FUSIO_HOST: "api.fusio.cloud:8080"
       FUSIO_URL: "http://api.fusio.cloud:8080"
       FUSIO_APPS_URL: "http://api.fusio.cloud:8080/apps"

@@ -5,9 +5,10 @@ LABEL description="Fusio API management"
 
 # env
 ENV FUSIO_PROJECT_KEY "42eec18ffdbffc9fda6110dcc705d6ce"
+ENV FUSIO_DOMAIN "api.fusio.cloud"
 ENV FUSIO_HOST "api.fusio.cloud"
-ENV FUSIO_URL "http://${FUSIO_HOST}"
-ENV FUSIO_APPS_URL "${FUSIO_URL}/apps"
+ENV FUSIO_URL "http://api.fusio.cloud"
+ENV FUSIO_APPS_URL "http://api.fusio.cloud/apps"
 ENV FUSIO_ENV "prod"
 ENV FUSIO_DB_NAME "fusio"
 ENV FUSIO_DB_USER "fusio"
@@ -103,16 +104,14 @@ RUN rm /var/www/html/fusio/public/install.php
 RUN rm /etc/apache2/sites-available/*.conf
 RUN rm /etc/apache2/sites-enabled/*.conf
 COPY ./apache/fusio.conf /etc/apache2/sites-available/fusio.conf
-RUN sed -ri -e "s!__DOMAIN__!${FUSIO_HOST}!g" /etc/apache2/sites-available/fusio.conf
 RUN a2enmod rewrite
 RUN a2ensite fusio
 COPY ./apache/ssl/ssl-cron /etc/cron.d/ssl
 COPY ./apache/ssl/generate-ssl.php /home/generate-ssl.php
 RUN chmod +x /home/generate-ssl.php
-RUN sed -ri -e "s!__DOMAIN__!${FUSIO_HOST}!g" /home/generate-ssl.php
 
 # php config
-RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+RUN mv "${PHP_INI_DIR}/php.ini-production" "${PHP_INI_DIR}/php.ini"
 
 # install additional connectors
 RUN cd /var/www/html/fusio && \
