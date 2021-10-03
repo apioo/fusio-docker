@@ -136,6 +136,9 @@ VOLUME /var/www/html/fusio/public
 # start memcache
 RUN service memcached start
 
+# start cron
+RUN service cron start
+
 # add entrypoint
 COPY ./wait-for-it.sh /wait-for-it.sh
 RUN chmod +x /wait-for-it.sh
