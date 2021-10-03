@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # wait for mysql server
-/wait-for-it.sh "$FUSIO_DB_HOST:3306"
+/wait-for-it.sh "$FUSIO_DB_HOST:3306" -t 60
 
 pushd /var/www/html/fusio
 
