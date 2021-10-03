@@ -53,4 +53,4 @@ rm -f /var/run/apache2/apache2.pid
 
 # start apache
 source /etc/apache2/envvars
-exec /usr/sbin/apache2 -D FOREGROUND
+exec /usr/sbin/apache2 -D FOREGROUND -D FUSIO_DOMAIN=$FUSIO_DOMAIN

@@ -45,6 +45,7 @@ RUN apt-get update && apt-get -y install \
     unzip \
     cron \
     certbot \
+    python3-certbot-apache \
     memcached \
     libpq-dev \
     libxml2-dev \
