@@ -43,6 +43,18 @@ fi
 
 # deploy
 php bin/fusio login --username="$FUSIO_BACKEND_USER" --password="$FUSIO_BACKEND_PW"
+
+# create app database
+if [ $exitCode -ne 0 ]; then
+    mysql --host="$FUSIO_DB_HOST" --user=root --password="$FUSIO_DB_PW" --execute="CREATE USER 'app'@'%' IDENTIFIED BY '$FUSIO_DB_PW';"
+    mysql --host="$FUSIO_DB_HOST" --user=root --password="$FUSIO_DB_PW" --execute="CREATE DATABASE IF NOT EXISTS app;"
+    mysql --host="$FUSIO_DB_HOST" --user=root --password="$FUSIO_DB_PW" --execute="GRANT ALL PRIVILEGES ON app.* TO 'app'@'%';"
+    mysql --host="$FUSIO_DB_HOST" --user=root --password="$FUSIO_DB_PW" --execute="FLUSH PRIVILEGES;"
+    echo '{"name": "App", "class": "Fusio\\Adapter\\Sql\\Connection\\Sql", "config": {"type": "pdo_mysql", "host": "'$FUSIO_DB_HOST'", "username": "app", "password": "'$FUSIO_DB_PW'", "database": "app"}}' > connection.json
+    php bin/fusio connection:create connection.json
+    rm connection.json
+fi
+
 php bin/fusio deploy
 php bin/fusio logout
 

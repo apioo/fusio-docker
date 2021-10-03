@@ -47,6 +47,7 @@ RUN apt-get update && apt-get -y install \
     certbot \
     python3-certbot-apache \
     memcached \
+    default-mysql-client \
     libpq-dev \
     libxml2-dev \
     libcurl3-dev \
