@@ -7,7 +7,8 @@ if (empty($domain)) {
 }
 
 // register cert for domain
-exec('certbot --apache -d ' . $domain, $output, $exitCode);
+$email = getenv('FUSIO_BACKEND_EMAIL');
+exec('certbot --apache -d ' . $domain . ' --agree-tos -m ' . $email, $output, $exitCode);
 if ($exitCode !== 0) {
     file_put_contents('/home/ssl.log', 'Could not obtain cert for domain ' . $domain . "\n" . implode("\n", $output));
     exit(1);
