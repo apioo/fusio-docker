@@ -1,9 +1,9 @@
 #!/bin/bash
 
+pushd /var/www/html/fusio
+
 # wait for external services
 php bin/fusio system:wait_for
-
-pushd /var/www/html/fusio
 
 # install fusio
 php bin/fusio migration:up-to-date
