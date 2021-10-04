@@ -126,13 +126,18 @@ RUN cd /var/www/html/fusio && \
     /usr/bin/composer require fusio/adapter-smtp ^4.0 && \
     /usr/bin/composer require fusio/adapter-soap ^4.0
 
-# install cron
-RUN touch /etc/cron.d/fusio
-RUN chmod a+rwx /etc/cron.d/fusio
-RUN service cron start
+# clean up files
+RUN rm /var/www/html/fusio.zip
+RUN rm -r /tmp/pear
 
 # mount volumes
 VOLUME /var/www/html/fusio/public
+
+# start cron
+RUN touch /etc/cron.d/fusio
+RUN chmod 0777 /etc/cron.d/fusio
+RUN chmod 0644 /etc/cron.d/ssl
+RUN service cron start
 
 # start memcache
 RUN service memcached start
@@ -140,10 +145,6 @@ RUN service memcached start
 # add entrypoint
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
-
-# clean up files
-RUN rm /var/www/html/fusio.zip
-RUN rm -r /tmp/pear
 
 EXPOSE 80
 EXPOSE 443
