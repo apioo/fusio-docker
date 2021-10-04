@@ -108,8 +108,9 @@ RUN rm /etc/apache2/sites-enabled/*.conf
 COPY ./apache/fusio.conf /etc/apache2/sites-available/fusio.conf
 RUN a2enmod rewrite
 RUN a2ensite fusio
-COPY ./apache/ssl/ssl /etc/cron.d/ssl
-COPY ./apache/ssl/generate-ssl.php /home/generate-ssl.php
+
+# ssl script
+COPY ./apache/generate-ssl.php /home/generate-ssl.php
 RUN chmod +x /home/generate-ssl.php
 
 # php config
@@ -136,7 +137,6 @@ VOLUME /var/www/html/fusio/public
 # start cron
 RUN touch /etc/cron.d/fusio
 RUN chmod 0777 /etc/cron.d/fusio
-RUN chmod 0644 /etc/cron.d/ssl
 RUN service cron start
 
 # start memcache

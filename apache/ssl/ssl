@@ -1,1 +1,0 @@
-*/5 * * * * root . /home/env.sh; /usr/local/bin/php /home/generate-ssl.php
