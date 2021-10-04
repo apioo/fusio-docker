@@ -63,6 +63,10 @@ php bin/fusio logout
 
 popd
 
+# create env file for cron
+printenv | sed 's/^\(.*\)$/export \1/g' | grep -E "^export FUSIO" > /home/env.sh
+chmod +x /home/env.sh
+
 # remove existing pid
 rm -f /var/run/apache2/apache2.pid
 
