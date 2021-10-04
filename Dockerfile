@@ -140,8 +140,6 @@ RUN service memcached start
 RUN service cron start
 
 # add entrypoint
-COPY ./wait-for-it.sh /wait-for-it.sh
-RUN chmod +x /wait-for-it.sh
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 
