@@ -108,7 +108,7 @@ RUN rm /etc/apache2/sites-enabled/*.conf
 COPY ./apache/fusio.conf /etc/apache2/sites-available/fusio.conf
 RUN a2enmod rewrite
 RUN a2ensite fusio
-COPY ./apache/ssl/ssl-cron /etc/cron.d/ssl
+COPY ./apache/ssl/ssl /etc/cron.d/ssl
 COPY ./apache/ssl/generate-ssl.php /home/generate-ssl.php
 RUN chmod +x /home/generate-ssl.php
 
