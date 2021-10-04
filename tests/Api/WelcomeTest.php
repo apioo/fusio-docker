@@ -22,7 +22,7 @@ class WelcomeTest extends HttpTestCase
 
         $expect = <<<JSON
 {
-  "apiVersion": "5.1.2.0",
+  "apiVersion": "5.1.4.0",
   "title": "Fusio",
   "categories": [
     "authorization",
@@ -32,8 +32,7 @@ class WelcomeTest extends HttpTestCase
     "default"
   ],
   "scopes": [
-    "default",
-    "todo"
+    "default"
   ],
   "apps": {
     "fusio": "http://api.fusio.cloud:8080/apps/fusio"
