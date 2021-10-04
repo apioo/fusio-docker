@@ -1,6 +1,6 @@
 <?php
 
-const MAX_TRY = 20;
+const MAX_TRY = 8;
 const WAIT = 30;
 
 sleep(WAIT);
@@ -23,7 +23,7 @@ while ($count < MAX_TRY) {
     }
 
     $count++;
-    sleep(WAIT);
+    sleep(WAIT * 4);
 }
 
 // remove file
