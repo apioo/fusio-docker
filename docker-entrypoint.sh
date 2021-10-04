@@ -13,12 +13,14 @@ if [ $exitCode -ne 0 ]; then
     php bin/fusio migration:migrate --no-interaction
 fi
 
-# install app
-php bin/fusio migration:up-to-date --connection=System
-exitCode=$?
-if [ $exitCode -ne 0 ]; then
-    # migrate app
-    php bin/fusio migration:migrate --connection=System --no-interaction
+# install app in case migrations are available
+if [ -d src/Migrations/System ]; then
+    php bin/fusio migration:up-to-date --connection=System
+    exitCode=$?
+    if [ $exitCode -ne 0 ]; then
+        # migrate app
+        php bin/fusio migration:migrate --connection=System --no-interaction
+    fi
 fi
 
 # add initial backend user
