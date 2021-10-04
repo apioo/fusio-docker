@@ -129,15 +129,13 @@ RUN cd /var/www/html/fusio && \
 # install cron
 RUN touch /etc/cron.d/fusio
 RUN chmod a+rwx /etc/cron.d/fusio
+RUN service cron start
 
 # mount volumes
 VOLUME /var/www/html/fusio/public
 
 # start memcache
 RUN service memcached start
-
-# start cron
-RUN service cron start
 
 # add entrypoint
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
