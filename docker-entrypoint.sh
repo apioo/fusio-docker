@@ -47,6 +47,9 @@ fi
 # deploy
 php bin/fusio login --username="$FUSIO_BACKEND_USER" --password="$FUSIO_BACKEND_PW"
 
+# flush cron file
+php bin/fusio system:cronjob_flush
+
 # create app database
 if [ $exitCode -ne 0 ]; then
     mysql --host="$FUSIO_DB_HOST" --user=root --password="$FUSIO_DB_PW" --execute="CREATE USER 'app'@'%' IDENTIFIED BY '$FUSIO_DB_PW';"
@@ -65,6 +68,10 @@ popd
 
 # start generate ssl script
 php /home/generate-ssl.php &
+
+# create env file for cron
+printenv | sed 's/^\(.*\)$/export \1/g' | grep -E "^export FUSIO" > /home/env.sh
+chmod +x /home/env.sh
 
 # remove existing pid
 rm -f /var/run/apache2/apache2.pid
