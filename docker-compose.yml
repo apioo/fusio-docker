@@ -18,7 +18,7 @@ services:
       FUSIO_BACKEND_USER: "demo"
       FUSIO_BACKEND_EMAIL: "demo@fusio-project.org"
       FUSIO_BACKEND_PW: "75dafcb12c4f"
-      FUSIO_VERSION: "master"
+      FUSIO_VERSION: "2.1.3"
       FUSIO_CERTBOT: "0"
       PROVIDER_FACEBOOK_KEY: ""
       PROVIDER_FACEBOOK_SECRET: ""
