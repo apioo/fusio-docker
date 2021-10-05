@@ -1,6 +1,6 @@
 <?php
 
-const MAX_TRY = 8;
+const MAX_TRY = 4;
 const WAIT = 30;
 
 sleep(WAIT);
@@ -10,9 +10,11 @@ $email = getenv('FUSIO_BACKEND_EMAIL');
 
 echo 'Try to obtain SSL cert for ' . $domain . "\n";
 
-$count = 0;
+$count = 1;
 $success = false;
-while ($count < MAX_TRY) {
+while ($count <= MAX_TRY) {
+    sleep(WAIT * $count);
+
     exec('certbot --apache -d ' . $domain . ' --agree-tos -m ' . $email, $output, $exitCode);
     if ($exitCode === 0) {
         echo 'Obtained SSL cert for ' . $domain . "\n";
@@ -23,7 +25,6 @@ while ($count < MAX_TRY) {
     }
 
     $count++;
-    sleep(WAIT * 4);
 }
 
 // remove file
