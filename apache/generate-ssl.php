@@ -3,8 +3,6 @@
 const MAX_TRY = 4;
 const WAIT = 30;
 
-sleep(WAIT);
-
 $domain = getenv('FUSIO_DOMAIN');
 $email = getenv('FUSIO_BACKEND_EMAIL');
 
