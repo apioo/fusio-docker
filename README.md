@@ -24,6 +24,13 @@ the usage of different programming languages. If you dont need support
 for these programming languages you can disable them in the configuration.
 Fusio will also work if these instances are not available.
 
+## Certificate
+
+The image contains a script to automatically obtain a SSL certificate for the
+domain. By default this feature ist deactivated, to activate this you need to set
+the env FUSIO_CERTBOT to 1, then after start the container will try to obtain a
+certificate. Note this only works in case you container is reachable on the internet.
+
 ### Run
 
 If you dont want to use the `docker-compose` command you can create and link 
@@ -32,8 +39,8 @@ the needed containers also manually:
 #### Mysql
 
 ```
-$ docker run -d --name fusio-db \
-  -e "MYSQL_ROOT_PASSWORD=7f3e5186032a" \
+$ docker run -d --name mysql_fusio \
+  -e "MYSQL_ROOT_PASSWORD=61ad6c605975" \
   -e "MYSQL_USER=fusio" \
   -e "MYSQL_PASSWORD=61ad6c605975" \
   -e "MYSQL_DATABASE=fusio" \
@@ -47,15 +54,17 @@ $ docker run -d --name fusio \
   -p 80:80 \
   --link fusio-db:db \
   -e "FUSIO_PROJECT_KEY=42eec18ffdbffc9fda6110dcc705d6ce" \
+  -e "FUSIO_DOMAIN=api.fusio.cloud" \
   -e "FUSIO_HOST=api.fusio.cloud" \
-  -e "FUSIO_URL=https://api.fusio.cloud" \
-  -e "FUSIO_ENV=dev" \
+  -e "FUSIO_URL=http://api.fusio.cloud" \
+  -e "FUSIO_URL=http://api.fusio.cloud/apps" \
+  -e "FUSIO_ENV=prod" \
+  -e "FUSIO_DB_NAME=fusio" \
   -e "FUSIO_DB_USER=fusio" \
   -e "FUSIO_DB_PW=61ad6c605975" \
-  -e "FUSIO_DB_HOST=db" \
-  -e "FUSIO_DB_NAME=fusio" \
+  -e "FUSIO_DB_HOST=mysql_fusio" \
   -e "FUSIO_BACKEND_USER=demo" \
   -e "FUSIO_BACKEND_EMAIL=demo@fusio-project.org" \
-  -e "FUSIO_BACKEND_PW=c6/337d2ef_c" \
+  -e "FUSIO_BACKEND_PW=61ad6c605975" \
   fusio/fusio
 ```
