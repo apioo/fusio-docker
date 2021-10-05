@@ -90,7 +90,7 @@ return [
 
     // Command to execute the Fusio console which is used in the generated cron
     // file
-    'fusio_cron_exec'         => '/usr/bin/php ' . __DIR__ . '/bin/fusio',
+    'fusio_cron_exec'         => '/home/env.sh && /usr/local/bin/php ' . __DIR__ . '/bin/fusio',
 
     // The public url to the public folder (i.e. http://acme.com/public or
     // http://acme.com)
