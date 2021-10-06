@@ -52,12 +52,12 @@ $ docker run -d --name mysql_fusio \
 ```
 $ docker run -d --name fusio \
   -p 80:80 \
-  --link fusio-db:db \
+  --link mysql_fusio:db \
   -e "FUSIO_PROJECT_KEY=42eec18ffdbffc9fda6110dcc705d6ce" \
   -e "FUSIO_DOMAIN=api.fusio.cloud" \
   -e "FUSIO_HOST=api.fusio.cloud" \
   -e "FUSIO_URL=http://api.fusio.cloud" \
-  -e "FUSIO_URL=http://api.fusio.cloud/apps" \
+  -e "FUSIO_APPS_URL=http://api.fusio.cloud/apps" \
   -e "FUSIO_ENV=prod" \
   -e "FUSIO_DB_NAME=fusio" \
   -e "FUSIO_DB_USER=fusio" \
