@@ -1,6 +1,6 @@
 FROM php:8.0-apache
 MAINTAINER Christoph Kappestein <christoph.kappestein@apioo.de>
-LABEL version="2.1.5"
+LABEL version="2.1.6"
 LABEL description="Fusio API management"
 
 # env
@@ -31,7 +31,7 @@ ENV RECAPTCHA_SECRET ""
 ENV FUSIO_MEMCACHE_HOST "localhost"
 ENV FUSIO_MEMCACHE_PORT "11211"
 
-ENV FUSIO_VERSION "2.1.5"
+ENV FUSIO_VERSION "2.1.6"
 ENV FUSIO_CERTBOT "0"
 
 ENV COMPOSER_VERSION "2.1.9"
