@@ -21,7 +21,6 @@ services:
       FUSIO_CERTBOT: "0"
     links:
       - mysql_fusio
-      - mongo_fusio
       - worker_java
       - worker_javascript
       - worker_php
