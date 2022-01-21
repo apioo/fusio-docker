@@ -19,16 +19,9 @@ services:
       FUSIO_BACKEND_EMAIL: "demo@fusio-project.org"
       FUSIO_BACKEND_PW: "75dafcb12c4f"
       FUSIO_CERTBOT: "0"
-      PROVIDER_FACEBOOK_KEY: ""
-      PROVIDER_FACEBOOK_SECRET: ""
-      PROVIDER_GOOGLE_KEY: ""
-      PROVIDER_GOOGLE_SECRET: ""
-      PROVIDER_GITHUB_KEY: ""
-      PROVIDER_GITHUB_SECRET: ""
-      RECAPTCHA_KEY: ""
-      RECAPTCHA_SECRET: ""
     links:
       - mysql_fusio
+      - mongo_fusio
       - worker_java
       - worker_javascript
       - worker_php
