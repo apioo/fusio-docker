@@ -1,6 +1,6 @@
 FROM php:8.0-apache
 MAINTAINER Christoph Kappestein <christoph.kappestein@apioo.de>
-LABEL version="2.1.8"
+LABEL version="2.1.9"
 LABEL description="Fusio API management"
 
 # env
@@ -14,6 +14,7 @@ ENV FUSIO_DB_NAME "fusio"
 ENV FUSIO_DB_USER "fusio"
 ENV FUSIO_DB_PW "61ad6c605975"
 ENV FUSIO_DB_HOST "localhost"
+ENV FUSIO_MAILER "native://default"
 
 ENV FUSIO_BACKEND_USER "demo"
 ENV FUSIO_BACKEND_EMAIL "demo@fusio-project.org"
@@ -22,7 +23,7 @@ ENV FUSIO_BACKEND_PW "75dafcb12c4f"
 ENV FUSIO_MEMCACHE_HOST "localhost"
 ENV FUSIO_MEMCACHE_PORT "11211"
 
-ENV FUSIO_VERSION "2.1.8"
+ENV FUSIO_VERSION "2.1.9"
 ENV FUSIO_CERTBOT "0"
 
 ENV COMPOSER_VERSION "2.1.9"

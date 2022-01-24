@@ -15,6 +15,7 @@ services:
       FUSIO_DB_USER: "fusio"
       FUSIO_DB_PW: "61ad6c605975"
       FUSIO_DB_HOST: "mysql_fusio"
+      FUSIO_MAILER: "native://default"
       FUSIO_BACKEND_USER: "demo"
       FUSIO_BACKEND_EMAIL: "demo@fusio-project.org"
       FUSIO_BACKEND_PW: "75dafcb12c4f"
