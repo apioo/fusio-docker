@@ -38,7 +38,7 @@ return [
     // the use of unsafe functions but there is no guarantee that this is
     // complete safe. Otherwise you can also use the PHP worker which executes
     // the code at the worker.
-    'fusio_php_sandbox'       => true,
+    'fusio_php_sandbox'       => getenv('FUSIO_PHP_SANDBOX') === 'on',
 
     // The three-character ISO-4217 currency code which is used to process
     // payments

@@ -15,6 +15,7 @@ ENV FUSIO_DB_USER "fusio"
 ENV FUSIO_DB_PW "61ad6c605975"
 ENV FUSIO_DB_HOST "localhost"
 ENV FUSIO_MAILER "native://default"
+ENV FUSIO_PHP_SANDBOX "off"
 
 ENV FUSIO_BACKEND_USER "demo"
 ENV FUSIO_BACKEND_EMAIL "demo@fusio-project.org"
