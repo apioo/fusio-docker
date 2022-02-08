@@ -1,4 +1,4 @@
-FROM php:8.0-apache
+FROM php:8.0.14-apache
 MAINTAINER Christoph Kappestein <christoph.kappestein@apioo.de>
 LABEL version="2.1.9"
 LABEL description="Fusio API management"
