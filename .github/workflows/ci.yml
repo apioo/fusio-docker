@@ -25,7 +25,7 @@ jobs:
       - name: Add hostname
         run: 'echo "127.0.0.1 api.fusio.cloud" | sudo tee -a /etc/hosts'
       - name: Start docker
-        run: 'docker-compose up'
+        run: 'docker-compose up -d'
       - name: Wait for docker
         run: 'while [[ $(curl -s -o /dev/null -w "%{http_code}" api.fusio.cloud:8080/system/health) != "200" ]]; do sleep 5; done'
       - name: Run PHPUnit
