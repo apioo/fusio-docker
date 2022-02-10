@@ -32,8 +32,6 @@ services:
     ports:
       - "8080:80"
       - "8443:443"
-    volumes:
-      - ./public:/var/www/html/fusio/public
 
   # Fusio system database
   mysql_fusio:

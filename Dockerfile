@@ -16,6 +16,8 @@ ENV FUSIO_DB_PW "61ad6c605975"
 ENV FUSIO_DB_HOST "localhost"
 ENV FUSIO_MAILER "native://default"
 ENV FUSIO_PHP_SANDBOX "off"
+ENV FUSIO_MARKETPLACE "off"
+ENV FUSIO_PAYMENT_CURRENCY "EUR"
 
 ENV FUSIO_BACKEND_USER "demo"
 ENV FUSIO_BACKEND_EMAIL "demo@fusio-project.org"
@@ -117,14 +119,19 @@ RUN cd /var/www/html/fusio && \
     /usr/bin/composer require fusio/adapter-mongodb ^4.0 && \
     /usr/bin/composer require fusio/adapter-redis ^4.0 && \
     /usr/bin/composer require fusio/adapter-smtp ^4.0 && \
-    /usr/bin/composer require fusio/adapter-soap ^4.0
+    /usr/bin/composer require fusio/adapter-soap ^4.0 && \
+    /usr/bin/composer require fusio/adapter-stripe ^0.1
+
+# install marketplace apps
+RUN cd /var/www/html/fusio && \
+    php bin/fusio marketplace:install fusio && \
+    php bin/fusio marketplace:install developer && \
+    php bin/fusio marketplace:install documentation && \
+    php bin/fusio marketplace:install swagger-ui
 
 # clean up files
 RUN rm /var/www/html/fusio.zip
 RUN rm -r /tmp/pear
-
-# mount volumes
-VOLUME /var/www/html/fusio/public
 
 # start cron
 RUN touch /etc/cron.d/fusio

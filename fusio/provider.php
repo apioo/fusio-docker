@@ -79,10 +79,12 @@ return [
         \Fusio\Adapter\Redis\Connection\Redis::class,
         \Fusio\Adapter\Smtp\Connection\Smtp::class,
         \Fusio\Adapter\Soap\Connection\Soap::class,
+        \Fusio\Adapter\Stripe\Connection\Stripe::class,
         \Fusio\Adapter\Sql\Connection\Sql::class,
         \Fusio\Adapter\Sql\Connection\SqlAdvanced::class,
     ],
     'payment' => [
+        \Fusio\Adapter\Stripe\Provider\Stripe::class,
     ],
     'user' => [
         \Fusio\Impl\Provider\User\Facebook::class,
