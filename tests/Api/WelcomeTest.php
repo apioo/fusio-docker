@@ -36,6 +36,9 @@ class WelcomeTest extends HttpTestCase
   ],
   "apps": {
     "fusio": "http://api.fusio.cloud:8080/apps/fusio"
+    "developer": "http://api.fusio.cloud:8080/apps/developer"
+    "documentation": "http://api.fusio.cloud:8080/apps/documentation"
+    "swagger-ui": "http://api.fusio.cloud:8080/apps/swagger-ui"
   },
   "links": [
     {
