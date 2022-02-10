@@ -122,13 +122,6 @@ RUN cd /var/www/html/fusio && \
     /usr/bin/composer require fusio/adapter-soap ^4.0 && \
     /usr/bin/composer require fusio/adapter-stripe ^0.1
 
-# install marketplace apps
-RUN cd /var/www/html/fusio && \
-    php bin/fusio marketplace:install fusio && \
-    php bin/fusio marketplace:install developer && \
-    php bin/fusio marketplace:install documentation && \
-    php bin/fusio marketplace:install swagger-ui
-
 # clean up files
 RUN rm /var/www/html/fusio.zip
 RUN rm -r /tmp/pear
