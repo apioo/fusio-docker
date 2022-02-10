@@ -16,10 +16,12 @@ services:
       FUSIO_DB_PW: "61ad6c605975"
       FUSIO_DB_HOST: "mysql_fusio"
       FUSIO_MAILER: "native://default"
-      FUSIO_PHP_SANDBOX: "off"
       FUSIO_BACKEND_USER: "demo"
       FUSIO_BACKEND_EMAIL: "demo@fusio-project.org"
       FUSIO_BACKEND_PW: "75dafcb12c4f"
+      FUSIO_PHP_SANDBOX: "off"
+      FUSIO_MARKETPLACE: "off"
+      FUSIO_PAYMENT_CURRENCY: "EUR"
       FUSIO_CERTBOT: "0"
     links:
       - mysql_fusio
