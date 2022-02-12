@@ -2,7 +2,7 @@ version: '3'
 services:
   # Fusio container
   fusio:
-    image: fusio/fusio
+    image: fusio/fusio:main
     restart: always
     environment:
       FUSIO_PROJECT_KEY: "42eec18ffdbffc9fda6110dcc705d6ce"
@@ -16,6 +16,7 @@ services:
       FUSIO_DB_PW: "61ad6c605975"
       FUSIO_DB_HOST: "mysql_fusio"
       FUSIO_MAILER: "native://default"
+      FUSIO_MAIL_SENDER: "info@api.fusio.cloud"
       FUSIO_BACKEND_USER: "demo"
       FUSIO_BACKEND_EMAIL: "demo@fusio-project.org"
       FUSIO_BACKEND_PW: "75dafcb12c4f"
