@@ -127,7 +127,8 @@ RUN cd /var/www/html/fusio && \
     /usr/bin/composer require fusio/adapter-redis ^4.0 && \
     /usr/bin/composer require fusio/adapter-smtp ^4.0 && \
     /usr/bin/composer require fusio/adapter-soap ^4.0 && \
-    /usr/bin/composer require fusio/adapter-stripe ^0.1
+    /usr/bin/composer require fusio/adapter-stripe ^0.1 && \
+    /usr/bin/composer require symfony/sendgrid-mailer ^6.0
 
 # clean up files
 RUN rm /var/www/html/fusio.zip
