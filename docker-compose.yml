@@ -23,6 +23,10 @@ services:
       FUSIO_MARKETPLACE: "off"
       FUSIO_PAYMENT_CURRENCY: "EUR"
       FUSIO_CERTBOT: "0"
+      FUSIO_WORKER_JAVA: "worker_java:9090"
+      FUSIO_WORKER_JAVASCRIPT: "worker_javascript:9091"
+      FUSIO_WORKER_PHP: "worker_php:9092"
+      FUSIO_WORKER_PYTHON: "worker_python:9093"
     links:
       - mysql_fusio
       - worker_java

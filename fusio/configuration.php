@@ -11,12 +11,12 @@ return [
     // This array contains a list of worker endpoints which can be used by Fusio to execute action code in different
     // programming languages. For more information please take a look at our worker documentation:
     // https://www.fusio-project.org/documentation/worker
-    'fusio_worker'            => [
-        'java'                => 'worker_java:9090',
-        'javascript'          => 'worker_javascript:9091',
-        'php'                 => 'worker_php:9092',
-        'python'              => 'worker_python:9093',
-    ],
+    'fusio_worker'            => array_filter([
+        'java'                => getenv('FUSIO_WORKER_JAVA'),
+        'javascript'          => getenv('FUSIO_WORKER_JAVASCRIPT'),
+        'php'                 => getenv('FUSIO_WORKER_PHP'),
+        'python'              => getenv('FUSIO_WORKER_PYTHON'),
+    ]),
 
     // OAuth2 access token expiration settings. How long can you use an access token and the refresh token. After the
     // expiration a user either need to use a refresh token to extend the token or request a new token
