@@ -29,13 +29,13 @@ php bin/fusio system:check user
 exitCode=$?
 if [ $exitCode -ne 0 ]; then
     php bin/fusio adduser --role=1 --username="$FUSIO_BACKEND_USER" --email="$FUSIO_BACKEND_EMAIL" --password="$FUSIO_BACKEND_PW"
-
-    # install backend app
-    php bin/fusio marketplace:install fusio
-    php bin/fusio marketplace:install developer
-    php bin/fusio marketplace:install documentation
-    php bin/fusio marketplace:install swagger-ui
 fi
+
+# install backend app
+php bin/fusio marketplace:install fusio
+php bin/fusio marketplace:install developer
+php bin/fusio marketplace:install documentation
+php bin/fusio marketplace:install swagger-ui
 
 # deploy
 php bin/fusio login --username="$FUSIO_BACKEND_USER" --password="$FUSIO_BACKEND_PW"
