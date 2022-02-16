@@ -119,15 +119,15 @@ RUN mv "${PHP_INI_DIR}/php.ini-production" "${PHP_INI_DIR}/php.ini"
 
 # install additional connectors
 RUN cd /var/www/html/fusio && \
-    /usr/bin/composer require fusio/adapter-amqp ^4.0 && \
-    /usr/bin/composer require fusio/adapter-beanstalk ^4.0 && \
-    /usr/bin/composer require fusio/adapter-elasticsearch ^4.0 && \
-    /usr/bin/composer require fusio/adapter-memcache ^4.0 && \
-    /usr/bin/composer require fusio/adapter-mongodb ^4.0 && \
-    /usr/bin/composer require fusio/adapter-redis ^4.0 && \
-    /usr/bin/composer require fusio/adapter-smtp ^4.0 && \
-    /usr/bin/composer require fusio/adapter-soap ^4.0 && \
-    /usr/bin/composer require fusio/adapter-stripe ^0.1 && \
+    /usr/bin/composer require fusio/adapter-amqp ^5.0 && \
+    /usr/bin/composer require fusio/adapter-beanstalk ^5.0 && \
+    /usr/bin/composer require fusio/adapter-elasticsearch ^5.0 && \
+    /usr/bin/composer require fusio/adapter-memcache ^5.0 && \
+    /usr/bin/composer require fusio/adapter-mongodb ^5.0 && \
+    /usr/bin/composer require fusio/adapter-redis ^5.0 && \
+    /usr/bin/composer require fusio/adapter-smtp ^5.0 && \
+    /usr/bin/composer require fusio/adapter-soap ^5.0 && \
+    /usr/bin/composer require fusio/adapter-stripe ^5.0 && \
     /usr/bin/composer require symfony/sendgrid-mailer ^6.0
 
 # clean up files
