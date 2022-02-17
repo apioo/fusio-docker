@@ -76,7 +76,8 @@ RUN docker-php-ext-install \
     intl \
     xml \
     gd \
-    soap
+    soap \
+    sockets
 
 # install pecl
 RUN pecl install memcache-8.0 \
