@@ -2,7 +2,7 @@ version: '3'
 services:
   # Fusio container
   fusio:
-    image: fusio/fusio:main
+    image: fusio/fusio
     restart: always
     environment:
       FUSIO_PROJECT_KEY: "42eec18ffdbffc9fda6110dcc705d6ce"
