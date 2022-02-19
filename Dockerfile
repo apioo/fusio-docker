@@ -147,7 +147,7 @@ RUN cd /var/www/html/fusio/public/apps && mv fusio-apps-documentation-${FUSIO_AP
 RUN wget -O /var/www/html/fusio/public/apps/swaggerui.zip "https://github.com/apioo/fusio-apps-swaggerui/archive/v${FUSIO_APP_SWAGGERUI}.zip"
 RUN cd /var/www/html/fusio/public/apps && unzip swaggerui.zip
 RUN rm /var/www/html/fusio/public/apps/swaggerui.zip
-RUN cd /var/www/html/fusio/public/apps && mv fusio-apps-swaggerui-${FUSIO_APP_SWAGGERUI} swaggerui
+RUN cd /var/www/html/fusio/public/apps && mv fusio-apps-swaggerui-${FUSIO_APP_SWAGGERUI} swagger-ui
 
 # clean up files
 RUN rm /var/www/html/fusio/public/install.php
