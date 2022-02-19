@@ -4,40 +4,41 @@ LABEL version="2.1.9"
 LABEL description="Fusio API management"
 
 # env
-ENV FUSIO_PROJECT_KEY "42eec18ffdbffc9fda6110dcc705d6ce"
-ENV FUSIO_DOMAIN "api.fusio.cloud"
-ENV FUSIO_HOST "api.fusio.cloud"
-ENV FUSIO_URL "http://api.fusio.cloud"
-ENV FUSIO_APPS_URL "http://api.fusio.cloud/apps"
-ENV FUSIO_ENV "prod"
-ENV FUSIO_DB_NAME "fusio"
-ENV FUSIO_DB_USER "fusio"
-ENV FUSIO_DB_PW "61ad6c605975"
-ENV FUSIO_DB_HOST "localhost"
+ENV FUSIO_PROJECT_KEY="42eec18ffdbffc9fda6110dcc705d6ce"
+ENV FUSIO_DOMAIN="api.fusio.cloud"
+ENV FUSIO_HOST="api.fusio.cloud"
+ENV FUSIO_URL="http://api.fusio.cloud"
+ENV FUSIO_APPS_URL="http://api.fusio.cloud/apps"
+ENV FUSIO_ENV="prod"
+ENV FUSIO_DB_NAME="fusio"
+ENV FUSIO_DB_USER="fusio"
+ENV FUSIO_DB_PW="61ad6c605975"
+ENV FUSIO_DB_HOST="localhost"
 
-ENV FUSIO_BACKEND_USER "demo"
-ENV FUSIO_BACKEND_EMAIL "demo@fusio-project.org"
-ENV FUSIO_BACKEND_PW "75dafcb12c4f"
+ENV FUSIO_BACKEND_USER="demo"
+ENV FUSIO_BACKEND_EMAIL="demo@fusio-project.org"
+ENV FUSIO_BACKEND_PW="75dafcb12c4f"
 
-ENV FUSIO_MAILER "native://default"
-ENV FUSIO_MAIL_SENDER ""
-ENV FUSIO_PHP_SANDBOX "off"
-ENV FUSIO_MARKETPLACE "off"
-ENV FUSIO_PAYMENT_CURRENCY "EUR"
+ENV FUSIO_MAILER="native://default"
+ENV FUSIO_MAIL_SENDER=""
+ENV FUSIO_PHP_SANDBOX="off"
+ENV FUSIO_MARKETPLACE="off"
+ENV FUSIO_PAYMENT_CURRENCY="EUR"
+ENV FUSIO_CERTBOT="0"
 
-ENV FUSIO_MEMCACHE_HOST "localhost"
-ENV FUSIO_MEMCACHE_PORT "11211"
+ENV FUSIO_WORKER_JAVA=""
+ENV FUSIO_WORKER_JAVASCRIPT=""
+ENV FUSIO_WORKER_PHP=""
+ENV FUSIO_WORKER_PYTHON=""
 
-ENV FUSIO_VERSION "3.0.0-RC1"
-ENV FUSIO_CERTBOT "0"
+ARG FUSIO_VERSION="master"
+ARG FUSIO_APP_BACKEND="1.0.5"
+ARG FUSIO_APP_DEVELOPER="1.1.0"
+ARG FUSIO_APP_DOCUMENTATION="1.0.6"
+ARG FUSIO_APP_SWAGGERUI="1.0.1"
 
-ENV FUSIO_WORKER_JAVA ""
-ENV FUSIO_WORKER_JAVASCRIPT ""
-ENV FUSIO_WORKER_PHP ""
-ENV FUSIO_WORKER_PYTHON ""
-
-ENV COMPOSER_VERSION "2.1.9"
-ENV COMPOSER_SHA256 "4d00b70e146c17d663ad2f9a21ebb4c9d52b021b1ac15f648b4d371c04d648ba"
+ARG COMPOSER_VERSION="2.2.6"
+ARG COMPOSER_SHA256="1d58486b891e59e9e064c0d54bb38538f74d6014f75481542c69ad84d4e97704"
 
 # install default packages
 RUN apt-get update && apt-get -y install \
@@ -47,7 +48,6 @@ RUN apt-get update && apt-get -y install \
     cron \
     certbot \
     python3-certbot-apache \
-    memcached \
     default-mysql-client \
     libpq-dev \
     libxml2-dev \
@@ -93,16 +93,13 @@ RUN echo "${COMPOSER_SHA256} */usr/bin/composer" | sha256sum -c -
 RUN chmod +x /usr/bin/composer
 
 # install fusio
-RUN wget -O /var/www/html/fusio.zip "https://github.com/apioo/fusio/archive/v${FUSIO_VERSION}.zip"
+RUN wget -O /var/www/html/fusio.zip "https://github.com/apioo/fusio/archive/${FUSIO_VERSION}.zip"
 RUN cd /var/www/html && unzip fusio.zip
+RUN rm /var/www/html/fusio.zip
 RUN cd /var/www/html && mv fusio-${FUSIO_VERSION} fusio
 RUN cd /var/www/html/fusio && /usr/bin/composer install
 COPY ./fusio /var/www/html/fusio
-RUN chown -R www-data: /var/www/html/fusio
 RUN chmod +x /var/www/html/fusio/bin/fusio
-
-# remove files
-RUN rm /var/www/html/fusio/public/install.php
 
 # apache config
 RUN rm /etc/apache2/sites-available/*.conf
@@ -131,17 +128,38 @@ RUN cd /var/www/html/fusio && \
     /usr/bin/composer require fusio/adapter-stripe ^5.0 && \
     /usr/bin/composer require symfony/sendgrid-mailer ^6.0
 
+# install apps
+RUN wget -O /var/www/html/fusio/public/apps/backend.zip "https://github.com/apioo/fusio-apps-backend/archive/v${FUSIO_APP_BACKEND}.zip"
+RUN cd /var/www/html/fusio/public/apps && unzip backend.zip
+RUN rm /var/www/html/fusio/public/apps/backend.zip
+RUN cd /var/www/html/fusio/public/apps && mv fusio-apps-backend-${FUSIO_APP_BACKEND} backend
+
+RUN wget -O /var/www/html/fusio/public/apps/developer.zip "https://github.com/apioo/fusio-apps-developer/archive/v${FUSIO_APP_DEVELOPER}.zip"
+RUN cd /var/www/html/fusio/public/apps && unzip developer.zip
+RUN rm /var/www/html/fusio/public/apps/developer.zip
+RUN cd /var/www/html/fusio/public/apps && mv fusio-apps-developer-${FUSIO_APP_DEVELOPER} developer
+
+RUN wget -O /var/www/html/fusio/public/apps/documentation.zip "https://github.com/apioo/fusio-apps-documentation/archive/v${FUSIO_APP_DOCUMENTATION}.zip"
+RUN cd /var/www/html/fusio/public/apps && unzip documentation.zip
+RUN rm /var/www/html/fusio/public/apps/documentation.zip
+RUN cd /var/www/html/fusio/public/apps && mv fusio-apps-documentation-${FUSIO_APP_DOCUMENTATION} documentation
+
+RUN wget -O /var/www/html/fusio/public/apps/swaggerui.zip "https://github.com/apioo/fusio-apps-swaggerui/archive/v${FUSIO_APP_SWAGGERUI}.zip"
+RUN cd /var/www/html/fusio/public/apps && unzip swaggerui.zip
+RUN rm /var/www/html/fusio/public/apps/swaggerui.zip
+RUN cd /var/www/html/fusio/public/apps && mv fusio-apps-swaggerui-${FUSIO_APP_SWAGGERUI} swaggerui
+
 # clean up files
-RUN rm /var/www/html/fusio.zip
+RUN rm /var/www/html/fusio/public/install.php
 RUN rm -r /tmp/pear
+
+# chown
+RUN chown -R www-data: /var/www/html/fusio
 
 # start cron
 RUN touch /etc/cron.d/fusio
 RUN chmod 0777 /etc/cron.d/fusio
 RUN service cron start
-
-# start memcache
-RUN service memcached start
 
 # add entrypoint
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
