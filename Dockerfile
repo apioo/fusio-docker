@@ -129,10 +129,10 @@ RUN cd /var/www/html/fusio && \
     /usr/bin/composer require symfony/sendgrid-mailer ^6.0
 
 # install apps
-RUN wget -O /var/www/html/fusio/public/apps/backend.zip "https://github.com/apioo/fusio-apps-backend/archive/v${FUSIO_APP_BACKEND}.zip"
-RUN cd /var/www/html/fusio/public/apps && unzip backend.zip
-RUN rm /var/www/html/fusio/public/apps/backend.zip
-RUN cd /var/www/html/fusio/public/apps && mv fusio-apps-backend-${FUSIO_APP_BACKEND} backend
+RUN wget -O /var/www/html/fusio/public/apps/fusio.zip "https://github.com/apioo/fusio-apps-backend/archive/v${FUSIO_APP_BACKEND}.zip"
+RUN cd /var/www/html/fusio/public/apps && unzip fusio.zip
+RUN rm /var/www/html/fusio/public/apps/fusio.zip
+RUN cd /var/www/html/fusio/public/apps && mv fusio-apps-backend-${FUSIO_APP_BACKEND} fusio
 
 RUN wget -O /var/www/html/fusio/public/apps/developer.zip "https://github.com/apioo/fusio-apps-developer/archive/v${FUSIO_APP_DEVELOPER}.zip"
 RUN cd /var/www/html/fusio/public/apps && unzip developer.zip
