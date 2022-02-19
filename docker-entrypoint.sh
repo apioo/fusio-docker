@@ -35,7 +35,7 @@ fi
 php bin/fusio marketplace:env fusio
 php bin/fusio marketplace:env developer
 php bin/fusio marketplace:env documentation
-php bin/fusio marketplace:env swaggerui
+php bin/fusio marketplace:env swagger-ui
 
 # deploy
 php bin/fusio login --username="$FUSIO_BACKEND_USER" --password="$FUSIO_BACKEND_PW"
