@@ -121,17 +121,8 @@ return [
     //'psx_filter_pre'          => [],
     //'psx_filter_post'         => [],
 
-    // A closure which returns a doctrine cache implementation. If null the filesystem cache is used
-    'psx_cache_factory'       => function($config, $namespace){
-        $memcached = new \Memcache();
-        $memcached->addServer(getenv('FUSIO_MEMCACHE_HOST'), getenv('FUSIO_MEMCACHE_PORT'));
-
-        $memcache = new \Doctrine\Common\Cache\MemcacheCache();
-        $memcache->setMemcache($memcached);
-        $memcache->setNamespace($namespace);
-
-        return $memcache;
-    },
+    // A closure which returns a symfony cache implementation. If null the filesystem cache is used
+    'psx_cache_factory'       => null,
 
     // Specify a specific log level
     //'psx_log_level' => \Monolog\Logger::ERROR,
