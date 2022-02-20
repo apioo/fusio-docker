@@ -75,7 +75,7 @@ return [
     'fusio_cron_file'         => '/etc/cron.d/fusio',
 
     // Command to execute the Fusio console which is used in the generated cron file
-    'fusio_cron_exec'         => '/home/env.sh && /usr/local/bin/php ' . __DIR__ . '/bin/fusio',
+    'fusio_cron_exec'         => 'root /home/run_cron.sh %s',
 
     // The public url to the public folder (i.e. http://acme.com/public or http://acme.com)
     'psx_url'                 => getenv('FUSIO_URL'),
@@ -122,7 +122,7 @@ return [
     //'psx_filter_post'         => [],
 
     // A closure which returns a symfony cache implementation. If null the filesystem cache is used
-    'psx_cache_factory'       => null,
+    //'psx_cache_factory'       => null,
 
     // Specify a specific log level
     //'psx_log_level' => \Monolog\Logger::ERROR,
