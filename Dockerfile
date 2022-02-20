@@ -46,6 +46,7 @@ RUN apt-get update && apt-get -y install \
     git \
     unzip \
     cron \
+    sudo \
     certbot \
     python3-certbot-apache \
     default-mysql-client \
