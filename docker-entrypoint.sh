@@ -66,6 +66,9 @@ php /home/generate-ssl.php &
 printenv | sed 's/^\(.*\)$/export \1/g' | grep -E "^export FUSIO" > /home/env.sh
 chmod +x /home/env.sh
 
+# start cron
+service cron start
+
 # remove existing pid
 rm -f /var/run/apache2/apache2.pid
 

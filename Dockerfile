@@ -159,7 +159,6 @@ RUN chown -R www-data: /var/www/html/fusio
 # start cron
 RUN touch /etc/cron.d/fusio
 RUN chmod 0777 /etc/cron.d/fusio
-RUN service cron start
 
 # add entrypoint
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
