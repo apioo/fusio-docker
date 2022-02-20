@@ -63,7 +63,7 @@ popd
 php /home/generate-ssl.php &
 
 # create run cron script
-echo '#!/bin/bash' >> /home/run_cron.sh
+echo '#!/bin/bash' > /home/run_cron.sh
 printenv | sed 's/^\(.*\)$/export \1/g' | grep -E "^export FUSIO" >> /home/run_cron.sh
 echo 'cd /var/www/html/fusio' >> /home/run_cron.sh
 echo 'sudo -E -u www-data /usr/local/bin/php bin/fusio cronjob $1' >> /home/run_cron.sh
