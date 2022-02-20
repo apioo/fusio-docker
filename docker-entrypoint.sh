@@ -62,9 +62,12 @@ popd
 # start generate ssl script
 php /home/generate-ssl.php &
 
-# create env file for cron
-printenv | sed 's/^\(.*\)$/export \1/g' | grep -E "^export FUSIO" > /home/env.sh
-chmod +x /home/env.sh
+# create run cron script
+echo '#!/bin/bash' >> /home/run_cron.sh
+printenv | sed 's/^\(.*\)$/export \1/g' | grep -E "^export FUSIO" >> /home/run_cron.sh
+echo 'cd /var/www/html/fusio' >> /home/run_cron.sh
+echo 'sudo -E -u www-data /usr/local/bin/php bin/fusio cronjob $1' >> /home/run_cron.sh
+chmod +x /home/run_cron.sh
 
 # start cron
 service cron start
