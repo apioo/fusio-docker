@@ -127,7 +127,8 @@ RUN cd /var/www/html/fusio && \
     /usr/bin/composer require fusio/adapter-smtp ^5.0 && \
     /usr/bin/composer require fusio/adapter-soap ^5.0 && \
     /usr/bin/composer require fusio/adapter-stripe ^5.0 && \
-    /usr/bin/composer require symfony/sendgrid-mailer ^6.0
+    /usr/bin/composer require symfony/sendgrid-mailer ^6.0 && \
+    /usr/bin/composer require symfony/http-client ^6.0
 
 # install apps
 RUN wget -O /var/www/html/fusio/public/apps/fusio.zip "https://github.com/apioo/fusio-apps-backend/archive/v${FUSIO_APP_BACKEND}.zip"
