@@ -158,9 +158,9 @@ RUN rm -r /tmp/pear
 # chown
 RUN chown -R www-data: /var/www/html/fusio
 
-# start cron
-RUN touch /etc/cron.d/fusio
-RUN chmod 0777 /etc/cron.d/fusio
+# create cron
+RUN echo "* * * * * root /home/run_cron.sh > /tmp/cronjob.log 2>&1" > /etc/cron.d/fusio
+RUN chmod 0644 /etc/cron.d/fusio
 
 # add entrypoint
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
