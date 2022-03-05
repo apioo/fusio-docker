@@ -50,6 +50,10 @@ return [
         \Fusio\Adapter\Mongodb\Action\MongoUpdateOne::class,
         \Fusio\Adapter\Php\Action\PhpProcessor::class,
         \Fusio\Adapter\Php\Action\PhpSandbox::class,
+        \Fusio\Adapter\Redis\Action\RedisHashDelete::class,
+        \Fusio\Adapter\Redis\Action\RedisHashGet::class,
+        \Fusio\Adapter\Redis\Action\RedisHashGetAll::class,
+        \Fusio\Adapter\Redis\Action\RedisHashSet::class,
         \Fusio\Adapter\Smtp\Action\SmtpSend::class,
         \Fusio\Adapter\Sql\Action\SqlSelectAll::class,
         \Fusio\Adapter\Sql\Action\SqlSelectRow::class,
@@ -92,11 +96,12 @@ return [
         \Fusio\Impl\Provider\User\Google::class,
     ],
     'routes' => [
+        \Fusio\Adapter\Sql\Routes\SqlTable::class,
+        \Fusio\Adapter\Mongodb\Routes\MongoCollection::class,
+        \Fusio\Adapter\Elasticsearch\Routes\ElasticsearchDocument::class,
+        \Fusio\Adapter\Redis\Routes\RedisHash::class,
         \Fusio\Impl\Provider\Routes\OpenAPI::class,
         \Fusio\Impl\Provider\Routes\Postman::class,
         \Fusio\Impl\Provider\Routes\Insomnia::class,
-        \Fusio\Adapter\Sql\Routes\SqlTable::class,
-        \Fusio\Adapter\Mongodb\Routes\MongoCollection::class,
     ],
 ];
-
