@@ -22,7 +22,7 @@ class WelcomeTest extends HttpTestCase
 
         $expect = <<<JSON
 {
-  "apiVersion": "6.0.0.0-RC7",
+  "apiVersion": "6.0.0.0-RC9",
   "title": "Fusio",
   "categories": [
     "authorization",
