@@ -1,4 +1,4 @@
-FROM php:8.0.14-apache
+FROM php:8.1-apache
 MAINTAINER Christoph Kappestein <christoph.kappestein@apioo.de>
 LABEL version="2.1.9"
 LABEL description="Fusio API management"
@@ -59,7 +59,8 @@ RUN apt-get update && apt-get -y install \
     libmemcached-dev \
     openssl \
     libssl-dev \
-    libcurl4-openssl-dev
+    libcurl4-openssl-dev \
+    libaio1
 
 # install php extensions
 RUN docker-php-ext-install \
@@ -87,6 +88,33 @@ RUN pecl install memcache-8.0 \
 RUN docker-php-ext-enable \
     memcache \
     mongodb
+
+# Install Oracle Instantclient
+RUN mkdir /opt/oracle \
+    && cd /opt/oracle \
+    && wget https://download.oracle.com/otn_software/linux/instantclient/instantclient-basic-linuxx64.zip \
+    && wget https://download.oracle.com/otn_software/linux/instantclient/instantclient-sdk-linuxx64.zip \
+    && unzip /opt/oracle/instantclient-basic-linuxx64.zip -d /opt/oracle \
+    && unzip /opt/oracle/instantclient-sdk-linuxx64.zip -d /opt/oracle \
+    && rm -rf /opt/oracle/*.zip \
+    && DIR_ORACLE_INSTANT_CLIENT=$(ls -d /opt/oracle/*/ | sed 's:/$::g') \
+    && echo $DIR_ORACLE_INSTANT_CLIENT > /etc/ld.so.conf.d/oracle-instantclient.conf \
+    && ldconfig
+
+# Install OCI8
+RUN DIR_ORACLE_INSTANT_CLIENT=$(ls -d /opt/oracle/*/ | sed 's:/$::g') \
+    && VER_MAY_ORACLE_INSTANT_CLIENT=$(echo $DIR_ORACLE_INSTANT_CLIENT | cut -d "_" -f 2) \
+    && VER_MIN_ORACLE_INSTANT_CLIENT=$(echo $DIR_ORACLE_INSTANT_CLIENT | cut -d "_" -f 3) \
+    && echo "instantclient,$DIR_ORACLE_INSTANT_CLIENT" | pecl install oci8 \
+    && docker-php-ext-enable \
+           oci8
+
+# Install pdo_oci
+RUN DIR_ORACLE_INSTANT_CLIENT=$(ls -d /opt/oracle/*/ | sed 's:/$::g') \
+    && VER_MAY_ORACLE_INSTANT_CLIENT=$(echo $DIR_ORACLE_INSTANT_CLIENT | cut -d "_" -f 2) \
+    && VER_MIN_ORACLE_INSTANT_CLIENT=$(echo $DIR_ORACLE_INSTANT_CLIENT | cut -d "_" -f 3) \
+    && docker-php-ext-configure pdo_oci --with-pdo-oci=instantclient,$DIR_ORACLE_INSTANT_CLIENT,${VER_MAY_ORACLE_INSTANT_CLIENT}.${VER_MIN_ORACLE_INSTANT_CLIENT} \
+    && docker-php-ext-install pdo_oci 
 
 # install composer
 RUN wget -O /usr/bin/composer https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar
