@@ -38,6 +38,8 @@ return [
         \Fusio\Adapter\Elasticsearch\Action\ElasticsearchIndex::class,
         \Fusio\Adapter\Elasticsearch\Action\ElasticsearchSearch::class,
         \Fusio\Adapter\Fcgi\Action\FcgiProcessor::class,
+        \Fusio\Adapter\File\Action\FileDirectoryIndex::class,
+        \Fusio\Adapter\File\Action\FileDirectoryDetail::class,
         \Fusio\Adapter\File\Action\FileProcessor::class,
         \Fusio\Adapter\GraphQL\Action\GraphQLProcessor::class,
         \Fusio\Adapter\Http\Action\HttpComposition::class,
@@ -96,6 +98,7 @@ return [
         \Fusio\Impl\Provider\User\Google::class,
     ],
     'routes' => [
+        \Fusio\Adapter\File\Routes\FileDirectory::class,
         \Fusio\Adapter\Sql\Routes\SqlTable::class,
         \Fusio\Adapter\Mongodb\Routes\MongoCollection::class,
         \Fusio\Adapter\Elasticsearch\Routes\ElasticsearchDocument::class,
