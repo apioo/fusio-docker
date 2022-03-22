@@ -1,4 +1,4 @@
-FROM php:8.1-apache
+FROM php:8.0.14-apache
 MAINTAINER Christoph Kappestein <christoph.kappestein@apioo.de>
 LABEL version="2.1.9"
 LABEL description="Fusio API management"
@@ -105,7 +105,7 @@ RUN mkdir /opt/oracle \
 RUN DIR_ORACLE_INSTANT_CLIENT=$(ls -d /opt/oracle/*/ | sed 's:/$::g') \
     && VER_MAY_ORACLE_INSTANT_CLIENT=$(echo $DIR_ORACLE_INSTANT_CLIENT | cut -d "_" -f 2) \
     && VER_MIN_ORACLE_INSTANT_CLIENT=$(echo $DIR_ORACLE_INSTANT_CLIENT | cut -d "_" -f 3) \
-    && echo "instantclient,$DIR_ORACLE_INSTANT_CLIENT" | pecl install oci8 \
+    && echo "instantclient,$DIR_ORACLE_INSTANT_CLIENT" | pecl install oci8-3.0.1 \
     && docker-php-ext-enable \
            oci8
 
