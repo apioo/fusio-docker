@@ -40,9 +40,6 @@ php bin/fusio marketplace:env swagger-ui
 # deploy
 php bin/fusio login --username="$FUSIO_BACKEND_USER" --password="$FUSIO_BACKEND_PW"
 
-# flush cron file
-php bin/fusio system:cronjob_flush
-
 # create app database
 if [ $exitCode -ne 0 ]; then
     mysql --host="$FUSIO_DB_HOST" --user=root --password="$FUSIO_DB_PW" --execute="CREATE USER 'app'@'%' IDENTIFIED BY '$FUSIO_DB_PW';"
