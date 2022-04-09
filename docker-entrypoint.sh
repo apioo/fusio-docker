@@ -15,11 +15,12 @@ fi
 
 # execute migrations in case the dir exists
 if [ -d src/Migrations ]; then
-    for dir in src/Migrations; do
-        php bin/fusio migration:up-to-date --connection=$dir
+    for dir in src/Migrations/*; do
+        connection=$(basename $dir)
+        php bin/fusio migration:up-to-date --connection=$connection
         exitCode=$?
         if [ $exitCode -ne 0 ]; then
-            php bin/fusio migration:migrate --connection=$dir --no-interaction
+            php bin/fusio migration:migrate --connection=$connection --no-interaction
         fi
     done
 fi
