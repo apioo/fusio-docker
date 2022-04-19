@@ -57,6 +57,7 @@ return [
         \Fusio\Adapter\Redis\Action\RedisHashGetAll::class,
         \Fusio\Adapter\Redis\Action\RedisHashSet::class,
         \Fusio\Adapter\Smtp\Action\SmtpSend::class,
+        \Fusio\Adapter\Sql\Action\SqlBuilder::class,
         \Fusio\Adapter\Sql\Action\SqlSelectAll::class,
         \Fusio\Adapter\Sql\Action\SqlSelectRow::class,
         \Fusio\Adapter\Sql\Action\SqlInsert::class,
