@@ -31,9 +31,9 @@ ENV FUSIO_WORKER_JAVASCRIPT=""
 ENV FUSIO_WORKER_PHP=""
 ENV FUSIO_WORKER_PYTHON=""
 
-ARG FUSIO_VERSION="master"
-ARG FUSIO_APP_BACKEND="master"
-ARG FUSIO_APP_DEVELOPER="master"
+ARG FUSIO_VERSION="3.1.0"
+ARG FUSIO_APP_BACKEND="1.1.0"
+ARG FUSIO_APP_DEVELOPER="1.1.1"
 ARG FUSIO_APP_DOCUMENTATION="1.0.6"
 ARG FUSIO_APP_SWAGGERUI="1.0.2"
 
@@ -94,7 +94,7 @@ RUN echo "${COMPOSER_SHA256} */usr/bin/composer" | sha256sum -c -
 RUN chmod +x /usr/bin/composer
 
 # install fusio
-RUN wget -O /var/www/html/fusio.zip "https://github.com/apioo/fusio/archive/${FUSIO_VERSION}.zip"
+RUN wget -O /var/www/html/fusio.zip "https://github.com/apioo/fusio/archive/v${FUSIO_VERSION}.zip"
 RUN cd /var/www/html && unzip fusio.zip
 RUN rm /var/www/html/fusio.zip
 RUN cd /var/www/html && mv fusio-${FUSIO_VERSION} fusio
@@ -131,12 +131,12 @@ RUN cd /var/www/html/fusio && \
     /usr/bin/composer require symfony/http-client ^6.0
 
 # install apps
-RUN wget -O /var/www/html/fusio/public/apps/fusio.zip "https://github.com/apioo/fusio-apps-backend/archive/${FUSIO_APP_BACKEND}.zip"
+RUN wget -O /var/www/html/fusio/public/apps/fusio.zip "https://github.com/apioo/fusio-apps-backend/archive/v${FUSIO_APP_BACKEND}.zip"
 RUN cd /var/www/html/fusio/public/apps && unzip fusio.zip
 RUN rm /var/www/html/fusio/public/apps/fusio.zip
 RUN cd /var/www/html/fusio/public/apps && mv fusio-apps-backend-${FUSIO_APP_BACKEND} fusio
 
-RUN wget -O /var/www/html/fusio/public/apps/developer.zip "https://github.com/apioo/fusio-apps-developer/archive/${FUSIO_APP_DEVELOPER}.zip"
+RUN wget -O /var/www/html/fusio/public/apps/developer.zip "https://github.com/apioo/fusio-apps-developer/archive/v${FUSIO_APP_DEVELOPER}.zip"
 RUN cd /var/www/html/fusio/public/apps && unzip developer.zip
 RUN rm /var/www/html/fusio/public/apps/developer.zip
 RUN cd /var/www/html/fusio/public/apps && mv fusio-apps-developer-${FUSIO_APP_DEVELOPER} developer
