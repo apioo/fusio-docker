@@ -1,6 +1,6 @@
 FROM php:8.0.14-apache
 MAINTAINER Christoph Kappestein <christoph.kappestein@apioo.de>
-LABEL version="3.1.0"
+LABEL version="3.2.0"
 LABEL description="Fusio API management"
 
 # env
@@ -31,8 +31,8 @@ ENV FUSIO_WORKER_JAVASCRIPT=""
 ENV FUSIO_WORKER_PHP=""
 ENV FUSIO_WORKER_PYTHON=""
 
-ARG FUSIO_VERSION="3.1.1"
-ARG FUSIO_APP_BACKEND="1.1.0"
+ARG FUSIO_VERSION="3.2.0"
+ARG FUSIO_APP_BACKEND="2.0.1"
 ARG FUSIO_APP_DEVELOPER="1.1.1"
 ARG FUSIO_APP_DOCUMENTATION="1.0.6"
 ARG FUSIO_APP_SWAGGERUI="1.0.2"
@@ -131,7 +131,7 @@ RUN cd /var/www/html/fusio && \
     /usr/bin/composer require symfony/http-client ^6.0
 
 # install apps
-RUN wget -O /var/www/html/fusio/public/apps/fusio.zip "https://github.com/apioo/fusio-apps-backend/archive/v${FUSIO_APP_BACKEND}.zip"
+RUN wget -O /var/www/html/fusio/public/apps/fusio.zip "https://github.com/apioo/fusio-apps-backend/releases/download/v${FUSIO_APP_BACKEND}/fusio.zip"
 RUN cd /var/www/html/fusio/public/apps && unzip fusio.zip
 RUN rm /var/www/html/fusio/public/apps/fusio.zip
 RUN cd /var/www/html/fusio/public/apps && mv fusio-apps-backend-${FUSIO_APP_BACKEND} fusio
