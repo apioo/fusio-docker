@@ -131,9 +131,10 @@ RUN cd /var/www/html/fusio && \
     /usr/bin/composer require symfony/http-client ^6.0
 
 # install apps
-RUN wget -O /var/www/html/fusio/public/apps/fusio.zip "https://github.com/apioo/fusio-apps-backend/releases/download/v${FUSIO_APP_BACKEND}/fusio.zip"
-RUN cd /var/www/html/fusio/public/apps && unzip fusio.zip
-RUN rm /var/www/html/fusio/public/apps/fusio.zip
+RUN mkdir /var/www/html/fusio/public/apps/fusio
+RUN wget -O /var/www/html/fusio/public/apps/fusio/fusio.zip "https://github.com/apioo/fusio-apps-backend/releases/download/v${FUSIO_APP_BACKEND}/fusio.zip"
+RUN cd /var/www/html/fusio/public/apps/fusio && unzip fusio.zip
+RUN rm /var/www/html/fusio/public/apps/fusio/fusio.zip
 
 RUN wget -O /var/www/html/fusio/public/apps/developer.zip "https://github.com/apioo/fusio-apps-developer/archive/v${FUSIO_APP_DEVELOPER}.zip"
 RUN cd /var/www/html/fusio/public/apps && unzip developer.zip
