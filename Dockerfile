@@ -1,6 +1,6 @@
 FROM php:8.0.14-apache
 MAINTAINER Christoph Kappestein <christoph.kappestein@apioo.de>
-LABEL version="3.2.0"
+LABEL version="3.2.1"
 LABEL description="Fusio API management"
 
 # env
