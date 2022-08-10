@@ -94,10 +94,10 @@ RUN echo "${COMPOSER_SHA256} */usr/bin/composer" | sha256sum -c -
 RUN chmod +x /usr/bin/composer
 
 # install fusio
-RUN wget -O /var/www/html/fusio.zip "https://github.com/apioo/fusio/releases/download/v${FUSIO_VERSION}/fusio.zip"
-RUN cd /var/www/html && unzip fusio.zip
-RUN rm /var/www/html/fusio.zip
-RUN cd /var/www/html && mv fusio-${FUSIO_VERSION} fusio
+RUN mkdir /var/www/html/fusio
+RUN wget -O /var/www/html/fusio/fusio.zip "https://github.com/apioo/fusio/releases/download/v${FUSIO_VERSION}/fusio.zip"
+RUN cd /var/www/html/fusio && unzip fusio.zip
+RUN rm /var/www/html/fusio/fusio.zip
 RUN cd /var/www/html/fusio && /usr/bin/composer install
 COPY ./fusio /var/www/html/fusio
 RUN chmod +x /var/www/html/fusio/bin/fusio
