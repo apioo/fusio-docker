@@ -1,6 +1,6 @@
 FROM php:8.0.14-apache
 MAINTAINER Christoph Kappestein <christoph.kappestein@apioo.de>
-LABEL version="3.2.1"
+LABEL version="3.2.2"
 LABEL description="Fusio API management"
 
 # env
@@ -31,7 +31,7 @@ ENV FUSIO_WORKER_JAVASCRIPT=""
 ENV FUSIO_WORKER_PHP=""
 ENV FUSIO_WORKER_PYTHON=""
 
-ARG FUSIO_VERSION="3.2.1"
+ARG FUSIO_VERSION="3.2.2"
 ARG FUSIO_APP_BACKEND="2.0.2"
 ARG FUSIO_APP_DEVELOPER="1.1.1"
 ARG FUSIO_APP_DOCUMENTATION="1.0.6"
@@ -94,7 +94,7 @@ RUN echo "${COMPOSER_SHA256} */usr/bin/composer" | sha256sum -c -
 RUN chmod +x /usr/bin/composer
 
 # install fusio
-RUN wget -O /var/www/html/fusio.zip "https://github.com/apioo/fusio/archive/v${FUSIO_VERSION}.zip"
+RUN wget -O /var/www/html/fusio.zip "https://github.com/apioo/fusio/releases/download/v${FUSIO_VERSION}/fusio.zip"
 RUN cd /var/www/html && unzip fusio.zip
 RUN rm /var/www/html/fusio.zip
 RUN cd /var/www/html && mv fusio-${FUSIO_VERSION} fusio
