@@ -21,7 +21,7 @@ jobs:
       - name: Composer install
         run: composer install --no-interaction --no-ansi --no-progress
       - name: Replace image
-        run: 'sed -i "s#image: fusio\/fusio:main#build: \.#g" docker-compose.yml'
+        run: 'sed -i "s#image: fusio\/fusio#build: \.#g" docker-compose.yml'
       - name: Add hostname
         run: 'echo "127.0.0.1 api.fusio.cloud" | sudo tee -a /etc/hosts'
       - name: Start docker
