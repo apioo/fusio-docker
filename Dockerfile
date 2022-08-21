@@ -31,11 +31,11 @@ ENV FUSIO_WORKER_JAVASCRIPT=""
 ENV FUSIO_WORKER_PHP=""
 ENV FUSIO_WORKER_PYTHON=""
 
-ARG FUSIO_VERSION="3.2.2"
-ARG FUSIO_APP_BACKEND="2.0.3"
-ARG FUSIO_APP_DEVELOPER="1.1.1"
+ARG FUSIO_VERSION="3.2.3"
+ARG FUSIO_APP_BACKEND="2.0.4"
+ARG FUSIO_APP_DEVELOPER="2.0.0"
 ARG FUSIO_APP_DOCUMENTATION="1.0.6"
-ARG FUSIO_APP_SWAGGERUI="1.0.2"
+ARG FUSIO_APP_SWAGGERUI="1.0.3"
 
 ARG COMPOSER_VERSION="2.3.10"
 ARG COMPOSER_SHA256="d808272f284fa8e0f8b470703e1438ac8f362030bbc9d12e29530277d767aff0"
@@ -136,10 +136,10 @@ RUN wget -O /var/www/html/fusio/public/apps/fusio/fusio.zip "https://github.com/
 RUN cd /var/www/html/fusio/public/apps/fusio && unzip fusio.zip
 RUN rm /var/www/html/fusio/public/apps/fusio/fusio.zip
 
-RUN wget -O /var/www/html/fusio/public/apps/developer.zip "https://github.com/apioo/fusio-apps-developer/archive/v${FUSIO_APP_DEVELOPER}.zip"
-RUN cd /var/www/html/fusio/public/apps && unzip developer.zip
-RUN rm /var/www/html/fusio/public/apps/developer.zip
-RUN cd /var/www/html/fusio/public/apps && mv fusio-apps-developer-${FUSIO_APP_DEVELOPER} developer
+RUN mkdir /var/www/html/fusio/public/apps/developer
+RUN wget -O /var/www/html/fusio/public/apps/developer/developer.zip "https://github.com/apioo/fusio-apps-developer/releases/download/v${FUSIO_APP_DEVELOPER}/developer.zip"
+RUN cd /var/www/html/fusio/public/apps/developer && unzip developer.zip
+RUN rm /var/www/html/fusio/public/apps/developer/developer.zip
 
 RUN wget -O /var/www/html/fusio/public/apps/documentation.zip "https://github.com/apioo/fusio-apps-documentation/archive/v${FUSIO_APP_DOCUMENTATION}.zip"
 RUN cd /var/www/html/fusio/public/apps && unzip documentation.zip
