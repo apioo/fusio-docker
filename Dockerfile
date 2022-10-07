@@ -159,7 +159,10 @@ RUN rm -r /tmp/pear
 RUN chown -R www-data: /var/www/html/fusio
 
 # create cron
-RUN echo "* * * * * root /home/run_cron.sh > /tmp/cronjob.log 2>&1" > /etc/cron.d/fusio
+RUN echo "" > /etc/cron.d/fusio
+RUN echo "* * * * * root /home/run_cron.sh > /tmp/cronjob.log 2>&1" >> /etc/cron.d/fusio
+RUN echo "0 0 1 * * www-data /usr/local/bin/php bin/fusio system:log_rotate" >> /etc/cron.d/fusio
+RUN echo "0 0 1 * * www-data /usr/local/bin/php bin/fusio system:clean" >> /etc/cron.d/fusio
 RUN chmod 0644 /etc/cron.d/fusio
 
 # add entrypoint
