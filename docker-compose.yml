@@ -23,7 +23,6 @@ services:
       FUSIO_PHP_SANDBOX: "off"
       FUSIO_MARKETPLACE: "off"
       FUSIO_PAYMENT_CURRENCY: "EUR"
-      FUSIO_CERTBOT: "0"
       FUSIO_WORKER_JAVA: "worker_java:9090"
       FUSIO_WORKER_JAVASCRIPT: "worker_javascript:9091"
       FUSIO_WORKER_PHP: "worker_php:9092"
@@ -36,7 +35,6 @@ services:
       - worker_python
     ports:
       - "8080:80"
-      - "8443:443"
 
   # Fusio system database
   mysql_fusio:
