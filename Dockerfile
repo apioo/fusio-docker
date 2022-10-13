@@ -24,7 +24,6 @@ ENV FUSIO_MAIL_SENDER=""
 ENV FUSIO_PHP_SANDBOX="off"
 ENV FUSIO_MARKETPLACE="off"
 ENV FUSIO_PAYMENT_CURRENCY="EUR"
-ENV FUSIO_CERTBOT="0"
 
 ENV FUSIO_WORKER_JAVA=""
 ENV FUSIO_WORKER_JAVASCRIPT=""
@@ -47,8 +46,6 @@ RUN apt-get update && apt-get -y install \
     unzip \
     cron \
     sudo \
-    certbot \
-    python3-certbot-apache \
     default-mysql-client \
     libpq-dev \
     libxml2-dev \
@@ -109,10 +106,6 @@ COPY ./apache/fusio.conf /etc/apache2/sites-available/fusio.conf
 RUN a2enmod rewrite
 RUN a2ensite fusio
 
-# ssl script
-COPY ./apache/generate-ssl.php /home/generate-ssl.php
-RUN chmod +x /home/generate-ssl.php
-
 # php config
 RUN mv "${PHP_INI_DIR}/php.ini-production" "${PHP_INI_DIR}/php.ini"
 
@@ -160,9 +153,9 @@ RUN chown -R www-data: /var/www/html/fusio
 
 # create cron
 RUN echo "" > /etc/cron.d/fusio
-RUN echo "* * * * * root /home/run_cron.sh > /tmp/cronjob.log 2>&1" >> /etc/cron.d/fusio
-RUN echo "0 0 1 * * www-data /usr/local/bin/php bin/fusio system:log_rotate" >> /etc/cron.d/fusio
-RUN echo "0 0 1 * * www-data /usr/local/bin/php bin/fusio system:clean" >> /etc/cron.d/fusio
+RUN echo "* * * * * www-data cd /var/www/html/fusio && source env.sh && /usr/local/bin/php bin/fusio cronjob > /tmp/cronjob.log 2>&1" >> /etc/cron.d/fusio
+RUN echo "0 0 1 * * www-data cd /var/www/html/fusio && source env.sh && /usr/local/bin/php bin/fusio system:log_rotate > /tmp/log_rotate.log 2>&1" >> /etc/cron.d/fusio
+RUN echo "0 0 1 * * www-data cd /var/www/html/fusio && source env.sh && /usr/local/bin/php bin/fusio system:clean > /tmp/clean.log 2>&1" >> /etc/cron.d/fusio
 RUN chmod 0644 /etc/cron.d/fusio
 
 # add entrypoint
@@ -170,6 +163,5 @@ COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 
 EXPOSE 80
-EXPOSE 443
 
 ENTRYPOINT ["/docker-entrypoint.sh"]

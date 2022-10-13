@@ -55,17 +55,13 @@ fi
 php bin/fusio deploy
 php bin/fusio logout
 
+# create env script
+echo '#!/bin/bash' > env.sh
+printenv | sed 's/^\(.*\)$/export \1/g' | grep -E "^export FUSIO" >> env.sh
+chown www-data: env.sh
+chmod +x env.sh
+
 popd
-
-# start generate ssl script
-php /home/generate-ssl.php &
-
-# create run cron script
-echo '#!/bin/bash' > /home/run_cron.sh
-printenv | sed 's/^\(.*\)$/export \1/g' | grep -E "^export FUSIO" >> /home/run_cron.sh
-echo 'cd /var/www/html/fusio' >> /home/run_cron.sh
-echo 'sudo -E -u www-data /usr/local/bin/php bin/fusio cronjob' >> /home/run_cron.sh
-chmod +x /home/run_cron.sh
 
 # start cron
 service cron start
