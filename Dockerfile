@@ -153,10 +153,11 @@ RUN chown -R www-data: /var/www/html/fusio
 
 # create cron
 RUN echo "" > /etc/cron.d/fusio
-RUN echo "* * * * * www-data cd /var/www/html/fusio && source env.sh && /usr/local/bin/php bin/fusio cronjob > /tmp/cronjob.log 2>&1" >> /etc/cron.d/fusio
-RUN echo "0 0 1 * * www-data cd /var/www/html/fusio && source env.sh && /usr/local/bin/php bin/fusio system:log_rotate > /tmp/log_rotate.log 2>&1" >> /etc/cron.d/fusio
-RUN echo "0 0 1 * * www-data cd /var/www/html/fusio && source env.sh && /usr/local/bin/php bin/fusio system:clean > /tmp/clean.log 2>&1" >> /etc/cron.d/fusio
+RUN echo "* * * * * www-data /var/www/html/fusio/run_cron.sh cronjob" >> /etc/cron.d/fusio
+RUN echo "0 0 1 * * www-data /var/www/html/fusio/run_cron.sh log_rotate" >> /etc/cron.d/fusio
+RUN echo "0 0 1 * * www-data /var/www/html/fusio/run_cron.sh clean" >> /etc/cron.d/fusio
 RUN chmod 0644 /etc/cron.d/fusio
+RUN chmod +x /var/www/html/fusio/run_cron.sh
 
 # add entrypoint
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
