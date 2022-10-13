@@ -1,4 +1,4 @@
-FROM php:8.0.14-apache
+FROM php:8.0-apache
 MAINTAINER Christoph Kappestein <christoph.kappestein@apioo.de>
 LABEL version="3.3.0"
 LABEL description="Fusio API management"
@@ -82,7 +82,7 @@ RUN docker-php-ext-install \
 
 # install pecl
 RUN pecl install memcache-8.0 \
-    && pecl install mongodb-1.12.0
+    && pecl install mongodb-1.14.1
 
 RUN docker-php-ext-enable \
     memcache \
