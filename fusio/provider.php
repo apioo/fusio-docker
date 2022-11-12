@@ -94,9 +94,10 @@ return [
         \Fusio\Impl\Provider\User\Google::class,
     ],
     'generator' => [
-        \Fusio\Adapter\File\Generator\FileDirectory::class,
-        \Fusio\Adapter\Sql\Generator\SqlTable::class,
         \Fusio\Adapter\Sql\Generator\SqlEntity::class,
+        \Fusio\Adapter\Sql\Generator\SqlDatabase::class,
+        \Fusio\Adapter\Sql\Generator\SqlTable::class,
+        \Fusio\Adapter\File\Generator\FileDirectory::class,
         \Fusio\Adapter\Mongodb\Generator\MongoCollection::class,
         \Fusio\Adapter\Elasticsearch\Generator\ElasticsearchDocument::class,
         \Fusio\Adapter\Redis\Generator\RedisHash::class,
