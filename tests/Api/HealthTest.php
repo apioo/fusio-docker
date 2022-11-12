@@ -22,6 +22,9 @@ class HealthTest extends HttpTestCase
 {
     "healthy": true,
     "checks": {
+        "App": {
+            "healthy": true
+        },
         "System": {
             "healthy": true
         }
