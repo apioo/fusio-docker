@@ -41,14 +41,6 @@ return [
     // provider file for more information
     'fusio_provider'          => __DIR__ . '/provider.php',
 
-    // A list of additional user attributes. Through this your app can easily store additional attributes to the account
-    /*
-    'fusio_user_attributes'   => [
-        'first_name',
-        'last_name',
-    ],
-    */
-
     // Settings of the internal mailer. More information s.
     // https://symfony.com/doc/current/mailer.html#using-built-in-transports
     'fusio_mailer'            => getenv('FUSIO_MAILER'),
@@ -114,8 +106,16 @@ return [
     //'psx_filter_pre'          => [],
     //'psx_filter_post'         => [],
 
-    // A closure which returns a symfony cache implementation. If null the filesystem cache is used
-    //'psx_cache_factory'       => null,
+    // A closure which returns a symfony cache implementation. If null the filesystem cache is used. Please take a look
+    // at the repository to see all available adapter: https://github.com/symfony/cache
+    /*
+    'psx_cache_factory'         => function($config, $namespace){
+        $client = new \Memcached();
+        $client->addServer(getenv('FUSIO_MEMCACHE_HOST'), getenv('FUSIO_MEMCACHE_PORT'));
+
+        return new \Symfony\Component\Cache\Adapter\MemcachedAdapter($client, $namespace);
+    },
+    */
 
     // Specify a specific log level
     //'psx_log_level' => \Monolog\Logger::ERROR,
