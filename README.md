@@ -54,15 +54,11 @@ $ docker run -d --name fusio \
   -p 80:80 \
   --link mysql_fusio:db \
   -e "FUSIO_PROJECT_KEY=42eec18ffdbffc9fda6110dcc705d6ce" \
-  -e "FUSIO_DOMAIN=api.fusio.cloud" \
-  -e "FUSIO_HOST=api.fusio.cloud" \
   -e "FUSIO_URL=http://api.fusio.cloud" \
   -e "FUSIO_APPS_URL=http://api.fusio.cloud/apps" \
   -e "FUSIO_ENV=prod" \
-  -e "FUSIO_DB_NAME=fusio" \
-  -e "FUSIO_DB_USER=fusio" \
-  -e "FUSIO_DB_PW=61ad6c605975" \
-  -e "FUSIO_DB_HOST=mysql_fusio" \
+  -e "FUSIO_DEBUG=false" \
+  -e "FUSIO_CONNECTION=pdo-mysql://fusio:61ad6c605975@mysql_fusio/fusio" \
   -e "FUSIO_BACKEND_USER=demo" \
   -e "FUSIO_BACKEND_EMAIL=demo@fusio-project.org" \
   -e "FUSIO_BACKEND_PW=61ad6c605975" \
