@@ -93,6 +93,9 @@ RUN cd /var/www/html/fusio && /usr/bin/composer install
 COPY ./fusio /var/www/html/fusio
 RUN chmod +x /var/www/html/fusio/bin/fusio
 
+RUN rm /var/www/html/fusio/log/app.log
+RUN ln -s /dev/stderr /var/www/html/fusio/log/app.log
+
 # apache config
 RUN rm /etc/apache2/sites-available/*.conf
 RUN rm /etc/apache2/sites-enabled/*.conf

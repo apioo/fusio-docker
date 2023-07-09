@@ -39,6 +39,10 @@ chmod +x env.sh
 
 popd
 
+# chown
+chown -R www-data: /var/www/html/fusio/cache
+chown -R www-data: /var/www/html/fusio/log
+
 # start cron
 service cron start
 
