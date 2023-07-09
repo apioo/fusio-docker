@@ -1,19 +1,15 @@
-FROM php:8.0-apache
+FROM php:8.2-apache
 MAINTAINER Christoph Kappestein <christoph.kappestein@apioo.de>
-LABEL version="3.3.2"
+LABEL version="4.0.0-RC2"
 LABEL description="Fusio API management"
 
 # env
 ENV FUSIO_PROJECT_KEY="42eec18ffdbffc9fda6110dcc705d6ce"
-ENV FUSIO_DOMAIN="api.fusio.cloud"
-ENV FUSIO_HOST="api.fusio.cloud"
 ENV FUSIO_URL="http://api.fusio.cloud"
 ENV FUSIO_APPS_URL="http://api.fusio.cloud/apps"
 ENV FUSIO_ENV="prod"
-ENV FUSIO_DB_NAME="fusio"
-ENV FUSIO_DB_USER="fusio"
-ENV FUSIO_DB_PW="61ad6c605975"
-ENV FUSIO_DB_HOST="localhost"
+ENV FUSIO_DEBUG="false"
+ENV FUSIO_CONNECTION="pdo-mysql://fusio:61ad6c605975@localhost/fusio"
 
 ENV FUSIO_BACKEND_USER="demo"
 ENV FUSIO_BACKEND_EMAIL="demo@fusio-project.org"
@@ -23,21 +19,19 @@ ENV FUSIO_MAILER="native://default"
 ENV FUSIO_MAIL_SENDER=""
 ENV FUSIO_PHP_SANDBOX="off"
 ENV FUSIO_MARKETPLACE="off"
-ENV FUSIO_PAYMENT_CURRENCY="EUR"
 
 ENV FUSIO_WORKER_JAVA=""
 ENV FUSIO_WORKER_JAVASCRIPT=""
 ENV FUSIO_WORKER_PHP=""
 ENV FUSIO_WORKER_PYTHON=""
 
-ARG FUSIO_VERSION="3.3.2"
-ARG FUSIO_APP_BACKEND="2.0.8"
-ARG FUSIO_APP_DEVELOPER="2.0.4"
-ARG FUSIO_APP_DOCUMENTATION="1.0.6"
-ARG FUSIO_APP_SWAGGERUI="1.0.5"
+ARG FUSIO_VERSION="4.0.0-RC2"
+ARG FUSIO_APP_BACKEND="3.0.0"
+ARG FUSIO_APP_DEVELOPER="3.0.0"
+ARG FUSIO_APP_REDOC="1.0.0"
 
-ARG COMPOSER_VERSION="2.4.2"
-ARG COMPOSER_SHA256="8fe98a01050c92cc6812b8ead3bd5b6e0bcdc575ce7a93b242bde497a31d7732"
+ARG COMPOSER_VERSION="2.5.8"
+ARG COMPOSER_SHA256="f07934fad44f9048c0dc875a506cca31cc2794d6aebfc1867f3b1fbf48dce2c5"
 
 # install default packages
 RUN apt-get update && apt-get -y install \
@@ -78,8 +72,8 @@ RUN docker-php-ext-install \
     sockets
 
 # install pecl
-RUN pecl install memcache-8.0 \
-    && pecl install mongodb-1.14.1
+RUN pecl install memcache-8.2 \
+    && pecl install mongodb-1.16.1
 
 RUN docker-php-ext-enable \
     memcache \
@@ -111,15 +105,15 @@ RUN mv "${PHP_INI_DIR}/php.ini-production" "${PHP_INI_DIR}/php.ini"
 
 # install additional connectors
 RUN cd /var/www/html/fusio && \
-    /usr/bin/composer require fusio/adapter-amqp ^5.0 && \
-    /usr/bin/composer require fusio/adapter-beanstalk ^5.0 && \
-    /usr/bin/composer require fusio/adapter-elasticsearch ^5.0 && \
-    /usr/bin/composer require fusio/adapter-memcache ^5.0 && \
-    /usr/bin/composer require fusio/adapter-mongodb ^5.0 && \
-    /usr/bin/composer require fusio/adapter-redis ^5.0 && \
-    /usr/bin/composer require fusio/adapter-smtp ^5.0 && \
-    /usr/bin/composer require fusio/adapter-soap ^5.0 && \
-    /usr/bin/composer require fusio/adapter-stripe ^5.0 && \
+    /usr/bin/composer require fusio/adapter-amqp ^6.0 && \
+    /usr/bin/composer require fusio/adapter-beanstalk ^6.0 && \
+    /usr/bin/composer require fusio/adapter-elasticsearch ^6.0 && \
+    /usr/bin/composer require fusio/adapter-memcache ^6.0 && \
+    /usr/bin/composer require fusio/adapter-mongodb ^6.0 && \
+    /usr/bin/composer require fusio/adapter-redis ^6.0 && \
+    /usr/bin/composer require fusio/adapter-smtp ^6.0 && \
+    /usr/bin/composer require fusio/adapter-soap ^6.0 && \
+    /usr/bin/composer require fusio/adapter-stripe ^6.0 && \
     /usr/bin/composer require symfony/sendgrid-mailer ^6.0 && \
     /usr/bin/composer require symfony/http-client ^6.0
 
@@ -134,15 +128,10 @@ RUN wget -O /var/www/html/fusio/public/apps/developer/developer.zip "https://git
 RUN cd /var/www/html/fusio/public/apps/developer && unzip developer.zip
 RUN rm /var/www/html/fusio/public/apps/developer/developer.zip
 
-RUN wget -O /var/www/html/fusio/public/apps/documentation.zip "https://github.com/apioo/fusio-apps-documentation/archive/v${FUSIO_APP_DOCUMENTATION}.zip"
-RUN cd /var/www/html/fusio/public/apps && unzip documentation.zip
-RUN rm /var/www/html/fusio/public/apps/documentation.zip
-RUN cd /var/www/html/fusio/public/apps && mv fusio-apps-documentation-${FUSIO_APP_DOCUMENTATION} documentation
-
-RUN wget -O /var/www/html/fusio/public/apps/swaggerui.zip "https://github.com/apioo/fusio-apps-swaggerui/archive/v${FUSIO_APP_SWAGGERUI}.zip"
-RUN cd /var/www/html/fusio/public/apps && unzip swaggerui.zip
-RUN rm /var/www/html/fusio/public/apps/swaggerui.zip
-RUN cd /var/www/html/fusio/public/apps && mv fusio-apps-swaggerui-${FUSIO_APP_SWAGGERUI} swagger-ui
+RUN wget -O /var/www/html/fusio/public/apps/redoc.zip "https://github.com/apioo/fusio-apps-redoc/archive/refs/tags/v${FUSIO_APP_REDOC}.zip"
+RUN cd /var/www/html/fusio/public/apps && unzip redoc.zip
+RUN rm /var/www/html/fusio/public/apps/redoc.zip
+RUN cd /var/www/html/fusio/public/apps && mv fusio-apps-redoc-${FUSIO_APP_REDOC} redoc
 
 # clean up files
 RUN rm /var/www/html/fusio/public/install.php

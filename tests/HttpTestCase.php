@@ -15,21 +15,12 @@ use Psr\Http\Message\ResponseInterface;
  */
 class HttpTestCase extends TestCase
 {
-    /**
-     * @var Client
-     */
-    private static $httpClient;
+    private static ?Client $httpClient = null;
 
     /**
-     * Sends an request to the system and returns the http response
-     *
-     * @param string $uri
-     * @param string $method
-     * @param array $headers
-     * @param string $body
-     * @return ResponseInterface
+     * Sends a request to the system and returns the http response
      */
-    protected function sendRequest($uri, $method, $headers = array(), $body = null)
+    protected function sendRequest(string $uri, string $method, array $headers = [], ?string $body = null): ResponseInterface
     {
         return self::getHttpClient()->request($method, $uri, [
             'headers' => $headers,
@@ -37,10 +28,7 @@ class HttpTestCase extends TestCase
         ]);
     }
 
-    /**
-     * @return Client
-     */
-    private function getHttpClient()
+    private function getHttpClient(): Client
     {
         if (!self::$httpClient) {
             self::$httpClient = new Client([
