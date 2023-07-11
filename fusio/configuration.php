@@ -79,7 +79,7 @@ return [
 
     // Folder locations
     'psx_path_cache'          => __DIR__ . '/cache',
-    'psx_path_log'            => __DIR__ . '/log',
+    'psx_path_log'            => 'php://error_log',
     'psx_path_public'         => __DIR__ . '/public',
     'psx_path_src'            => __DIR__ . '/src',
 
