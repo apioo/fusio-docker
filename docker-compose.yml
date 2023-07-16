@@ -46,22 +46,22 @@ services:
 
   # Worker
   worker_java:
-    image: fusio/worker-java:0.1
+    image: fusio/worker-java:1.0
     restart: always
     volumes:
       - ./worker/java:/worker/actions
   worker_javascript:
-    image: fusio/worker-javascript:0.1
+    image: fusio/worker-javascript:1.0
     restart: always
     volumes:
       - ./worker/javascript:/worker/actions
   worker_php:
-    image: fusio/worker-php:0.1
+    image: fusio/worker-php:1.0
     restart: always
     volumes:
       - ./worker/php:/worker/actions
   worker_python:
-    image: fusio/worker-python:0.1
+    image: fusio/worker-python:1.0
     restart: always
     volumes:
       - ./worker/python:/worker/actions
