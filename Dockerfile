@@ -1,6 +1,6 @@
 FROM php:8.2-apache
 MAINTAINER Christoph Kappestein <christoph.kappestein@apioo.de>
-LABEL version="4.0.0-RC3"
+LABEL version="4.0.0-RC4"
 LABEL description="Fusio API management"
 
 # env
@@ -25,7 +25,7 @@ ENV FUSIO_WORKER_JAVASCRIPT=""
 ENV FUSIO_WORKER_PHP=""
 ENV FUSIO_WORKER_PYTHON=""
 
-ARG FUSIO_VERSION="4.0.0-RC3"
+ARG FUSIO_VERSION="4.0.0-RC4"
 ARG FUSIO_APP_BACKEND="3.0.1"
 ARG FUSIO_APP_DEVELOPER="3.0.0"
 ARG FUSIO_APP_REDOC="1.0.0"
