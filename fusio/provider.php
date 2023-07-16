@@ -9,11 +9,13 @@ return [
     \Fusio\Adapter\File\Adapter::class,
     \Fusio\Adapter\GraphQL\Adapter::class,
     \Fusio\Adapter\Http\Adapter::class,
+    \Fusio\Adapter\Memcache\Adapter::class,
     \Fusio\Adapter\Mongodb\Adapter::class,
     \Fusio\Adapter\Php\Adapter::class,
     \Fusio\Adapter\Redis\Adapter::class,
     \Fusio\Adapter\Smtp\Adapter::class,
     \Fusio\Adapter\Soap\Adapter::class,
     \Fusio\Adapter\Sql\Adapter::class,
+    \Fusio\Adapter\Stripe\Adapter::class,
     \Fusio\Adapter\Util\Adapter::class,
 ];
