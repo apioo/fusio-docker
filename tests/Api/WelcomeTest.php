@@ -22,7 +22,7 @@ class WelcomeTest extends HttpTestCase
 
         $expect = <<<JSON
 {
-  "apiVersion": "6.3.8.0",
+  "apiVersion": "7.0.7.0",
   "title": "Fusio",
   "paymentCurrency": "EUR",
   "categories": [
@@ -38,8 +38,7 @@ class WelcomeTest extends HttpTestCase
   "apps": {
     "fusio": "http://api.fusio.cloud:8080/apps/fusio",
     "developer": "http://api.fusio.cloud:8080/apps/developer",
-    "documentation": "http://api.fusio.cloud:8080/apps/documentation",
-    "swagger-ui": "http://api.fusio.cloud:8080/apps/swagger-ui"
+    "redoc": "http://api.fusio.cloud:8080/apps/redoc"
   },
   "links": [
     {
@@ -47,11 +46,11 @@ class WelcomeTest extends HttpTestCase
       "rel": "root"
     },
     {
-      "href": "http://api.fusio.cloud:8080/system/export/openapi/*/*",
+      "href": "http://api.fusio.cloud:8080/system/generator/spec-openapi",
       "rel": "openapi"
     },
     {
-      "href": "http://api.fusio.cloud:8080/system/doc",
+      "href": "http://api.fusio.cloud:8080/system/generator/spec-typeapi",
       "rel": "documentation"
     },
     {
@@ -61,10 +60,6 @@ class WelcomeTest extends HttpTestCase
     {
       "href": "http://api.fusio.cloud:8080/system/health",
       "rel": "health"
-    },
-    {
-      "href": "http://api.fusio.cloud:8080/system/jsonrpc",
-      "rel": "jsonrpc"
     },
     {
       "href": "http://api.fusio.cloud:8080/authorization/token",
