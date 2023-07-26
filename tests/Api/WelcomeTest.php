@@ -22,7 +22,7 @@ class WelcomeTest extends HttpTestCase
 
         $expect = <<<JSON
 {
-  "apiVersion": "7.0.7.0",
+  "apiVersion": "7.1.2.0",
   "title": "Fusio",
   "paymentCurrency": "EUR",
   "categories": [
@@ -51,7 +51,7 @@ class WelcomeTest extends HttpTestCase
     },
     {
       "href": "http://api.fusio.cloud:8080/system/generator/spec-typeapi",
-      "rel": "documentation"
+      "rel": "typeapi"
     },
     {
       "href": "http://api.fusio.cloud:8080/system/route",
