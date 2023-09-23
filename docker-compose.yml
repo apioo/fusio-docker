@@ -15,6 +15,7 @@ services:
       FUSIO_BACKEND_EMAIL: "demo@fusio-project.org"
       FUSIO_BACKEND_PW: "test1234"
       FUSIO_MAILER: "native://default"
+      FUSIO_MESSENGER: "doctrine://default"
       FUSIO_MAIL_SENDER: "info@api.fusio.cloud"
       FUSIO_PHP_SANDBOX: "off"
       FUSIO_MARKETPLACE: "off"

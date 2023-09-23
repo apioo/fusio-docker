@@ -1,6 +1,6 @@
 FROM php:8.2-apache
 MAINTAINER Christoph Kappestein <christoph.kappestein@apioo.de>
-LABEL version="4.0.1"
+LABEL version="4.0.2"
 LABEL description="Fusio API management"
 
 # env
@@ -16,6 +16,7 @@ ENV FUSIO_BACKEND_EMAIL="demo@fusio-project.org"
 ENV FUSIO_BACKEND_PW="75dafcb12c4f"
 
 ENV FUSIO_MAILER="native://default"
+ENV FUSIO_MESSENGER="doctrine://default"
 ENV FUSIO_MAIL_SENDER=""
 ENV FUSIO_PHP_SANDBOX="off"
 ENV FUSIO_MARKETPLACE="off"
@@ -25,7 +26,7 @@ ENV FUSIO_WORKER_JAVASCRIPT=""
 ENV FUSIO_WORKER_PHP=""
 ENV FUSIO_WORKER_PYTHON=""
 
-ARG FUSIO_VERSION="4.0.1"
+ARG FUSIO_VERSION="4.0.2"
 ARG FUSIO_APP_BACKEND="3.0.3"
 ARG FUSIO_APP_DEVELOPER="3.0.2"
 ARG FUSIO_APP_REDOC="1.0.0"
@@ -40,6 +41,7 @@ RUN apt-get update && apt-get -y install \
     unzip \
     cron \
     sudo \
+    supervisor \
     default-mysql-client \
     libpq-dev \
     libxml2-dev \
@@ -99,6 +101,9 @@ RUN rm /etc/apache2/sites-enabled/*.conf
 COPY ./apache/fusio.conf /etc/apache2/sites-available/fusio.conf
 RUN a2enmod rewrite
 RUN a2ensite fusio
+
+# supervisor config
+COPY supervisor/fusio.conf /etc/supervisor/conf.d/fusio.conf
 
 # php config
 RUN mv "${PHP_INI_DIR}/php.ini-production" "${PHP_INI_DIR}/php.ini"

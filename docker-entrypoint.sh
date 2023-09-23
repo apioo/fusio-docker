@@ -46,6 +46,12 @@ chown -R www-data: /var/www/html/fusio/log
 # start cron
 service cron start
 
+# start supervisor
+supervisord
+
+# we start all worker and ignore any errors at startup
+supervisorctl start all || true
+
 # remove existing pid
 rm -f /var/run/apache2/apache2.pid
 

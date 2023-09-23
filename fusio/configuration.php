@@ -73,6 +73,10 @@ return [
     // https://symfony.com/doc/current/mailer.html#using-built-in-transports
     'psx_mailer'              => env('FUSIO_MAILER')->string(),
 
+    // Messenger transport configuration
+    // https://symfony.com/doc/current/messenger.html#transports-async-queued-messages
+    'psx_messenger'           => env('FUSIO_MESSENGER')->string(),
+
     'psx_migration_namespace' => 'App\\Migrations',
 
     'psx_log_level'           => Logger::ERROR,
