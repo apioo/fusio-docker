@@ -33,7 +33,7 @@ php bin/fusio logout
 
 # create env script
 echo '#!/bin/bash' > env.sh
-printenv | sed 's/^\(.*\)$/export \1/g' | grep -E "^export FUSIO" >> env.sh
+declare -px | sed 's/^declare -x /export /g' | grep -E "^export FUSIO" >> env.sh
 chown www-data: env.sh
 chmod +x env.sh
 
