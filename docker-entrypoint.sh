@@ -7,28 +7,56 @@ php bin/fusio system:wait_for
 
 # install fusio
 php bin/fusio migration:up-to-date
-exitCode=$?
-if [ $exitCode -ne 0 ]; then
+if [ $? -ne 0 ]; then
     # migrate fusio
     php bin/fusio migration:migrate --no-interaction
 fi
 
 # add initial backend user
 php bin/fusio system:check user
-exitCode=$?
-if [ $exitCode -ne 0 ]; then
+if [ $? -ne 0 ]; then
     php bin/fusio adduser --role=1 --username="$FUSIO_BACKEND_USER" --email="$FUSIO_BACKEND_EMAIL" --password="$FUSIO_BACKEND_PW"
 fi
 
 # replace env
 php bin/fusio marketplace:env fusio
 php bin/fusio marketplace:env developer
+php bin/fusio marketplace:env account
 php bin/fusio marketplace:env redoc
 
-# deploy
+# login
 php bin/fusio login --username="$FUSIO_BACKEND_USER" --password="$FUSIO_BACKEND_PW"
 
+# configure worker
+setup_worker() {
+    php bin/fusio connection:detail "$1"
+    if [ $? -ne 0 ]; then
+        php bin/fusio connection:create "{'name':'$1','class':'Fusio.Adapter.Worker.Connection.Worker','config':{'url':'http://$2'}}"
+    else
+        php bin/fusio connection:update "$1" "{'name':'$1','class':'Fusio.Adapter.Worker.Connection.Worker','config':{'url':'http://$2'}}"
+    fi
+}
+
+if [ ! -z "$FUSIO_WORKER_JAVA" ]; then
+    setup_worker "Java-Worker" $FUSIO_WORKER_JAVA
+fi
+
+if [ ! -z "$FUSIO_WORKER_JAVASCRIPT" ]; then
+    setup_worker "Javascript-Worker" $FUSIO_WORKER_JAVASCRIPT
+fi
+
+if [ ! -z "$FUSIO_WORKER_PHP" ]; then
+    setup_worker "PHP-Worker" $FUSIO_WORKER_PHP
+fi
+
+if [ ! -z "$FUSIO_WORKER_PYTHON" ]; then
+    setup_worker "Python-Worker" $FUSIO_WORKER_PYTHON
+fi
+
+# run deploy
 php bin/fusio deploy
+
+# logout
 php bin/fusio logout
 
 # create env script
