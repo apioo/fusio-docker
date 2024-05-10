@@ -5,35 +5,35 @@ services:
     image: fusio/fusio
     restart: always
     environment:
+      FUSIO_TENANT_ID: ""
       FUSIO_PROJECT_KEY: "42eec18ffdbffc9fda6110dcc705d6ce"
       FUSIO_URL: "http://api.fusio.cloud:8080"
       FUSIO_APPS_URL: "http://api.fusio.cloud:8080/apps"
       FUSIO_ENV: "prod"
       FUSIO_DEBUG: "false"
-      FUSIO_CONNECTION: "pdo-mysql://fusio:61ad6c605975@mysql_fusio/fusio"
+      FUSIO_CONNECTION: "pdo-mysql://fusio:61ad6c605975@mysql-fusio/fusio"
       FUSIO_BACKEND_USER: "test"
       FUSIO_BACKEND_EMAIL: "demo@fusio-project.org"
       FUSIO_BACKEND_PW: "test1234"
       FUSIO_MAILER: "native://default"
       FUSIO_MESSENGER: "doctrine://default"
       FUSIO_MAIL_SENDER: "info@api.fusio.cloud"
-      FUSIO_PHP_SANDBOX: "off"
       FUSIO_MARKETPLACE: "off"
-      FUSIO_WORKER_JAVA: "worker_java:9090"
-      FUSIO_WORKER_JAVASCRIPT: "worker_javascript:9091"
-      FUSIO_WORKER_PHP: "worker_php:9092"
-      FUSIO_WORKER_PYTHON: "worker_python:9093"
+      FUSIO_WORKER_JAVA: "worker-java:9090"
+      FUSIO_WORKER_JAVASCRIPT: "worker-javascript:9091"
+      FUSIO_WORKER_PHP: "worker-php:9092"
+      FUSIO_WORKER_PYTHON: "worker-python:9093"
     links:
-      - mysql_fusio
-      - worker_java
-      - worker_javascript
-      - worker_php
-      - worker_python
+      - mysql-fusio
+      - worker-java
+      - worker-javascript
+      - worker-php
+      - worker-python
     ports:
       - "8080:80"
 
   # Fusio system database
-  mysql_fusio:
+  mysql-fusio:
     image: mysql:8.0
     restart: always
     environment:
@@ -45,23 +45,23 @@ services:
       - ./db:/var/lib/mysql
 
   # Worker
-  worker_java:
-    image: fusio/worker-java:1.0
+  worker-java:
+    image: fusio/worker-java:2.0
     restart: always
     volumes:
       - ./worker/java:/worker/actions
-  worker_javascript:
-    image: fusio/worker-javascript:1.0
+  worker-javascript:
+    image: fusio/worker-javascript:2.0
     restart: always
     volumes:
       - ./worker/javascript:/worker/actions
-  worker_php:
-    image: fusio/worker-php:1.0
+  worker-php:
+    image: fusio/worker-php:2.0
     restart: always
     volumes:
       - ./worker/php:/worker/actions
-  worker_python:
-    image: fusio/worker-python:1.0
+  worker-python:
+    image: fusio/worker-python:2.0
     restart: always
     volumes:
       - ./worker/python:/worker/actions
