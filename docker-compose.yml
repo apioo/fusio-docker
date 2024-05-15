@@ -59,7 +59,7 @@ services:
     image: fusio/worker-php:2.0
     restart: always
     volumes:
-      - ./worker/php:/worker/actions
+      - ./worker/php:/var/www/html/worker/actions
   worker-python:
     image: fusio/worker-python:2.0
     restart: always
