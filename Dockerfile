@@ -1,6 +1,6 @@
-FROM php:8.2-apache
+FROM php:8.3-apache
 MAINTAINER Christoph Kappestein <christoph.kappestein@apioo.de>
-LABEL version="4.0.5"
+LABEL version="5.0.0"
 LABEL description="Fusio API management"
 
 # env
@@ -18,7 +18,6 @@ ENV FUSIO_BACKEND_PW="75dafcb12c4f"
 ENV FUSIO_MAILER="native://default"
 ENV FUSIO_MESSENGER="doctrine://default"
 ENV FUSIO_MAIL_SENDER=""
-ENV FUSIO_PHP_SANDBOX="off"
 ENV FUSIO_MARKETPLACE="off"
 
 ENV FUSIO_WORKER_JAVA=""
@@ -26,13 +25,14 @@ ENV FUSIO_WORKER_JAVASCRIPT=""
 ENV FUSIO_WORKER_PHP=""
 ENV FUSIO_WORKER_PYTHON=""
 
-ARG FUSIO_VERSION="4.0.5"
-ARG FUSIO_APP_BACKEND="3.1.0"
-ARG FUSIO_APP_DEVELOPER="3.1.0"
+ARG FUSIO_VERSION="5.0.0"
+ARG FUSIO_APP_BACKEND="5.0.2"
+ARG FUSIO_APP_DEVELOPER="5.0.2"
+ARG FUSIO_APP_ACCOUNT="1.0.2"
 ARG FUSIO_APP_REDOC="1.0.1"
 
-ARG COMPOSER_VERSION="2.6.5"
-ARG COMPOSER_SHA256="9a18e1a3aadbcb94c1bafd6c4a98ff931f4b43a456ef48575130466e19f05dd6"
+ARG COMPOSER_VERSION="2.7.5"
+ARG COMPOSER_SHA256="0dc1f6bcb7a26ee165206010213c6069a537bf8e6533528739a864f154549b77"
 
 # install default packages
 RUN apt-get update && apt-get -y install \
@@ -67,6 +67,7 @@ RUN docker-php-ext-install \
     curl \
     zip \
     mbstring \
+    opcache \
     intl \
     xml \
     gd \
@@ -75,7 +76,7 @@ RUN docker-php-ext-install \
 
 # install pecl
 RUN pecl install memcache-8.2 \
-    && pecl install mongodb-1.16.2
+    && pecl install mongodb-1.18.1
 
 RUN docker-php-ext-enable \
     memcache \
@@ -92,6 +93,7 @@ RUN wget -O /var/www/html/fusio/fusio.zip "https://github.com/apioo/fusio/releas
 RUN cd /var/www/html/fusio && unzip fusio.zip
 RUN rm /var/www/html/fusio/fusio.zip
 RUN cd /var/www/html/fusio && /usr/bin/composer install
+RUN cd /var/www/html/fusio && /usr/bin/composer dump-autoload --no-dev --classmap-authoritative
 COPY ./fusio /var/www/html/fusio
 RUN chmod +x /var/www/html/fusio/bin/fusio
 
@@ -107,18 +109,13 @@ COPY supervisor/fusio.conf /etc/supervisor/conf.d/fusio.conf
 
 # php config
 RUN mv "${PHP_INI_DIR}/php.ini-production" "${PHP_INI_DIR}/php.ini"
+COPY ./php/fusio.ini "${PHP_INI_DIR}/conf.d/fusio.ini"
 
 # install additional connectors
 RUN cd /var/www/html/fusio && \
-    /usr/bin/composer require fusio/adapter-amqp ^6.0 && \
-    /usr/bin/composer require fusio/adapter-beanstalk ^6.0 && \
     /usr/bin/composer require fusio/adapter-elasticsearch ^6.0 && \
     /usr/bin/composer require fusio/adapter-memcache ^6.0 && \
     /usr/bin/composer require fusio/adapter-mongodb ^6.0 && \
-    /usr/bin/composer require fusio/adapter-redis ^6.0 && \
-    /usr/bin/composer require fusio/adapter-smtp ^6.0 && \
-    /usr/bin/composer require fusio/adapter-soap ^6.0 && \
-    /usr/bin/composer require fusio/adapter-stripe ^6.0 && \
     /usr/bin/composer require symfony/sendgrid-mailer ^6.0 && \
     /usr/bin/composer require symfony/http-client ^6.0
 
@@ -132,6 +129,11 @@ RUN mkdir /var/www/html/fusio/public/apps/developer
 RUN wget -O /var/www/html/fusio/public/apps/developer/developer.zip "https://github.com/apioo/fusio-apps-developer/releases/download/v${FUSIO_APP_DEVELOPER}/developer.zip"
 RUN cd /var/www/html/fusio/public/apps/developer && unzip developer.zip
 RUN rm /var/www/html/fusio/public/apps/developer/developer.zip
+
+RUN mkdir /var/www/html/fusio/public/apps/account
+RUN wget -O /var/www/html/fusio/public/apps/account/account.zip "https://github.com/apioo/fusio-apps-account/releases/download/v${FUSIO_APP_ACCOUNT}/account.zip"
+RUN cd /var/www/html/fusio/public/apps/account && unzip account.zip
+RUN rm /var/www/html/fusio/public/apps/account/account.zip
 
 RUN wget -O /var/www/html/fusio/public/apps/redoc.zip "https://github.com/apioo/fusio-apps-redoc/archive/refs/tags/v${FUSIO_APP_REDOC}.zip"
 RUN cd /var/www/html/fusio/public/apps && unzip redoc.zip
