@@ -16,7 +16,7 @@ RUN mkdir /opt/oracle \
 RUN DIR_ORACLE_INSTANT_CLIENT=$(ls -d /opt/oracle/*/ | sed 's:/$::g') \
     && VER_MAY_ORACLE_INSTANT_CLIENT=$(echo $DIR_ORACLE_INSTANT_CLIENT | cut -d "_" -f 2) \
     && VER_MIN_ORACLE_INSTANT_CLIENT=$(echo $DIR_ORACLE_INSTANT_CLIENT | cut -d "_" -f 3) \
-    && echo "instantclient,$DIR_ORACLE_INSTANT_CLIENT" | pecl install oci8-3.0.1 \
+    && echo "instantclient,$DIR_ORACLE_INSTANT_CLIENT" | pecl install oci8-3.3.0 \
     && docker-php-ext-enable oci8
 
 RUN DIR_ORACLE_INSTANT_CLIENT=$(ls -d /opt/oracle/*/ | sed 's:/$::g') \
