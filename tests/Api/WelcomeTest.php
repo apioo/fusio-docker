@@ -36,8 +36,9 @@ class WelcomeTest extends HttpTestCase
     "default"
   ],
   "apps": {
-    "fusio": "http://api.fusio.cloud:8080/apps/fusio",
+    "account": "http://api.fusio.cloud:8080/apps/account",
     "developer": "http://api.fusio.cloud:8080/apps/developer",
+    "fusio": "http://api.fusio.cloud:8080/apps/fusio",
     "redoc": "http://api.fusio.cloud:8080/apps/redoc"
   },
   "links": [
