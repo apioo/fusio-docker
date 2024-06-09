@@ -56,7 +56,7 @@ services:
     volumes:
       - ./worker/javascript:/worker/actions
   worker-php:
-    image: fusio/worker-php:2.0
+    image: fusio/worker-php:2.1
     restart: always
     volumes:
       - ./worker/php:/var/www/html/worker/actions
