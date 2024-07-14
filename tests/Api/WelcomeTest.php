@@ -22,7 +22,7 @@ class WelcomeTest extends HttpTestCase
 
         $expect = <<<JSON
 {
-  "apiVersion": "8.1.1.0",
+  "apiVersion": "8.2.0.0",
   "title": "Fusio",
   "paymentCurrency": "EUR",
   "categories": [
@@ -35,12 +35,6 @@ class WelcomeTest extends HttpTestCase
   "scopes": [
     "default"
   ],
-  "apps": {
-    "account": "http://api.fusio.cloud:8080/apps/account",
-    "developer": "http://api.fusio.cloud:8080/apps/developer",
-    "fusio": "http://api.fusio.cloud:8080/apps/fusio",
-    "redoc": "http://api.fusio.cloud:8080/apps/redoc"
-  },
   "links": [
     {
       "href": "http://api.fusio.cloud:8080/",
