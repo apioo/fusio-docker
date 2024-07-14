@@ -13,6 +13,7 @@ return [
     \Fusio\Adapter\Mongodb\Adapter::class,
     \Fusio\Adapter\Php\Adapter::class,
     \Fusio\Adapter\Redis\Adapter::class,
+    \Fusio\Adapter\SdkFabric\Adapter::class,
     \Fusio\Adapter\Smtp\Adapter::class,
     \Fusio\Adapter\Soap\Adapter::class,
     \Fusio\Adapter\Sql\Adapter::class,
