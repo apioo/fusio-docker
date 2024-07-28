@@ -24,13 +24,6 @@ the usage of different programming languages. If you dont need support
 for these programming languages you can disable them in the configuration.
 Fusio will also work if these instances are not available.
 
-## Certificate
-
-The image contains a script to automatically obtain a SSL certificate for the
-domain. By default this feature ist deactivated, to activate this you need to set
-the env FUSIO_CERTBOT to 1, then after start the container will try to obtain a
-certificate. Note this only works in case you container is reachable on the internet.
-
 ### Run
 
 If you dont want to use the `docker-compose` command you can create and link 
