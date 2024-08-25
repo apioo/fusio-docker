@@ -30,12 +30,13 @@ return [
     // Describes the default email which Fusio uses as from address
     'fusio_mail_sender'        => env('FUSIO_MAIL_SENDER')->string(),
 
+    // Indicates whether the database is enabled. If true it is possible to change the database schema through the
+    // backend
+    'fusio_database'           => true,
+
     // Indicates whether the marketplace is enabled. If yes it is possible to download and install other apps through
     // the backend
-    'fusio_marketplace'        => env('FUSIO_MARKETPLACE')->bool(),
-
-    // Endpoint of the apps repository. All listed apps can be installed by the user at the backend app
-    'fusio_marketplace_url'    => 'https://www.fusio-project.org/marketplace.yaml',
+    'fusio_marketplace'        => true,
 
     // The public url to the apps folder (i.e. http://acme.com/apps or http://apps.acme.com)
     'fusio_apps_url'           => env('FUSIO_APPS_URL')->string(),
