@@ -18,7 +18,6 @@ services:
       FUSIO_MAILER: "native://default"
       FUSIO_MESSENGER: "doctrine://default"
       FUSIO_MAIL_SENDER: "info@api.fusio.cloud"
-      FUSIO_MARKETPLACE: "on"
       FUSIO_WORKER_JAVA: "worker-java:9090"
       FUSIO_WORKER_JAVASCRIPT: "worker-javascript:9091"
       FUSIO_WORKER_PHP: "worker-php:9092"
