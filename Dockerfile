@@ -92,7 +92,7 @@ RUN mkdir /var/www/html/fusio
 RUN wget -O /var/www/html/fusio/fusio.zip "https://github.com/apioo/fusio/releases/download/v${FUSIO_VERSION}/fusio.zip"
 RUN cd /var/www/html/fusio && unzip fusio.zip
 RUN rm /var/www/html/fusio/fusio.zip
-RUN cd /var/www/html/fusio && /usr/bin/composer install
+RUN cd /var/www/html/fusio && /usr/bin/composer install --no-dev
 RUN cd /var/www/html/fusio && /usr/bin/composer dump-autoload --no-dev --classmap-authoritative
 COPY ./fusio /var/www/html/fusio
 RUN chmod +x /var/www/html/fusio/bin/fusio
