@@ -31,8 +31,8 @@ ARG FUSIO_APP_DEVELOPER="5.2.0"
 ARG FUSIO_APP_ACCOUNT="1.1.0"
 ARG FUSIO_APP_REDOC="1.0.2"
 
-ARG COMPOSER_VERSION="2.7.5"
-ARG COMPOSER_SHA256="0dc1f6bcb7a26ee165206010213c6069a537bf8e6533528739a864f154549b77"
+ARG COMPOSER_VERSION="2.8.6"
+ARG COMPOSER_SHA256="becc28b909d2cca563e7caee1e488063312af36b1f2e31db64f417723b8c4026"
 
 # install default packages
 RUN apt-get update && apt-get -y install \
@@ -76,7 +76,7 @@ RUN docker-php-ext-install \
 
 # install pecl
 RUN pecl install memcache-8.2 \
-    && pecl install mongodb-1.18.1
+    && pecl install mongodb-1.21.0
 
 RUN docker-php-ext-enable \
     memcache \
