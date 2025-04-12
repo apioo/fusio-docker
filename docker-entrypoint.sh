@@ -31,9 +31,11 @@ php bin/fusio login --username="$FUSIO_BACKEND_USER" --password="$FUSIO_BACKEND_
 setup_worker() {
     php bin/fusio connection:detail "$1"
     if [ $? -ne 0 ]; then
-        php bin/fusio connection:create "{'name':'$1','class':'Fusio.Adapter.Worker.Connection.Worker','config':{'url':'http://$2'}}"
+        echo "{\"name\":\"$1\",\"class\":\"Fusio.Adapter.Worker.Connection.Worker\",\"config\":{\"url\":\"http://$2\"}}" > /tmp/connection.json
+        php bin/fusio connection:create /tmp/connection.json
     else
-        php bin/fusio connection:update "$1" "{'name':'$1','class':'Fusio.Adapter.Worker.Connection.Worker','config':{'url':'http://$2'}}"
+        echo "{\"name\":\"$1\",\"class\":\"Fusio.Adapter.Worker.Connection.Worker\",\"config\":{\"url\":\"http://$2\"}}" > /tmp/connection.json
+        php bin/fusio connection:update "$1" /tmp/connection.json
     fi
 }
 
