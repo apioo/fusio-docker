@@ -19,10 +19,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # replace env
-php bin/fusio marketplace:env fusio
-php bin/fusio marketplace:env developer
-php bin/fusio marketplace:env account
-php bin/fusio marketplace:env redoc
+php bin/fusio marketplace:env -
 
 # login
 php bin/fusio login --username="$FUSIO_BACKEND_USER" --password="$FUSIO_BACKEND_PW"
