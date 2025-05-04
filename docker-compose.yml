@@ -18,10 +18,10 @@ services:
       FUSIO_MESSENGER: "doctrine://default"
       FUSIO_MAIL_SENDER: "info@api.fusio.cloud"
       FUSIO_TRUSTED_IP_HEADER: ""
-      FUSIO_WORKER_JAVA: "worker-java:9090"
-      FUSIO_WORKER_JAVASCRIPT: "worker-javascript:9091"
-      FUSIO_WORKER_PHP: "worker-php:9092"
-      FUSIO_WORKER_PYTHON: "worker-python:9093"
+      #FUSIO_WORKER_JAVA: "worker-java:9090"
+      #FUSIO_WORKER_JAVASCRIPT: "worker-javascript:9091"
+      #FUSIO_WORKER_PHP: "worker-php:9092"
+      #FUSIO_WORKER_PYTHON: "worker-python:9093"
     links:
       - mysql-fusio
       #- worker-java
