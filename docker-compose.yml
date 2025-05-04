@@ -1,6 +1,5 @@
 version: '3'
 services:
-  # Fusio container
   fusio:
     image: fusio/fusio
     restart: always
@@ -25,43 +24,43 @@ services:
       FUSIO_WORKER_PYTHON: "worker-python:9093"
     links:
       - mysql-fusio
-      - worker-java
-      - worker-javascript
-      - worker-php
-      - worker-python
+      #- worker-java
+      #- worker-javascript
+      #- worker-php
+      #- worker-python
     ports:
       - "8080:80"
 
-  # Fusio system database
   mysql-fusio:
     image: mysql:8.0
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: "61ad6c605975"
+      MYSQL_RANDOM_ROOT_PASSWORD: "1"
       MYSQL_USER: "fusio"
       MYSQL_PASSWORD: "61ad6c605975"
       MYSQL_DATABASE: "fusio"
     volumes:
       - ./db:/var/lib/mysql
 
-  # Worker
-  worker-java:
-    image: fusio/worker-java:2.0
-    restart: always
-    volumes:
-      - ./worker/java:/worker/actions
-  worker-javascript:
-    image: fusio/worker-javascript:2.0
-    restart: always
-    volumes:
-      - ./worker/javascript:/worker/actions
-  worker-php:
-    image: fusio/worker-php:2.1
-    restart: always
-    volumes:
-      - ./worker/php:/var/www/html/worker/actions
-  worker-python:
-    image: fusio/worker-python:2.0
-    restart: always
-    volumes:
-      - ./worker/python:/worker/actions
+  # Optionally you can enable specific worker in case you want to build custom actions
+  # in a specific programming language
+  #worker-java:
+  #  image: fusio/worker-java:2.0
+  #  restart: always
+  #  volumes:
+  #    - ./worker/java:/worker/actions
+  #worker-javascript:
+  #  image: fusio/worker-javascript:2.0
+  #  restart: always
+  #  volumes:
+  #    - ./worker/javascript:/worker/actions
+  #worker-php:
+  #  image: fusio/worker-php:2.1
+  #  restart: always
+  #  volumes:
+  #    - ./worker/php:/var/www/html/worker/actions
+  #worker-python:
+  #  image: fusio/worker-python:2.0
+  #  restart: always
+  #  volumes:
+  #    - ./worker/python:/worker/actions
