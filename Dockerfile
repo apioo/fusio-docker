@@ -4,9 +4,10 @@ LABEL version="5.2.3"
 LABEL description="Fusio API management"
 
 # env
+ENV FUSIO_TENANT_ID=""
 ENV FUSIO_PROJECT_KEY="42eec18ffdbffc9fda6110dcc705d6ce"
-ENV FUSIO_URL="http://api.fusio.cloud"
-ENV FUSIO_APPS_URL="http://api.fusio.cloud/apps"
+ENV FUSIO_URL=""
+ENV FUSIO_APPS_URL=""
 ENV FUSIO_ENV="prod"
 ENV FUSIO_DEBUG="false"
 ENV FUSIO_CONNECTION="pdo-mysql://fusio:61ad6c605975@localhost/fusio"
