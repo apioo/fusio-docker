@@ -4,10 +4,7 @@ services:
     image: fusio/fusio
     restart: always
     environment:
-      FUSIO_TENANT_ID: ""
       FUSIO_PROJECT_KEY: "42eec18ffdbffc9fda6110dcc705d6ce"
-      #FUSIO_URL: "http://api.fusio.cloud:8080"
-      #FUSIO_APPS_URL: "http://api.fusio.cloud:8080/apps"
       FUSIO_ENV: "prod"
       FUSIO_DEBUG: "false"
       FUSIO_CONNECTION: "pdo-mysql://fusio:61ad6c605975@mysql-fusio/fusio"
@@ -16,8 +13,11 @@ services:
       FUSIO_BACKEND_PW: "test1234"
       FUSIO_MAILER: "native://default"
       FUSIO_MESSENGER: "doctrine://default"
+      #FUSIO_URL: "http://api.fusio.cloud:8080"
+      #FUSIO_APPS_URL: "http://api.fusio.cloud:8080/apps"
       #FUSIO_MAIL_SENDER: "info@api.fusio.cloud"
       FUSIO_TRUSTED_IP_HEADER: ""
+      FUSIO_TENANT_ID: ""
       #FUSIO_WORKER_JAVA: "worker-java:9090"
       #FUSIO_WORKER_JAVASCRIPT: "worker-javascript:9091"
       #FUSIO_WORKER_PHP: "worker-php:9092"
