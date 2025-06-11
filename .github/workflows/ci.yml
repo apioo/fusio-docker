@@ -38,11 +38,11 @@ jobs:
         uses: actions/checkout@v4
       - name: Build Docker
         run: docker build ./mssql
-#  docker-oracle:
-#    name: "Docker-Oracle"
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v2
-#      - name: Build Docker
-#        run: docker build ./oracle
+  docker-oracle:
+    name: "Docker-Oracle"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build Docker
+        run: docker build ./oracle
