@@ -6,8 +6,8 @@ RUN mkdir /opt/oracle \
     && cd /opt/oracle \
     && wget https://download.oracle.com/otn_software/linux/instantclient/instantclient-basic-linuxx64.zip \
     && wget https://download.oracle.com/otn_software/linux/instantclient/instantclient-sdk-linuxx64.zip \
-    && unzip /opt/oracle/instantclient-basic-linuxx64.zip -d /opt/oracle \
-    && unzip /opt/oracle/instantclient-sdk-linuxx64.zip -d /opt/oracle \
+    && unzip -o /opt/oracle/instantclient-basic-linuxx64.zip -d /opt/oracle \
+    && unzip -o /opt/oracle/instantclient-sdk-linuxx64.zip -d /opt/oracle \
     && rm -rf /opt/oracle/*.zip \
     && ln -s /usr/local/instantclient_23_8 /usr/local/instantclient
 
