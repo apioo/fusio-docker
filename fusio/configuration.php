@@ -14,6 +14,13 @@ return [
     'fusio_firewall_maxretry'  => 32,
     'fusio_firewall_codes'     => [],
 
+    // Experimental MCP server configuration, if enabled, the MCP HTTP endpoint /mcp is active. The CLI stdio MCP service
+    // can always be used independent of this configuration via php bin/fusio mcp
+    // The MCP server helps to access all operations through an LLM
+    'fusio_mcp'                => false,
+    'fusio_mcp_queue_size'     => 500,
+    'fusio_mcp_timeout'        => 1800,
+
     // OAuth2 access token expiration settings. How long can you use an access token and the refresh token. After the
     // expiration a user either need to use a refresh token to extend the token or request a new token
     'fusio_expire_token'       => 'P2D',
@@ -39,12 +46,14 @@ return [
     // Describes the default email which Fusio uses as from address
     'fusio_mail_sender'        => env('FUSIO_MAIL_SENDER')->string(),
 
-    // Indicates whether the database is enabled. If true it is possible to change the database schema through the
-    // backend
-    'fusio_database'           => true,
+    // Indicates whether the user registration is enabled. If true it is possible for external users to register a new account
+    'fusio_registration'       => true,
 
-    // Indicates whether the marketplace is enabled. If yes it is possible to download and install other apps through
-    // the backend
+    // Indicates whether the connection endpoints are enabled. Through a connection endpoint it is possible to access and modify
+    // a database or the filesystem. If false all those endpoints are disabled.
+    'fusio_connection'         => true,
+
+    // Indicates whether the marketplace is enabled. If true it is possible to download and install other apps through the backend
     'fusio_marketplace'        => true,
 
     // The public url to the apps folder (i.e. http://acme.com/apps or http://apps.acme.com)
@@ -95,6 +104,7 @@ return [
     'psx_path_cache'           => __DIR__ . '/cache',
     'psx_path_log'             => 'php://error_log',
     'psx_path_public'          => __DIR__ . '/public',
+    'psx_path_resources'       => __DIR__ . '/resources',
     'psx_path_src'             => __DIR__ . '/src',
 
     // Supported writers
