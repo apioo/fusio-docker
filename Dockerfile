@@ -1,4 +1,4 @@
-FROM php:8.3-apache
+FROM php:8.4-apache
 MAINTAINER Christoph Kappestein <christoph.kappestein@apioo.de>
 LABEL version="5.2.5"
 LABEL description="Fusio API management"
@@ -54,6 +54,7 @@ RUN apt-get update && apt-get -y install \
     libmemcached-dev \
     openssl \
     libssl-dev \
+    libicu-dev \
     libcurl4-openssl-dev
 
 # install php extensions
@@ -118,8 +119,9 @@ RUN cd /var/www/html/fusio && \
     /usr/bin/composer require fusio/adapter-elasticsearch ^6.0 && \
     /usr/bin/composer require fusio/adapter-memcache ^6.0 && \
     /usr/bin/composer require fusio/adapter-mongodb ^6.0 && \
-    /usr/bin/composer require symfony/sendgrid-mailer ^6.0 && \
-    /usr/bin/composer require symfony/http-client ^6.0
+    /usr/bin/composer require symfony/aha-send-mailer ^7.0 && \
+    /usr/bin/composer require symfony/sendgrid-mailer ^7.0 && \
+    /usr/bin/composer require symfony/http-client ^7.0
 
 # install apps
 RUN mkdir /var/www/html/fusio/public/apps/fusio
