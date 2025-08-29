@@ -146,9 +146,9 @@ RUN chown -R www-data: /var/www/html/fusio
 
 # create cron
 RUN echo "" > /etc/cron.d/fusio
-RUN echo "* * * * * www-data /var/www/html/fusio/run_cron.sh cronjob 2>/dev/stderr >/dev/stdout" >> /etc/cron.d/fusio
-RUN echo "0 0 1 * * www-data /var/www/html/fusio/run_cron.sh log_rotate 2>/dev/stderr >/dev/stdout" >> /etc/cron.d/fusio
-RUN echo "0 0 1 * * www-data /var/www/html/fusio/run_cron.sh clean 2>/dev/stderr >/dev/stdout" >> /etc/cron.d/fusio
+RUN echo "* * * * * www-data /var/www/html/fusio/run_cron.sh cronjob" >> /etc/cron.d/fusio
+RUN echo "0 0 1 * * www-data /var/www/html/fusio/run_cron.sh log_rotate" >> /etc/cron.d/fusio
+RUN echo "0 0 1 * * www-data /var/www/html/fusio/run_cron.sh clean" >> /etc/cron.d/fusio
 RUN chmod 0644 /etc/cron.d/fusio
 RUN chmod +x /var/www/html/fusio/run_cron.sh
 
