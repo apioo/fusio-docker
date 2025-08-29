@@ -22,7 +22,7 @@ class WelcomeTest extends HttpTestCase
 
         $expect = <<<JSON
 {
-  "apiVersion": "8.5.3.0",
+  "apiVersion": "8.6.0.0",
   "title": "Fusio",
   "description": "Self-Hosted API Management for Builders.",
   "paymentCurrency": "EUR",
@@ -38,44 +38,52 @@ class WelcomeTest extends HttpTestCase
   ],
   "links": [
     {
-      "href": "http://api.fusio.cloud:8080/",
-      "rel": "root"
+      "rel": "root",
+      "href": "http://api.fusio.cloud:8080/"
     },
     {
-      "href": "http://api.fusio.cloud:8080/system/generator/spec-openapi",
-      "rel": "openapi"
+      "rel": "openapi",
+      "href": "http://api.fusio.cloud:8080/system/generator/spec-openapi"
     },
     {
-      "href": "http://api.fusio.cloud:8080/system/generator/spec-typeapi",
-      "rel": "typeapi"
+      "rel": "typeapi",
+      "href": "http://api.fusio.cloud:8080/system/generator/spec-typeapi"
     },
     {
-      "href": "http://api.fusio.cloud:8080/system/route",
-      "rel": "route"
+      "rel": "route",
+      "href": "http://api.fusio.cloud:8080/system/route"
     },
     {
-      "href": "http://api.fusio.cloud:8080/system/health",
-      "rel": "health"
+      "rel": "health",
+      "href": "http://api.fusio.cloud:8080/system/health"
     },
     {
-      "href": "http://api.fusio.cloud:8080/system/oauth-authorization-server",
-      "rel": "oauth-authorization-server"
+      "rel": "oauth2",
+      "href": "http://api.fusio.cloud:8080/authorization/token"
     },
     {
-      "href": "http://api.fusio.cloud:8080/system/api-catalog",
-      "rel": "api-catalog"
+      "rel": "whoami",
+      "href": "http://api.fusio.cloud:8080/authorization/whoami"
     },
     {
-      "href": "http://api.fusio.cloud:8080/authorization/token",
-      "rel": "oauth2"
+      "rel": "api-catalog",
+      "href": "http://api.fusio.cloud:8080/.well-known/api-catalog"
     },
     {
-      "href": "http://api.fusio.cloud:8080/authorization/whoami",
-      "rel": "whoami"
+      "rel": "oauth-authorization-server",
+      "href": "http://api.fusio.cloud:8080/.well-known/oauth-authorization-server"
     },
     {
-      "href": "https://www.fusio-project.org",
-      "rel": "about"
+      "rel": "oauth-protected-resource",
+      "href": "http://api.fusio.cloud:8080/.well-known/oauth-protected-resource"
+    },
+    {
+      "rel": "security",
+      "href": "http://api.fusio.cloud:8080/.well-known/security.txt"
+    },
+    {
+      "rel": "about",
+      "href": "https://www.fusio-project.org"
     }
   ]
 }
