@@ -114,14 +114,7 @@ COPY supervisor/fusio.conf /etc/supervisor/conf.d/fusio.conf
 RUN mv "${PHP_INI_DIR}/php.ini-production" "${PHP_INI_DIR}/php.ini"
 COPY ./php/fusio.ini "${PHP_INI_DIR}/conf.d/fusio.ini"
 
-# install additional connectors
-RUN cd /var/www/html/fusio && \
-    /usr/bin/composer require fusio/adapter-elasticsearch ^6.0 && \
-    /usr/bin/composer require fusio/adapter-memcache ^6.0 && \
-    /usr/bin/composer require fusio/adapter-mongodb ^6.0 && \
-    /usr/bin/composer require symfony/aha-send-mailer ^7.0 && \
-    /usr/bin/composer require symfony/sendgrid-mailer ^7.0 && \
-    /usr/bin/composer require symfony/http-client ^7.0
+RUN cd /var/www/html/fusio
 
 # install apps
 RUN mkdir /var/www/html/fusio/public/apps/fusio
@@ -153,9 +146,9 @@ RUN chown -R www-data: /var/www/html/fusio
 
 # create cron
 RUN echo "" > /etc/cron.d/fusio
-RUN echo "* * * * * www-data /var/www/html/fusio/run_cron.sh cronjob > /dev/stdout 2>&1" >> /etc/cron.d/fusio
-RUN echo "0 0 1 * * www-data /var/www/html/fusio/run_cron.sh log_rotate > /dev/stdout 2>&1" >> /etc/cron.d/fusio
-RUN echo "0 0 1 * * www-data /var/www/html/fusio/run_cron.sh clean > /dev/stdout 2>&1" >> /etc/cron.d/fusio
+RUN echo "* * * * * www-data /var/www/html/fusio/run_cron.sh cronjob 2>/dev/stderr >/dev/stdout" >> /etc/cron.d/fusio
+RUN echo "0 0 1 * * www-data /var/www/html/fusio/run_cron.sh log_rotate 2>/dev/stderr >/dev/stdout" >> /etc/cron.d/fusio
+RUN echo "0 0 1 * * www-data /var/www/html/fusio/run_cron.sh clean 2>/dev/stderr >/dev/stdout" >> /etc/cron.d/fusio
 RUN chmod 0644 /etc/cron.d/fusio
 RUN chmod +x /var/www/html/fusio/run_cron.sh
 
