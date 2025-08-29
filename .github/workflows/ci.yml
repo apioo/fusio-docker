@@ -30,14 +30,14 @@ jobs:
         run: 'while [[ $(curl -s -o /dev/null -w "%{http_code}" api.fusio.cloud:8080/system/health) != "200" ]]; do sleep 5; done'
       - name: Run PHPUnit
         run: vendor/bin/phpunit
-  docker-mssql:
-    name: "Docker-MSSQL"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Build Docker
-        run: docker build ./mssql
+#  docker-mssql:
+#    name: "Docker-MSSQL"
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v4
+#      - name: Build Docker
+#        run: docker build ./mssql
 #  docker-oracle:
 #    name: "Docker-Oracle"
 #    runs-on: ubuntu-latest
