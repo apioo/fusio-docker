@@ -1,7 +1,12 @@
 FROM php:8.4-apache
-MAINTAINER Christoph Kappestein <christoph.kappestein@apioo.de>
-LABEL version="6.0.0"
-LABEL description="Fusio API management"
+LABEL org.opencontainers.image.authors="Christoph Kappestein <christoph.kappestein@gmail.com>"
+LABEL org.opencontainers.image.url="https://www.fusio-project.org"
+LABEL org.opencontainers.image.documentation="https://docs.fusio-project.org"
+LABEL org.opencontainers.image.source="https://github.com/apioo/fusio"
+LABEL org.opencontainers.image.version="6.0.0"
+LABEL org.opencontainers.image.licenses="Apache-2.0"
+LABEL org.opencontainers.image.title="Fusio"
+LABEL org.opencontainers.image.description="Self-Hosted API Management for Builders"
 
 # env
 ENV FUSIO_PROJECT_KEY="42eec18ffdbffc9fda6110dcc705d6ce"
