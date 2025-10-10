@@ -22,7 +22,7 @@ class WelcomeTest extends HttpTestCase
 
         $expect = <<<JSON
 {
-  "apiVersion": "8.6.0.0",
+  "apiVersion": "8.6.2.0",
   "title": "Fusio",
   "description": "Self-Hosted API Management for Builders.",
   "paymentCurrency": "EUR",
@@ -40,6 +40,10 @@ class WelcomeTest extends HttpTestCase
     {
       "rel": "root",
       "href": "http://api.fusio.cloud:8080/"
+    },
+    {
+      "rel": "apps",
+      "href": "http://api.fusio.cloud:8080/apps"
     },
     {
       "rel": "openapi",
@@ -76,6 +80,10 @@ class WelcomeTest extends HttpTestCase
     {
       "rel": "oauth-protected-resource",
       "href": "http://api.fusio.cloud:8080/.well-known/oauth-protected-resource"
+    },
+    {
+      "rel": "openid-configuration",
+      "href": "http://api.fusio.cloud:8080/.well-known/openid-configuration"
     },
     {
       "rel": "security",
