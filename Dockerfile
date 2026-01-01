@@ -1,4 +1,4 @@
-FROM php:8.4.12-apache
+FROM php:8.4.16-apache
 LABEL org.opencontainers.image.authors="Christoph Kappestein <christoph.kappestein@gmail.com>"
 LABEL org.opencontainers.image.url="https://www.fusio-project.org"
 LABEL org.opencontainers.image.documentation="https://docs.fusio-project.org"
