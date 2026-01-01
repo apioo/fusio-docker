@@ -17,6 +17,8 @@ RUN mkdir /opt/oracle \
     && echo $DIR_ORACLE_INSTANT_CLIENT > /etc/ld.so.conf.d/oracle-instantclient.conf \
     && ldconfig
 
+RUN ln -s /usr/lib/x86_64-linux-gnu/libaio.so.1t64 ${ORACLE_HOME}/libaio.so.1
+
 RUN echo "instantclient,$DIR_ORACLE_INSTANT_CLIENT" | pecl install oci8 \
     && docker-php-ext-enable oci8
 
