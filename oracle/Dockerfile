@@ -1,6 +1,5 @@
 FROM fusio/fusio
-RUN apt-get update && apt-get -y install \
-    libaio1
+RUN apt-get update && apt-get -y install libaio1t64
 
 ENV MAJOR_ORACLE_INSTANT_CLIENT=23
 ENV MINOR_ORACLE_INSTANT_CLIENT=8
