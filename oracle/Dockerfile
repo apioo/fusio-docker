@@ -4,8 +4,6 @@ RUN apt-get update && apt-get -y install libaio1t64
 ENV MAJOR_ORACLE_INSTANT_CLIENT=23
 ENV MINOR_ORACLE_INSTANT_CLIENT=26
 ENV DIR_ORACLE_INSTANT_CLIENT="/opt/oracle/instantclient_23_26"
-ENV ORACLE_HOME=$DIR_ORACLE_INSTANT_CLIENT
-ENV LD_LIBRARY_PATH=$DIR_ORACLE_INSTANT_CLIENT
 
 RUN mkdir /opt/oracle \
     && cd /opt/oracle \
@@ -22,5 +20,5 @@ RUN ln -s /usr/lib/x86_64-linux-gnu/libaio.so.1t64 ${ORACLE_HOME}/libaio.so.1
 RUN echo "instantclient,$DIR_ORACLE_INSTANT_CLIENT" | pecl install oci8 \
     && docker-php-ext-enable oci8
 
-RUN pecl install pdo_oci \
+RUN echo "instantclient,$DIR_ORACLE_INSTANT_CLIENT" | pecl install pdo_oci \
     && docker-php-ext-enable pdo_oci \
