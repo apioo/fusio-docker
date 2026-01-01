@@ -18,5 +18,5 @@ RUN mkdir /opt/oracle \
 RUN echo "instantclient,$DIR_ORACLE_INSTANT_CLIENT" | pecl install oci8 \
     && docker-php-ext-enable oci8
 
-RUN docker-php-ext-configure pdo_oci --with-pdo-oci=instantclient,$DIR_ORACLE_INSTANT_CLIENT,${MAJOR_ORACLE_INSTANT_CLIENT}.${MINOR_ORACLE_INSTANT_CLIENT} \
-    && docker-php-ext-install pdo_oci
+RUN pecl install pdo_oci \
+    && docker-php-ext-enable pdo_oci \
