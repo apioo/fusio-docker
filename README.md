@@ -1,6 +1,6 @@
 # Fusio Docker Container
 
-Official docker container of Fusio - Open Source API Management for Builders.
+Official docker container of Fusio - Open Source API Management for Builders.  
 More information about Fusio at: https://www.fusio-project.org
 
 Docker-Hub: https://hub.docker.com/r/fusio/fusio
