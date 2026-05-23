@@ -32,7 +32,7 @@
     }
   ],
   "require": {
-    "php": ">=8.1",
+    "php": ">=8.4",
     "fusio/impl": "^8.0",
     "fusio/adapter-elasticsearch": "^6.0",
     "fusio/adapter-memcache": "^6.0",
