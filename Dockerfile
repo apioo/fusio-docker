@@ -1,9 +1,9 @@
-FROM php:8.4.16-apache
+FROM php:8.4-apache
 LABEL org.opencontainers.image.authors="Christoph Kappestein <christoph.kappestein@gmail.com>"
 LABEL org.opencontainers.image.url="https://www.fusio-project.org"
 LABEL org.opencontainers.image.documentation="https://docs.fusio-project.org"
 LABEL org.opencontainers.image.source="https://github.com/apioo/fusio"
-LABEL org.opencontainers.image.version="6.3.0"
+LABEL org.opencontainers.image.version="7.0.0"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
 LABEL org.opencontainers.image.title="Fusio"
 LABEL org.opencontainers.image.description="Self-Hosted API Management for Builders"
@@ -31,9 +31,9 @@ ENV FUSIO_WORKER_JAVASCRIPT=""
 ENV FUSIO_WORKER_PHP=""
 ENV FUSIO_WORKER_PYTHON=""
 
-ARG FUSIO_VERSION="6.3.0"
-ARG FUSIO_APP_BACKEND="6.3.0"
-ARG FUSIO_APP_DEVELOPER="6.3.0"
+ARG FUSIO_VERSION="7.0.0"
+ARG FUSIO_APP_BACKEND="7.0.0"
+ARG FUSIO_APP_DEVELOPER="7.0.0"
 ARG FUSIO_APP_ACCOUNT="2.2.1"
 ARG FUSIO_APP_REDOC="1.0.4"
 
