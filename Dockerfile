@@ -83,7 +83,7 @@ RUN docker-php-ext-install \
 
 # install pecl
 RUN pecl install memcache-8.2 \
-    && pecl install mongodb-2.1.4
+    && pecl install mongodb-2.3.3
 
 RUN docker-php-ext-enable \
     memcache \
