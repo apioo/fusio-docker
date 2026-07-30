@@ -100,8 +100,7 @@ RUN wget -O /var/www/html/fusio/fusio.zip "https://github.com/apioo/fusio/releas
 RUN cd /var/www/html/fusio && unzip fusio.zip
 RUN rm /var/www/html/fusio/fusio.zip
 COPY ./fusio /var/www/html/fusio
-RUN cd /var/www/html/fusio && /usr/bin/composer install --no-dev
-RUN cd /var/www/html/fusio && /usr/bin/composer dump-autoload --no-dev --classmap-authoritative
+RUN cd /var/www/html/fusio && /usr/bin/composer install --no-dev --classmap-authoritative
 RUN chmod +x /var/www/html/fusio/bin/fusio
 
 # apache config
