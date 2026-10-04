@@ -22,7 +22,8 @@ class WelcomeTest extends HttpTestCase
 
         $expect = <<<JSON
 {
-  "apiVersion": "v8.8.5",
+  "kind": "https://typehub.cloud/s/fusio/sdk/7.0.14/System_About",
+  "apiVersion": "v8.8.9",
   "title": "Fusio",
   "description": "Self-Hosted API Management for Builders.",
   "paymentCurrency": "EUR",
