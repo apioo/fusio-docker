@@ -3325,24 +3325,24 @@
         },
         {
             "name": "mongodb/mongodb",
-            "version": "2.1.2",
+            "version": "2.4.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/mongodb/mongo-php-library.git",
-                "reference": "0a2472ba9cbb932f7e43a8770aedb2fc30612a67"
+                "url": "https://github.com/mongodb/mongo-php-library",
+                "reference": "1fbdc2ffff18a1ad6d92043b40060e4f546982ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mongodb/mongo-php-library/zipball/0a2472ba9cbb932f7e43a8770aedb2fc30612a67",
-                "reference": "0a2472ba9cbb932f7e43a8770aedb2fc30612a67",
+                "url": "https://api.github.com/repos/mongodb/mongo-php-library/zipball/1fbdc2ffff18a1ad6d92043b40060e4f546982ff",
+                "reference": "1fbdc2ffff18a1ad6d92043b40060e4f546982ff",
                 "shasum": ""
             },
             "require": {
                 "composer-runtime-api": "^2.0",
-                "ext-mongodb": "^2.1",
+                "ext-mongodb": "^2.4",
                 "php": "^8.1",
                 "psr/log": "^1.1.4|^2|^3",
-                "symfony/polyfill-php85": "^1.32"
+                "symfony/polyfill-php85": "^1.33"
             },
             "replace": {
                 "mongodb/builder": "*"
@@ -3350,9 +3350,9 @@
             "require-dev": {
                 "doctrine/coding-standard": "^12.0",
                 "phpunit/phpunit": "^10.5.35",
-                "rector/rector": "^2.1.4",
+                "rector/rector": "~2.5.9",
                 "squizlabs/php_codesniffer": "^3.7",
-                "vimeo/psalm": "6.5.*"
+                "vimeo/psalm": "~6.14.2"
             },
             "type": "library",
             "extra": {
@@ -3394,11 +3394,7 @@
                 "mongodb",
                 "persistence"
             ],
-            "support": {
-                "issues": "https://github.com/mongodb/mongo-php-library/issues",
-                "source": "https://github.com/mongodb/mongo-php-library/tree/2.1.2"
-            },
-            "time": "2025-10-06T12:12:40+00:00"
+            "time": "2026-09-10T15:46:23+00:00"
         },
         {
             "name": "monolog/monolog",
