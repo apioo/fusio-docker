@@ -20,6 +20,7 @@ class HealthTest extends HttpTestCase
         $actual = (string) $response->getBody();
         $expect = <<<JSON
 {
+    "kind": "https://typehub.cloud/s/fusio/sdk/7.0.14/System_HealthCheck"
     "healthy": true,
     "checks": {
         "System": {
