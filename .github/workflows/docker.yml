@@ -49,7 +49,7 @@ jobs:
         with:
           images: fusio/fusio
           flavor: |
-            suffix=-mssql,onuntyped=true
+            suffix=-mssql,onlatest=true
           tags: |
             type=ref,event=branch
             type=ref,event=pr
@@ -82,7 +82,7 @@ jobs:
         with:
           images: fusio/fusio
           flavor: |
-            suffix=-oracle,onuntyped=true
+            suffix=-oracle,onlatest=true
           tags: |
             type=ref,event=branch
             type=ref,event=pr
