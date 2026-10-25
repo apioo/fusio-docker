@@ -1,5 +1,8 @@
 FROM fusio/fusio
-RUN apt-get update && apt-get -y install libaio1t64
+
+RUN apt-get update && apt-get -y install --no-install-recommends \
+    libaio1t64 \
+    && rm -rf /var/lib/apt/lists/*
 
 ENV MAJOR_ORACLE_INSTANT_CLIENT=23
 ENV MINOR_ORACLE_INSTANT_CLIENT=26
@@ -15,10 +18,10 @@ RUN mkdir /opt/oracle \
     && echo $DIR_ORACLE_INSTANT_CLIENT > /etc/ld.so.conf.d/oracle-instantclient.conf \
     && ldconfig
 
-RUN ln -s /usr/lib/x86_64-linux-gnu/libaio.so.1t64 ${ORACLE_HOME}/libaio.so.1
+RUN ln -s /usr/lib/x86_64-linux-gnu/libaio.so.1t64 ${DIR_ORACLE_INSTANT_CLIENT}/libaio.so.1
 
 RUN echo "instantclient,$DIR_ORACLE_INSTANT_CLIENT" | pecl install oci8 \
     && docker-php-ext-enable oci8
 
 RUN echo "instantclient,$DIR_ORACLE_INSTANT_CLIENT" | pecl install pdo_oci \
-    && docker-php-ext-enable pdo_oci \
+    && docker-php-ext-enable pdo_oci
