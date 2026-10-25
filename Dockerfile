@@ -41,7 +41,7 @@ ARG COMPOSER_VERSION="2.10.2"
 ARG COMPOSER_SHA256="5ee7125f8a30a34d246cefdc0bc85b8a783b28f2aec968994118512350d28027"
 
 # install default packages
-RUN apt-get update && apt-get -y install \
+RUN apt-get update && apt-get -y install --no-install-recommends \
     wget \
     git \
     unzip \
@@ -59,7 +59,8 @@ RUN apt-get update && apt-get -y install \
     openssl \
     libssl-dev \
     libicu-dev \
-    libcurl4-openssl-dev
+    libcurl4-openssl-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 # install php extensions
 RUN docker-php-ext-install \
