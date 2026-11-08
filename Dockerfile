@@ -1,4 +1,4 @@
-FROM php:8.4-apache
+FROM php:8.5-apache
 LABEL org.opencontainers.image.authors="Christoph Kappestein <christoph.kappestein@gmail.com>"
 LABEL org.opencontainers.image.url="https://www.fusio-project.org"
 LABEL org.opencontainers.image.documentation="https://docs.fusio-project.org"
@@ -66,28 +66,22 @@ RUN apt-get update && apt-get -y install --no-install-recommends \
 RUN docker-php-ext-install \
     pgsql \
     mysqli \
-    pdo \
     pdo_mysql \
     pdo_pgsql \
-    simplexml \
-    dom \
     bcmath \
-    curl \
     zip \
-    mbstring \
-    opcache \
     intl \
-    xml \
     gd \
     soap \
     sockets
 
 # install pecl
-RUN pecl install memcache-8.2 \
-    && pecl install mongodb-2.4.1
+# note: on PHP 8.5 dom/curl/xml/simplexml/mbstring/pdo/opcache are compiled into the
+# base image; memcache 8.2 is incompatible with PHP 8.5 internals and the pinned
+# mongodb 2.4.1 fails to compile, so we install the latest mongodb release instead
+RUN pecl install mongodb
 
 RUN docker-php-ext-enable \
-    memcache \
     mongodb
 
 # install composer
