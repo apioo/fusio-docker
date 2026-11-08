@@ -56,6 +56,7 @@ RUN apt-get update && apt-get -y install --no-install-recommends \
     libonig-dev \
     libpng-dev \
     libmemcached-dev \
+    zlib1g-dev \
     openssl \
     libssl-dev \
     libicu-dev \
@@ -77,11 +78,21 @@ RUN docker-php-ext-install \
 
 # install pecl
 # note: on PHP 8.5 dom/curl/xml/simplexml/mbstring/pdo/opcache are compiled into the
-# base image; memcache 8.2 is incompatible with PHP 8.5 internals and the pinned
-# mongodb 2.4.1 fails to compile, so we install the latest mongodb release instead
+# base image; the pinned mongodb 2.4.1 fails to compile, so we install the latest
+# mongodb release instead
 RUN pecl install mongodb
 
+# memcache 8.2 needs a small include fix for PHP 8.5, where the smart_string
+# headers moved from ext/standard to Zend
+RUN pecl download memcache-8.2 && tar -xzf memcache-8.2.tgz \
+    && cd memcache-8.2 \
+    && sed -i 's|ext/standard/php_smart_string_public.h|Zend/zend_smart_string_public.h|;s|ext/standard/php_smart_string.h|Zend/zend_smart_string.h|' src/*.h src/*.c \
+    && phpize && ./configure --with-php-config=/usr/local/bin/php-config \
+    && make && make install \
+    && cd / && rm -rf memcache-8.2 memcache-8.2.tgz
+
 RUN docker-php-ext-enable \
+    memcache \
     mongodb
 
 # install composer
